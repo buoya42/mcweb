@@ -1,0 +1,790 @@
+Compiled from "SourceFile"
+public class net.minecraft.client.main.Main {
+  public net.minecraft.client.main.Main();
+    Code:
+       0: aload_0
+       1: invokespecial #51                 // Method java/lang/Object."<init>":()V
+       4: return
+
+  public static void main(java.lang.String[]);
+    Code:
+       0: new           #64                 // class joptsimple/OptionParser
+       3: dup
+       4: invokespecial #65                 // Method joptsimple/OptionParser."<init>":()V
+       7: astore_1
+       8: aload_1
+       9: invokevirtual #68                 // Method joptsimple/OptionParser.allowsUnrecognizedOptions:()V
+      12: aload_1
+      13: ldc           #70                 // String demo
+      15: invokevirtual #74                 // Method joptsimple/OptionParser.accepts:(Ljava/lang/String;)Ljoptsimple/OptionSpecBuilder;
+      18: pop
+      19: aload_1
+      20: ldc           #76                 // String disableMultiplayer
+      22: invokevirtual #74                 // Method joptsimple/OptionParser.accepts:(Ljava/lang/String;)Ljoptsimple/OptionSpecBuilder;
+      25: pop
+      26: aload_1
+      27: ldc           #78                 // String disableChat
+      29: invokevirtual #74                 // Method joptsimple/OptionParser.accepts:(Ljava/lang/String;)Ljoptsimple/OptionSpecBuilder;
+      32: pop
+      33: aload_1
+      34: ldc           #80                 // String fullscreen
+      36: invokevirtual #74                 // Method joptsimple/OptionParser.accepts:(Ljava/lang/String;)Ljoptsimple/OptionSpecBuilder;
+      39: pop
+      40: aload_1
+      41: ldc           #82                 // String checkGlErrors
+      43: invokevirtual #74                 // Method joptsimple/OptionParser.accepts:(Ljava/lang/String;)Ljoptsimple/OptionSpecBuilder;
+      46: pop
+      47: aload_1
+      48: ldc           #84                 // String jfrProfile
+      50: invokevirtual #74                 // Method joptsimple/OptionParser.accepts:(Ljava/lang/String;)Ljoptsimple/OptionSpecBuilder;
+      53: astore_2
+      54: aload_1
+      55: ldc           #86                 // String quickPlayPath
+      57: invokevirtual #74                 // Method joptsimple/OptionParser.accepts:(Ljava/lang/String;)Ljoptsimple/OptionSpecBuilder;
+      60: invokevirtual #92                 // Method joptsimple/OptionSpecBuilder.withRequiredArg:()Ljoptsimple/ArgumentAcceptingOptionSpec;
+      63: astore_3
+      64: aload_1
+      65: ldc           #94                 // String quickPlaySingleplayer
+      67: invokevirtual #74                 // Method joptsimple/OptionParser.accepts:(Ljava/lang/String;)Ljoptsimple/OptionSpecBuilder;
+      70: invokevirtual #92                 // Method joptsimple/OptionSpecBuilder.withRequiredArg:()Ljoptsimple/ArgumentAcceptingOptionSpec;
+      73: astore        4
+      75: aload_1
+      76: ldc           #96                 // String quickPlayMultiplayer
+      78: invokevirtual #74                 // Method joptsimple/OptionParser.accepts:(Ljava/lang/String;)Ljoptsimple/OptionSpecBuilder;
+      81: invokevirtual #92                 // Method joptsimple/OptionSpecBuilder.withRequiredArg:()Ljoptsimple/ArgumentAcceptingOptionSpec;
+      84: astore        5
+      86: aload_1
+      87: ldc           #98                 // String quickPlayRealms
+      89: invokevirtual #74                 // Method joptsimple/OptionParser.accepts:(Ljava/lang/String;)Ljoptsimple/OptionSpecBuilder;
+      92: invokevirtual #92                 // Method joptsimple/OptionSpecBuilder.withRequiredArg:()Ljoptsimple/ArgumentAcceptingOptionSpec;
+      95: astore        6
+      97: aload_1
+      98: ldc           #100                // String gameDir
+     100: invokevirtual #74                 // Method joptsimple/OptionParser.accepts:(Ljava/lang/String;)Ljoptsimple/OptionSpecBuilder;
+     103: invokevirtual #92                 // Method joptsimple/OptionSpecBuilder.withRequiredArg:()Ljoptsimple/ArgumentAcceptingOptionSpec;
+     106: ldc           #102                // class java/io/File
+     108: invokevirtual #108                // Method joptsimple/ArgumentAcceptingOptionSpec.ofType:(Ljava/lang/Class;)Ljoptsimple/ArgumentAcceptingOptionSpec;
+     111: new           #102                // class java/io/File
+     114: dup
+     115: ldc           #110                // String .
+     117: invokespecial #113                // Method java/io/File."<init>":(Ljava/lang/String;)V
+     120: iconst_0
+     121: anewarray     #102                // class java/io/File
+     124: invokevirtual #117                // Method joptsimple/ArgumentAcceptingOptionSpec.defaultsTo:(Ljava/lang/Object;[Ljava/lang/Object;)Ljoptsimple/ArgumentAcceptingOptionSpec;
+     127: astore        7
+     129: aload_1
+     130: ldc           #119                // String assetsDir
+     132: invokevirtual #74                 // Method joptsimple/OptionParser.accepts:(Ljava/lang/String;)Ljoptsimple/OptionSpecBuilder;
+     135: invokevirtual #92                 // Method joptsimple/OptionSpecBuilder.withRequiredArg:()Ljoptsimple/ArgumentAcceptingOptionSpec;
+     138: ldc           #102                // class java/io/File
+     140: invokevirtual #108                // Method joptsimple/ArgumentAcceptingOptionSpec.ofType:(Ljava/lang/Class;)Ljoptsimple/ArgumentAcceptingOptionSpec;
+     143: astore        8
+     145: aload_1
+     146: ldc           #121                // String resourcePackDir
+     148: invokevirtual #74                 // Method joptsimple/OptionParser.accepts:(Ljava/lang/String;)Ljoptsimple/OptionSpecBuilder;
+     151: invokevirtual #92                 // Method joptsimple/OptionSpecBuilder.withRequiredArg:()Ljoptsimple/ArgumentAcceptingOptionSpec;
+     154: ldc           #102                // class java/io/File
+     156: invokevirtual #108                // Method joptsimple/ArgumentAcceptingOptionSpec.ofType:(Ljava/lang/Class;)Ljoptsimple/ArgumentAcceptingOptionSpec;
+     159: astore        9
+     161: aload_1
+     162: ldc           #123                // String proxyHost
+     164: invokevirtual #74                 // Method joptsimple/OptionParser.accepts:(Ljava/lang/String;)Ljoptsimple/OptionSpecBuilder;
+     167: invokevirtual #92                 // Method joptsimple/OptionSpecBuilder.withRequiredArg:()Ljoptsimple/ArgumentAcceptingOptionSpec;
+     170: astore        10
+     172: aload_1
+     173: ldc           #125                // String proxyPort
+     175: invokevirtual #74                 // Method joptsimple/OptionParser.accepts:(Ljava/lang/String;)Ljoptsimple/OptionSpecBuilder;
+     178: invokevirtual #92                 // Method joptsimple/OptionSpecBuilder.withRequiredArg:()Ljoptsimple/ArgumentAcceptingOptionSpec;
+     181: ldc           #127                // String 8080
+     183: iconst_0
+     184: anewarray     #129                // class java/lang/String
+     187: invokevirtual #117                // Method joptsimple/ArgumentAcceptingOptionSpec.defaultsTo:(Ljava/lang/Object;[Ljava/lang/Object;)Ljoptsimple/ArgumentAcceptingOptionSpec;
+     190: ldc           #131                // class java/lang/Integer
+     192: invokevirtual #108                // Method joptsimple/ArgumentAcceptingOptionSpec.ofType:(Ljava/lang/Class;)Ljoptsimple/ArgumentAcceptingOptionSpec;
+     195: astore        11
+     197: aload_1
+     198: ldc           #133                // String proxyUser
+     200: invokevirtual #74                 // Method joptsimple/OptionParser.accepts:(Ljava/lang/String;)Ljoptsimple/OptionSpecBuilder;
+     203: invokevirtual #92                 // Method joptsimple/OptionSpecBuilder.withRequiredArg:()Ljoptsimple/ArgumentAcceptingOptionSpec;
+     206: astore        12
+     208: aload_1
+     209: ldc           #135                // String proxyPass
+     211: invokevirtual #74                 // Method joptsimple/OptionParser.accepts:(Ljava/lang/String;)Ljoptsimple/OptionSpecBuilder;
+     214: invokevirtual #92                 // Method joptsimple/OptionSpecBuilder.withRequiredArg:()Ljoptsimple/ArgumentAcceptingOptionSpec;
+     217: astore        13
+     219: aload_1
+     220: ldc           #137                // String username
+     222: invokevirtual #74                 // Method joptsimple/OptionParser.accepts:(Ljava/lang/String;)Ljoptsimple/OptionSpecBuilder;
+     225: invokevirtual #92                 // Method joptsimple/OptionSpecBuilder.withRequiredArg:()Ljoptsimple/ArgumentAcceptingOptionSpec;
+     228: invokestatic  #143                // Method java/lang/System.currentTimeMillis:()J
+     231: ldc2_w        #144                // long 1000l
+     234: lrem
+     235: invokedynamic #157,  0            // InvokeDynamic #0:makeConcatWithConstants:(J)Ljava/lang/String;
+     240: iconst_0
+     241: anewarray     #129                // class java/lang/String
+     244: invokevirtual #117                // Method joptsimple/ArgumentAcceptingOptionSpec.defaultsTo:(Ljava/lang/Object;[Ljava/lang/Object;)Ljoptsimple/ArgumentAcceptingOptionSpec;
+     247: astore        14
+     249: aload_1
+     250: ldc           #159                // String uuid
+     252: invokevirtual #74                 // Method joptsimple/OptionParser.accepts:(Ljava/lang/String;)Ljoptsimple/OptionSpecBuilder;
+     255: invokevirtual #92                 // Method joptsimple/OptionSpecBuilder.withRequiredArg:()Ljoptsimple/ArgumentAcceptingOptionSpec;
+     258: astore        15
+     260: aload_1
+     261: ldc           #161                // String xuid
+     263: invokevirtual #74                 // Method joptsimple/OptionParser.accepts:(Ljava/lang/String;)Ljoptsimple/OptionSpecBuilder;
+     266: invokevirtual #164                // Method joptsimple/OptionSpecBuilder.withOptionalArg:()Ljoptsimple/ArgumentAcceptingOptionSpec;
+     269: ldc           #166                // String
+     271: iconst_0
+     272: anewarray     #129                // class java/lang/String
+     275: invokevirtual #117                // Method joptsimple/ArgumentAcceptingOptionSpec.defaultsTo:(Ljava/lang/Object;[Ljava/lang/Object;)Ljoptsimple/ArgumentAcceptingOptionSpec;
+     278: astore        16
+     280: aload_1
+     281: ldc           #168                // String clientId
+     283: invokevirtual #74                 // Method joptsimple/OptionParser.accepts:(Ljava/lang/String;)Ljoptsimple/OptionSpecBuilder;
+     286: invokevirtual #164                // Method joptsimple/OptionSpecBuilder.withOptionalArg:()Ljoptsimple/ArgumentAcceptingOptionSpec;
+     289: ldc           #166                // String
+     291: iconst_0
+     292: anewarray     #129                // class java/lang/String
+     295: invokevirtual #117                // Method joptsimple/ArgumentAcceptingOptionSpec.defaultsTo:(Ljava/lang/Object;[Ljava/lang/Object;)Ljoptsimple/ArgumentAcceptingOptionSpec;
+     298: astore        17
+     300: aload_1
+     301: ldc           #170                // String accessToken
+     303: invokevirtual #74                 // Method joptsimple/OptionParser.accepts:(Ljava/lang/String;)Ljoptsimple/OptionSpecBuilder;
+     306: invokevirtual #92                 // Method joptsimple/OptionSpecBuilder.withRequiredArg:()Ljoptsimple/ArgumentAcceptingOptionSpec;
+     309: invokevirtual #173                // Method joptsimple/ArgumentAcceptingOptionSpec.required:()Ljoptsimple/ArgumentAcceptingOptionSpec;
+     312: astore        18
+     314: aload_1
+     315: ldc           #175                // String version
+     317: invokevirtual #74                 // Method joptsimple/OptionParser.accepts:(Ljava/lang/String;)Ljoptsimple/OptionSpecBuilder;
+     320: invokevirtual #92                 // Method joptsimple/OptionSpecBuilder.withRequiredArg:()Ljoptsimple/ArgumentAcceptingOptionSpec;
+     323: invokevirtual #173                // Method joptsimple/ArgumentAcceptingOptionSpec.required:()Ljoptsimple/ArgumentAcceptingOptionSpec;
+     326: astore        19
+     328: aload_1
+     329: ldc           #177                // String width
+     331: invokevirtual #74                 // Method joptsimple/OptionParser.accepts:(Ljava/lang/String;)Ljoptsimple/OptionSpecBuilder;
+     334: invokevirtual #92                 // Method joptsimple/OptionSpecBuilder.withRequiredArg:()Ljoptsimple/ArgumentAcceptingOptionSpec;
+     337: ldc           #131                // class java/lang/Integer
+     339: invokevirtual #108                // Method joptsimple/ArgumentAcceptingOptionSpec.ofType:(Ljava/lang/Class;)Ljoptsimple/ArgumentAcceptingOptionSpec;
+     342: sipush        854
+     345: invokestatic  #181                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+     348: iconst_0
+     349: anewarray     #131                // class java/lang/Integer
+     352: invokevirtual #117                // Method joptsimple/ArgumentAcceptingOptionSpec.defaultsTo:(Ljava/lang/Object;[Ljava/lang/Object;)Ljoptsimple/ArgumentAcceptingOptionSpec;
+     355: astore        20
+     357: aload_1
+     358: ldc           #183                // String height
+     360: invokevirtual #74                 // Method joptsimple/OptionParser.accepts:(Ljava/lang/String;)Ljoptsimple/OptionSpecBuilder;
+     363: invokevirtual #92                 // Method joptsimple/OptionSpecBuilder.withRequiredArg:()Ljoptsimple/ArgumentAcceptingOptionSpec;
+     366: ldc           #131                // class java/lang/Integer
+     368: invokevirtual #108                // Method joptsimple/ArgumentAcceptingOptionSpec.ofType:(Ljava/lang/Class;)Ljoptsimple/ArgumentAcceptingOptionSpec;
+     371: sipush        480
+     374: invokestatic  #181                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+     377: iconst_0
+     378: anewarray     #131                // class java/lang/Integer
+     381: invokevirtual #117                // Method joptsimple/ArgumentAcceptingOptionSpec.defaultsTo:(Ljava/lang/Object;[Ljava/lang/Object;)Ljoptsimple/ArgumentAcceptingOptionSpec;
+     384: astore        21
+     386: aload_1
+     387: ldc           #185                // String fullscreenWidth
+     389: invokevirtual #74                 // Method joptsimple/OptionParser.accepts:(Ljava/lang/String;)Ljoptsimple/OptionSpecBuilder;
+     392: invokevirtual #92                 // Method joptsimple/OptionSpecBuilder.withRequiredArg:()Ljoptsimple/ArgumentAcceptingOptionSpec;
+     395: ldc           #131                // class java/lang/Integer
+     397: invokevirtual #108                // Method joptsimple/ArgumentAcceptingOptionSpec.ofType:(Ljava/lang/Class;)Ljoptsimple/ArgumentAcceptingOptionSpec;
+     400: astore        22
+     402: aload_1
+     403: ldc           #187                // String fullscreenHeight
+     405: invokevirtual #74                 // Method joptsimple/OptionParser.accepts:(Ljava/lang/String;)Ljoptsimple/OptionSpecBuilder;
+     408: invokevirtual #92                 // Method joptsimple/OptionSpecBuilder.withRequiredArg:()Ljoptsimple/ArgumentAcceptingOptionSpec;
+     411: ldc           #131                // class java/lang/Integer
+     413: invokevirtual #108                // Method joptsimple/ArgumentAcceptingOptionSpec.ofType:(Ljava/lang/Class;)Ljoptsimple/ArgumentAcceptingOptionSpec;
+     416: astore        23
+     418: aload_1
+     419: ldc           #189                // String userProperties
+     421: invokevirtual #74                 // Method joptsimple/OptionParser.accepts:(Ljava/lang/String;)Ljoptsimple/OptionSpecBuilder;
+     424: invokevirtual #92                 // Method joptsimple/OptionSpecBuilder.withRequiredArg:()Ljoptsimple/ArgumentAcceptingOptionSpec;
+     427: ldc           #191                // String {}
+     429: iconst_0
+     430: anewarray     #129                // class java/lang/String
+     433: invokevirtual #117                // Method joptsimple/ArgumentAcceptingOptionSpec.defaultsTo:(Ljava/lang/Object;[Ljava/lang/Object;)Ljoptsimple/ArgumentAcceptingOptionSpec;
+     436: astore        24
+     438: aload_1
+     439: ldc           #193                // String profileProperties
+     441: invokevirtual #74                 // Method joptsimple/OptionParser.accepts:(Ljava/lang/String;)Ljoptsimple/OptionSpecBuilder;
+     444: invokevirtual #92                 // Method joptsimple/OptionSpecBuilder.withRequiredArg:()Ljoptsimple/ArgumentAcceptingOptionSpec;
+     447: ldc           #191                // String {}
+     449: iconst_0
+     450: anewarray     #129                // class java/lang/String
+     453: invokevirtual #117                // Method joptsimple/ArgumentAcceptingOptionSpec.defaultsTo:(Ljava/lang/Object;[Ljava/lang/Object;)Ljoptsimple/ArgumentAcceptingOptionSpec;
+     456: astore        25
+     458: aload_1
+     459: ldc           #195                // String assetIndex
+     461: invokevirtual #74                 // Method joptsimple/OptionParser.accepts:(Ljava/lang/String;)Ljoptsimple/OptionSpecBuilder;
+     464: invokevirtual #92                 // Method joptsimple/OptionSpecBuilder.withRequiredArg:()Ljoptsimple/ArgumentAcceptingOptionSpec;
+     467: astore        26
+     469: aload_1
+     470: ldc           #197                // String userType
+     472: invokevirtual #74                 // Method joptsimple/OptionParser.accepts:(Ljava/lang/String;)Ljoptsimple/OptionSpecBuilder;
+     475: invokevirtual #92                 // Method joptsimple/OptionSpecBuilder.withRequiredArg:()Ljoptsimple/ArgumentAcceptingOptionSpec;
+     478: ldc           #199                // String legacy
+     480: iconst_0
+     481: anewarray     #129                // class java/lang/String
+     484: invokevirtual #117                // Method joptsimple/ArgumentAcceptingOptionSpec.defaultsTo:(Ljava/lang/Object;[Ljava/lang/Object;)Ljoptsimple/ArgumentAcceptingOptionSpec;
+     487: astore        27
+     489: aload_1
+     490: ldc           #201                // String versionType
+     492: invokevirtual #74                 // Method joptsimple/OptionParser.accepts:(Ljava/lang/String;)Ljoptsimple/OptionSpecBuilder;
+     495: invokevirtual #92                 // Method joptsimple/OptionSpecBuilder.withRequiredArg:()Ljoptsimple/ArgumentAcceptingOptionSpec;
+     498: ldc           #203                // String release
+     500: iconst_0
+     501: anewarray     #129                // class java/lang/String
+     504: invokevirtual #117                // Method joptsimple/ArgumentAcceptingOptionSpec.defaultsTo:(Ljava/lang/Object;[Ljava/lang/Object;)Ljoptsimple/ArgumentAcceptingOptionSpec;
+     507: astore        28
+     509: aload_1
+     510: invokevirtual #207                // Method joptsimple/OptionParser.nonOptions:()Ljoptsimple/NonOptionArgumentSpec;
+     513: astore        29
+     515: aload_1
+     516: aload_0
+     517: invokevirtual #211                // Method joptsimple/OptionParser.parse:([Ljava/lang/String;)Ljoptsimple/OptionSet;
+     520: astore        30
+     522: aload         30
+     524: aload         7
+     526: invokestatic  #214                // Method a:(Ljoptsimple/OptionSet;Ljoptsimple/OptionSpec;)Ljava/lang/Object;
+     529: checkcast     #102                // class java/io/File
+     532: astore        31
+     534: aload         30
+     536: aload         19
+     538: invokestatic  #214                // Method a:(Ljoptsimple/OptionSet;Ljoptsimple/OptionSpec;)Ljava/lang/Object;
+     541: checkcast     #129                // class java/lang/String
+     544: astore        32
+     546: ldc           #216                // String Pre-bootstrap
+     548: astore        35
+     550: aload         30
+     552: aload_2
+     553: invokevirtual #222                // Method joptsimple/OptionSet.has:(Ljoptsimple/OptionSpec;)Z
+     556: ifeq          571
+     559: getstatic     #228                // Field bnl.f:Lbnl;
+     562: getstatic     #233                // Field bnj.a:Lbnj;
+     565: invokeinterface #236,  2          // InterfaceMethod bnl.a:(Lbnj;)Z
+     570: pop
+     571: invokestatic  #244                // Method com/google/common/base/Ticker.systemTicker:()Lcom/google/common/base/Ticker;
+     574: invokestatic  #250                // Method com/google/common/base/Stopwatch.createStarted:(Lcom/google/common/base/Ticker;)Lcom/google/common/base/Stopwatch;
+     577: astore        36
+     579: invokestatic  #244                // Method com/google/common/base/Ticker.systemTicker:()Lcom/google/common/base/Ticker;
+     582: invokestatic  #250                // Method com/google/common/base/Stopwatch.createStarted:(Lcom/google/common/base/Ticker;)Lcom/google/common/base/Stopwatch;
+     585: astore        37
+     587: getstatic     #255                // Field gvu.a:Lgvu;
+     590: getstatic     #261                // Field gvq.z:Lgvq;
+     593: aload         36
+     595: invokevirtual #264                // Method gvu.a:(Lgvq;Lcom/google/common/base/Stopwatch;)V
+     598: getstatic     #255                // Field gvu.a:Lgvu;
+     601: getstatic     #267                // Field gvq.A:Lgvq;
+     604: aload         37
+     606: invokevirtual #264                // Method gvu.a:(Lgvq;Lcom/google/common/base/Stopwatch;)V
+     609: invokestatic  #271                // Method ab.a:()V
+     612: getstatic     #277                // Field azw.t:Ljava/util/Set;
+     615: invokestatic  #282                // Method azx.a:(Ljava/util/Set;)Ljava/util/concurrent/CompletableFuture;
+     618: astore        38
+     620: invokestatic  #287                // Method o.g:()V
+     623: invokestatic  #293                // Method com/mojang/logging/LogUtils.getLogger:()Lorg/slf4j/Logger;
+     626: astore        33
+     628: ldc_w         #295                // String Bootstrap
+     631: astore        35
+     633: invokestatic  #298                // Method akt.a:()V
+     636: getstatic     #255                // Field gvu.a:Lgvu;
+     639: getstatic     #301                // Field akt.b:Ljava/util/concurrent/atomic/AtomicLong;
+     642: invokevirtual #306                // Method java/util/concurrent/atomic/AtomicLong.get:()J
+     645: invokevirtual #309                // Method gvu.a:(J)V
+     648: invokestatic  #311                // Method akt.c:()V
+     651: ldc_w         #313                // String Argument parsing
+     654: astore        35
+     656: aload         30
+     658: aload         29
+     660: invokevirtual #317                // Method joptsimple/OptionSet.valuesOf:(Ljoptsimple/OptionSpec;)Ljava/util/List;
+     663: astore        39
+     665: aload         39
+     667: invokeinterface #323,  1          // InterfaceMethod java/util/List.isEmpty:()Z
+     672: ifne          687
+     675: aload         33
+     677: ldc_w         #325                // String Completely ignored arguments: {}
+     680: aload         39
+     682: invokeinterface #331,  3          // InterfaceMethod org/slf4j/Logger.info:(Ljava/lang/String;Ljava/lang/Object;)V
+     687: aload         27
+     689: aload         30
+     691: invokeinterface #339,  2          // InterfaceMethod joptsimple/OptionSpec.value:(Ljoptsimple/OptionSet;)Ljava/lang/Object;
+     696: checkcast     #129                // class java/lang/String
+     699: astore        40
+     701: aload         40
+     703: invokestatic  #342                // Method fhb$a.a:(Ljava/lang/String;)Lfhb$a;
+     706: astore        41
+     708: aload         41
+     710: ifnonnull     725
+     713: aload         33
+     715: ldc_w         #344                // String Unrecognized user type: {}
+     718: aload         40
+     720: invokeinterface #347,  3          // InterfaceMethod org/slf4j/Logger.warn:(Ljava/lang/String;Ljava/lang/Object;)V
+     725: aload         30
+     727: aload         10
+     729: invokestatic  #214                // Method a:(Ljoptsimple/OptionSet;Ljoptsimple/OptionSpec;)Ljava/lang/Object;
+     732: checkcast     #129                // class java/lang/String
+     735: astore        42
+     737: getstatic     #351                // Field java/net/Proxy.NO_PROXY:Ljava/net/Proxy;
+     740: astore        43
+     742: aload         42
+     744: ifnull        786
+     747: new           #18                 // class java/net/Proxy
+     750: dup
+     751: getstatic     #355                // Field java/net/Proxy$Type.SOCKS:Ljava/net/Proxy$Type;
+     754: new           #357                // class java/net/InetSocketAddress
+     757: dup
+     758: aload         42
+     760: aload         30
+     762: aload         11
+     764: invokestatic  #214                // Method a:(Ljoptsimple/OptionSet;Ljoptsimple/OptionSpec;)Ljava/lang/Object;
+     767: checkcast     #131                // class java/lang/Integer
+     770: invokevirtual #361                // Method java/lang/Integer.intValue:()I
+     773: invokespecial #364                // Method java/net/InetSocketAddress."<init>":(Ljava/lang/String;I)V
+     776: invokespecial #367                // Method java/net/Proxy."<init>":(Ljava/net/Proxy$Type;Ljava/net/SocketAddress;)V
+     779: astore        43
+     781: goto          786
+     784: astore        44
+     786: aload         30
+     788: aload         12
+     790: invokestatic  #214                // Method a:(Ljoptsimple/OptionSet;Ljoptsimple/OptionSpec;)Ljava/lang/Object;
+     793: checkcast     #129                // class java/lang/String
+     796: astore        44
+     798: aload         30
+     800: aload         13
+     802: invokestatic  #214                // Method a:(Ljoptsimple/OptionSet;Ljoptsimple/OptionSpec;)Ljava/lang/Object;
+     805: checkcast     #129                // class java/lang/String
+     808: astore        45
+     810: aload         43
+     812: getstatic     #351                // Field java/net/Proxy.NO_PROXY:Ljava/net/Proxy;
+     815: invokevirtual #371                // Method java/net/Proxy.equals:(Ljava/lang/Object;)Z
+     818: ifne          851
+     821: aload         44
+     823: invokestatic  #374                // Method c:(Ljava/lang/String;)Z
+     826: ifeq          851
+     829: aload         45
+     831: invokestatic  #374                // Method c:(Ljava/lang/String;)Z
+     834: ifeq          851
+     837: new           #9                  // class net/minecraft/client/main/Main$1
+     840: dup
+     841: aload         44
+     843: aload         45
+     845: invokespecial #377                // Method net/minecraft/client/main/Main$1."<init>":(Ljava/lang/String;Ljava/lang/String;)V
+     848: invokestatic  #383                // Method java/net/Authenticator.setDefault:(Ljava/net/Authenticator;)V
+     851: aload         30
+     853: aload         20
+     855: invokestatic  #214                // Method a:(Ljoptsimple/OptionSet;Ljoptsimple/OptionSpec;)Ljava/lang/Object;
+     858: checkcast     #131                // class java/lang/Integer
+     861: invokevirtual #361                // Method java/lang/Integer.intValue:()I
+     864: istore        46
+     866: aload         30
+     868: aload         21
+     870: invokestatic  #214                // Method a:(Ljoptsimple/OptionSet;Ljoptsimple/OptionSpec;)Ljava/lang/Object;
+     873: checkcast     #131                // class java/lang/Integer
+     876: invokevirtual #361                // Method java/lang/Integer.intValue:()I
+     879: istore        47
+     881: aload         30
+     883: aload         22
+     885: invokestatic  #214                // Method a:(Ljoptsimple/OptionSet;Ljoptsimple/OptionSpec;)Ljava/lang/Object;
+     888: checkcast     #131                // class java/lang/Integer
+     891: invokestatic  #386                // Method a:(Ljava/lang/Integer;)Ljava/util/OptionalInt;
+     894: astore        48
+     896: aload         30
+     898: aload         23
+     900: invokestatic  #214                // Method a:(Ljoptsimple/OptionSet;Ljoptsimple/OptionSpec;)Ljava/lang/Object;
+     903: checkcast     #131                // class java/lang/Integer
+     906: invokestatic  #386                // Method a:(Ljava/lang/Integer;)Ljava/util/OptionalInt;
+     909: astore        49
+     911: aload         30
+     913: ldc           #80                 // String fullscreen
+     915: invokevirtual #388                // Method joptsimple/OptionSet.has:(Ljava/lang/String;)Z
+     918: istore        50
+     920: aload         30
+     922: ldc           #70                 // String demo
+     924: invokevirtual #388                // Method joptsimple/OptionSet.has:(Ljava/lang/String;)Z
+     927: istore        51
+     929: aload         30
+     931: ldc           #76                 // String disableMultiplayer
+     933: invokevirtual #388                // Method joptsimple/OptionSet.has:(Ljava/lang/String;)Z
+     936: istore        52
+     938: aload         30
+     940: ldc           #78                 // String disableChat
+     942: invokevirtual #388                // Method joptsimple/OptionSet.has:(Ljava/lang/String;)Z
+     945: istore        53
+     947: new           #390                // class com/google/gson/GsonBuilder
+     950: dup
+     951: invokespecial #391                // Method com/google/gson/GsonBuilder."<init>":()V
+     954: ldc           #23                 // class com/mojang/authlib/properties/PropertyMap
+     956: new           #21                 // class com/mojang/authlib/properties/PropertyMap$Serializer
+     959: dup
+     960: invokespecial #392                // Method com/mojang/authlib/properties/PropertyMap$Serializer."<init>":()V
+     963: invokevirtual #396                // Method com/google/gson/GsonBuilder.registerTypeAdapter:(Ljava/lang/reflect/Type;Ljava/lang/Object;)Lcom/google/gson/GsonBuilder;
+     966: invokevirtual #400                // Method com/google/gson/GsonBuilder.create:()Lcom/google/gson/Gson;
+     969: astore        54
+     971: aload         54
+     973: aload         30
+     975: aload         24
+     977: invokestatic  #214                // Method a:(Ljoptsimple/OptionSet;Ljoptsimple/OptionSpec;)Ljava/lang/Object;
+     980: checkcast     #129                // class java/lang/String
+     983: ldc           #23                 // class com/mojang/authlib/properties/PropertyMap
+     985: invokestatic  #405                // Method aye.a:(Lcom/google/gson/Gson;Ljava/lang/String;Ljava/lang/Class;)Ljava/lang/Object;
+     988: checkcast     #23                 // class com/mojang/authlib/properties/PropertyMap
+     991: astore        55
+     993: aload         54
+     995: aload         30
+     997: aload         25
+     999: invokestatic  #214                // Method a:(Ljoptsimple/OptionSet;Ljoptsimple/OptionSpec;)Ljava/lang/Object;
+    1002: checkcast     #129                // class java/lang/String
+    1005: ldc           #23                 // class com/mojang/authlib/properties/PropertyMap
+    1007: invokestatic  #405                // Method aye.a:(Lcom/google/gson/Gson;Ljava/lang/String;Ljava/lang/Class;)Ljava/lang/Object;
+    1010: checkcast     #23                 // class com/mojang/authlib/properties/PropertyMap
+    1013: astore        56
+    1015: aload         30
+    1017: aload         28
+    1019: invokestatic  #214                // Method a:(Ljoptsimple/OptionSet;Ljoptsimple/OptionSpec;)Ljava/lang/Object;
+    1022: checkcast     #129                // class java/lang/String
+    1025: astore        57
+    1027: aload         30
+    1029: aload         8
+    1031: invokevirtual #222                // Method joptsimple/OptionSet.has:(Ljoptsimple/OptionSpec;)Z
+    1034: ifeq          1050
+    1037: aload         30
+    1039: aload         8
+    1041: invokestatic  #214                // Method a:(Ljoptsimple/OptionSet;Ljoptsimple/OptionSpec;)Ljava/lang/Object;
+    1044: checkcast     #102                // class java/io/File
+    1047: goto          1062
+    1050: new           #102                // class java/io/File
+    1053: dup
+    1054: aload         31
+    1056: ldc_w         #409                // String assets/
+    1059: invokespecial #412                // Method java/io/File."<init>":(Ljava/io/File;Ljava/lang/String;)V
+    1062: astore        58
+    1064: aload         30
+    1066: aload         9
+    1068: invokevirtual #222                // Method joptsimple/OptionSet.has:(Ljoptsimple/OptionSpec;)Z
+    1071: ifeq          1087
+    1074: aload         30
+    1076: aload         9
+    1078: invokestatic  #214                // Method a:(Ljoptsimple/OptionSet;Ljoptsimple/OptionSpec;)Ljava/lang/Object;
+    1081: checkcast     #102                // class java/io/File
+    1084: goto          1099
+    1087: new           #102                // class java/io/File
+    1090: dup
+    1091: aload         31
+    1093: ldc_w         #414                // String resourcepacks/
+    1096: invokespecial #412                // Method java/io/File."<init>":(Ljava/io/File;Ljava/lang/String;)V
+    1099: astore        59
+    1101: aload         30
+    1103: aload         15
+    1105: invokevirtual #222                // Method joptsimple/OptionSet.has:(Ljoptsimple/OptionSpec;)Z
+    1108: ifeq          1129
+    1111: aload         15
+    1113: aload         30
+    1115: invokeinterface #339,  2          // InterfaceMethod joptsimple/OptionSpec.value:(Ljoptsimple/OptionSet;)Ljava/lang/Object;
+    1120: checkcast     #129                // class java/lang/String
+    1123: invokestatic  #420                // Method com/mojang/util/UndashedUuid.fromStringLenient:(Ljava/lang/String;)Ljava/util/UUID;
+    1126: goto          1144
+    1129: aload         14
+    1131: aload         30
+    1133: invokeinterface #339,  2          // InterfaceMethod joptsimple/OptionSpec.value:(Ljoptsimple/OptionSet;)Ljava/lang/Object;
+    1138: checkcast     #129                // class java/lang/String
+    1141: invokestatic  #424                // Method kg.a:(Ljava/lang/String;)Ljava/util/UUID;
+    1144: astore        60
+    1146: aload         30
+    1148: aload         26
+    1150: invokevirtual #222                // Method joptsimple/OptionSet.has:(Ljoptsimple/OptionSpec;)Z
+    1153: ifeq          1171
+    1156: aload         26
+    1158: aload         30
+    1160: invokeinterface #339,  2          // InterfaceMethod joptsimple/OptionSpec.value:(Ljoptsimple/OptionSet;)Ljava/lang/Object;
+    1165: checkcast     #129                // class java/lang/String
+    1168: goto          1172
+    1171: aconst_null
+    1172: astore        61
+    1174: aload         30
+    1176: aload         16
+    1178: invokevirtual #429                // Method joptsimple/OptionSet.valueOf:(Ljoptsimple/OptionSpec;)Ljava/lang/Object;
+    1181: checkcast     #129                // class java/lang/String
+    1184: astore        62
+    1186: aload         30
+    1188: aload         17
+    1190: invokevirtual #429                // Method joptsimple/OptionSet.valueOf:(Ljoptsimple/OptionSpec;)Ljava/lang/Object;
+    1193: checkcast     #129                // class java/lang/String
+    1196: astore        63
+    1198: aload         30
+    1200: aload_3
+    1201: invokestatic  #214                // Method a:(Ljoptsimple/OptionSet;Ljoptsimple/OptionSpec;)Ljava/lang/Object;
+    1204: checkcast     #129                // class java/lang/String
+    1207: astore        64
+    1209: aload         30
+    1211: aload         4
+    1213: invokestatic  #214                // Method a:(Ljoptsimple/OptionSet;Ljoptsimple/OptionSpec;)Ljava/lang/Object;
+    1216: checkcast     #129                // class java/lang/String
+    1219: invokestatic  #432                // Method a:(Ljava/lang/String;)Ljava/lang/String;
+    1222: astore        65
+    1224: aload         30
+    1226: aload         5
+    1228: invokestatic  #214                // Method a:(Ljoptsimple/OptionSet;Ljoptsimple/OptionSpec;)Ljava/lang/Object;
+    1231: checkcast     #129                // class java/lang/String
+    1234: invokestatic  #432                // Method a:(Ljava/lang/String;)Ljava/lang/String;
+    1237: astore        66
+    1239: aload         30
+    1241: aload         6
+    1243: invokestatic  #214                // Method a:(Ljoptsimple/OptionSet;Ljoptsimple/OptionSpec;)Ljava/lang/Object;
+    1246: checkcast     #129                // class java/lang/String
+    1249: invokestatic  #432                // Method a:(Ljava/lang/String;)Ljava/lang/String;
+    1252: astore        67
+    1254: new           #13                 // class fhb
+    1257: dup
+    1258: aload         14
+    1260: aload         30
+    1262: invokeinterface #339,  2          // InterfaceMethod joptsimple/OptionSpec.value:(Ljoptsimple/OptionSet;)Ljava/lang/Object;
+    1267: checkcast     #129                // class java/lang/String
+    1270: aload         60
+    1272: aload         18
+    1274: aload         30
+    1276: invokeinterface #339,  2          // InterfaceMethod joptsimple/OptionSpec.value:(Ljoptsimple/OptionSet;)Ljava/lang/Object;
+    1281: checkcast     #129                // class java/lang/String
+    1284: aload         62
+    1286: invokestatic  #435                // Method b:(Ljava/lang/String;)Ljava/util/Optional;
+    1289: aload         63
+    1291: invokestatic  #435                // Method b:(Ljava/lang/String;)Ljava/util/Optional;
+    1294: aload         41
+    1296: invokespecial #438                // Method fhb."<init>":(Ljava/lang/String;Ljava/util/UUID;Ljava/lang/String;Ljava/util/Optional;Ljava/util/Optional;Lfhb$a;)V
+    1299: astore        68
+    1301: new           #28                 // class fua
+    1304: dup
+    1305: new           #26                 // class fua$d
+    1308: dup
+    1309: aload         68
+    1311: aload         55
+    1313: aload         56
+    1315: aload         43
+    1317: invokespecial #441                // Method fua$d."<init>":(Lfhb;Lcom/mojang/authlib/properties/PropertyMap;Lcom/mojang/authlib/properties/PropertyMap;Ljava/net/Proxy;)V
+    1320: new           #443                // class faa
+    1323: dup
+    1324: iload         46
+    1326: iload         47
+    1328: aload         48
+    1330: aload         49
+    1332: iload         50
+    1334: invokespecial #446                // Method faa."<init>":(IILjava/util/OptionalInt;Ljava/util/OptionalInt;Z)V
+    1337: new           #31                 // class fua$a
+    1340: dup
+    1341: aload         31
+    1343: aload         59
+    1345: aload         58
+    1347: aload         61
+    1349: invokespecial #449                // Method fua$a."<init>":(Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/lang/String;)V
+    1352: new           #33                 // class fua$b
+    1355: dup
+    1356: iload         51
+    1358: aload         32
+    1360: aload         57
+    1362: iload         52
+    1364: iload         53
+    1366: invokespecial #452                // Method fua$b."<init>":(ZLjava/lang/String;Ljava/lang/String;ZZ)V
+    1369: new           #36                 // class fua$c
+    1372: dup
+    1373: aload         64
+    1375: aload         65
+    1377: aload         66
+    1379: aload         67
+    1381: invokespecial #455                // Method fua$c."<init>":(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+    1384: invokespecial #458                // Method fua."<init>":(Lfua$d;Lfaa;Lfua$a;Lfua$b;Lfua$c;)V
+    1387: astore        34
+    1389: invokestatic  #463                // Method ad.m:()V
+    1392: aload         38
+    1394: invokevirtual #467                // Method java/util/concurrent/CompletableFuture.join:()Ljava/lang/Object;
+    1397: pop
+    1398: goto          1446
+    1401: astore        36
+    1403: aload         36
+    1405: aload         35
+    1407: invokestatic  #470                // Method o.a:(Ljava/lang/Throwable;Ljava/lang/String;)Lo;
+    1410: astore        37
+    1412: aload         37
+    1414: ldc_w         #472                // String Initialization
+    1417: invokevirtual #475                // Method o.a:(Ljava/lang/String;)Lp;
+    1420: astore        38
+    1422: aload         38
+    1424: invokestatic  #480                // Method ayp.a:(Lp;)V
+    1427: aconst_null
+    1428: aconst_null
+    1429: aload         32
+    1431: aconst_null
+    1432: aload         37
+    1434: invokestatic  #485                // Method fgo.a:(Lfgo;Lgrt;Ljava/lang/String;Lfgs;Lo;)V
+    1437: aconst_null
+    1438: aload         31
+    1440: aload         37
+    1442: invokestatic  #488                // Method fgo.a:(Lfgo;Ljava/io/File;Lo;)V
+    1445: return
+    1446: new           #7                  // class net/minecraft/client/main/Main$2
+    1449: dup
+    1450: ldc_w         #490                // String Client Shutdown Thread
+    1453: invokespecial #491                // Method net/minecraft/client/main/Main$2."<init>":(Ljava/lang/String;)V
+    1456: astore        36
+    1458: aload         36
+    1460: new           #493                // class r
+    1463: dup
+    1464: aload         33
+    1466: invokespecial #496                // Method r."<init>":(Lorg/slf4j/Logger;)V
+    1469: invokevirtual #500                // Method java/lang/Thread.setUncaughtExceptionHandler:(Ljava/lang/Thread$UncaughtExceptionHandler;)V
+    1472: invokestatic  #506                // Method java/lang/Runtime.getRuntime:()Ljava/lang/Runtime;
+    1475: aload         36
+    1477: invokevirtual #510                // Method java/lang/Runtime.addShutdownHook:(Ljava/lang/Thread;)V
+    1480: aconst_null
+    1481: astore        37
+    1483: invokestatic  #514                // Method java/lang/Thread.currentThread:()Ljava/lang/Thread;
+    1486: ldc_w         #516                // String Render thread
+    1489: invokevirtual #519                // Method java/lang/Thread.setName:(Ljava/lang/String;)V
+    1492: invokestatic  #524                // Method com/mojang/blaze3d/systems/RenderSystem.initRenderThread:()V
+    1495: invokestatic  #527                // Method com/mojang/blaze3d/systems/RenderSystem.beginInitialization:()V
+    1498: new           #482                // class fgo
+    1501: dup
+    1502: aload         34
+    1504: invokespecial #530                // Method fgo."<init>":(Lfua;)V
+    1507: astore        37
+    1509: invokestatic  #533                // Method com/mojang/blaze3d/systems/RenderSystem.finishInitialization:()V
+    1512: goto          1593
+    1515: astore        38
+    1517: invokestatic  #536                // Method ad.j:()V
+    1520: aload         33
+    1522: ldc_w         #538                // String Failed to create window:
+    1525: aload         38
+    1527: invokeinterface #541,  3          // InterfaceMethod org/slf4j/Logger.warn:(Ljava/lang/String;Ljava/lang/Throwable;)V
+    1532: return
+    1533: astore        38
+    1535: aload         38
+    1537: ldc_w         #543                // String Initializing game
+    1540: invokestatic  #470                // Method o.a:(Ljava/lang/Throwable;Ljava/lang/String;)Lo;
+    1543: astore        39
+    1545: aload         39
+    1547: ldc_w         #472                // String Initialization
+    1550: invokevirtual #475                // Method o.a:(Ljava/lang/String;)Lp;
+    1553: astore        40
+    1555: aload         40
+    1557: invokestatic  #480                // Method ayp.a:(Lp;)V
+    1560: aload         37
+    1562: aconst_null
+    1563: aload         34
+    1565: getfield      #546                // Field fua.d:Lfua$b;
+    1568: getfield      #549                // Field fua$b.b:Ljava/lang/String;
+    1571: aconst_null
+    1572: aload         39
+    1574: invokestatic  #485                // Method fgo.a:(Lfgo;Lgrt;Ljava/lang/String;Lfgs;Lo;)V
+    1577: aload         37
+    1579: aload         34
+    1581: getfield      #552                // Field fua.c:Lfua$a;
+    1584: getfield      #555                // Field fua$a.a:Ljava/io/File;
+    1587: aload         39
+    1589: invokestatic  #488                // Method fgo.a:(Lfgo;Ljava/io/File;Lo;)V
+    1592: return
+    1593: aload         37
+    1595: astore        38
+    1597: aload         38
+    1599: invokevirtual #557                // Method fgo.f:()V
+    1602: invokestatic  #560                // Method fbe.a:()V
+    1605: aload         38
+    1607: invokevirtual #563                // Method fgo.q:()V
+    1610: aload         38
+    1612: invokevirtual #566                // Method fgo.n:()V
+    1615: goto          1628
+    1618: astore        69
+    1620: aload         38
+    1622: invokevirtual #566                // Method fgo.n:()V
+    1625: aload         69
+    1627: athrow
+    1628: return
+    Exception table:
+       from    to  target type
+         747   781   784   Class java/lang/Exception
+         550  1398  1401   Class java/lang/Throwable
+        1483  1512  1515   Class fub
+        1483  1512  1533   Class java/lang/Throwable
+        1605  1610  1618   any
+        1618  1620  1618   any
+
+  private static java.lang.String a(java.lang.String);
+    Code:
+       0: aload_0
+       1: ifnonnull     6
+       4: aconst_null
+       5: areturn
+       6: aload_0
+       7: invokestatic  #682                // Method org/apache/commons/lang3/StringEscapeUtils.unescapeJava:(Ljava/lang/String;)Ljava/lang/String;
+      10: areturn
+
+  private static java.util.Optional<java.lang.String> b(java.lang.String);
+    Code:
+       0: aload_0
+       1: invokevirtual #684                // Method java/lang/String.isEmpty:()Z
+       4: ifeq          13
+       7: invokestatic  #690                // Method java/util/Optional.empty:()Ljava/util/Optional;
+      10: goto          17
+      13: aload_0
+      14: invokestatic  #694                // Method java/util/Optional.of:(Ljava/lang/Object;)Ljava/util/Optional;
+      17: areturn
+
+  private static java.util.OptionalInt a(java.lang.Integer);
+    Code:
+       0: aload_0
+       1: ifnull        14
+       4: aload_0
+       5: invokevirtual #361                // Method java/lang/Integer.intValue:()I
+       8: invokestatic  #697                // Method java/util/OptionalInt.of:(I)Ljava/util/OptionalInt;
+      11: goto          17
+      14: invokestatic  #700                // Method java/util/OptionalInt.empty:()Ljava/util/OptionalInt;
+      17: areturn
+
+  private static <T> T a(joptsimple.OptionSet, joptsimple.OptionSpec<T>);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokevirtual #429                // Method joptsimple/OptionSet.valueOf:(Ljoptsimple/OptionSpec;)Ljava/lang/Object;
+       5: areturn
+       6: astore_2
+       7: aload_1
+       8: instanceof    #104                // class joptsimple/ArgumentAcceptingOptionSpec
+      11: ifeq          44
+      14: aload_1
+      15: checkcast     #104                // class joptsimple/ArgumentAcceptingOptionSpec
+      18: astore_3
+      19: aload_3
+      20: invokevirtual #706                // Method joptsimple/ArgumentAcceptingOptionSpec.defaultValues:()Ljava/util/List;
+      23: astore        4
+      25: aload         4
+      27: invokeinterface #323,  1          // InterfaceMethod java/util/List.isEmpty:()Z
+      32: ifne          44
+      35: aload         4
+      37: iconst_0
+      38: invokeinterface #709,  2          // InterfaceMethod java/util/List.get:(I)Ljava/lang/Object;
+      43: areturn
+      44: aload_2
+      45: athrow
+    Exception table:
+       from    to  target type
+           0     5     6   Class java/lang/Throwable
+
+  private static boolean c(java.lang.String);
+    Code:
+       0: aload_0
+       1: ifnull        15
+       4: aload_0
+       5: invokevirtual #684                // Method java/lang/String.isEmpty:()Z
+       8: ifne          15
+      11: iconst_1
+      12: goto          16
+      15: iconst_0
+      16: ireturn
+
+  static {};
+    Code:
+       0: ldc_w         #716                // String java.awt.headless
+       3: ldc_w         #718                // String true
+       6: invokestatic  #722                // Method java/lang/System.setProperty:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+       9: pop
+      10: return
+}

@@ -4,3 +4,6 @@ dist
 server/public
 vite.config.ts.*
 *.tar.gzprivate-minecraft/
+
+# Private Minecraft client and assets
+/private-minecraft/

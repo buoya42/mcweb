@@ -1,0 +1,1695 @@
+Compiled from "SourceFile"
+public class com.mojang.blaze3d.systems.RenderSystem {
+  static final org.slf4j.Logger LOGGER;
+
+  private static final java.util.concurrent.ConcurrentLinkedQueue<ezt> recordingQueue;
+
+  private static final fbk RENDER_THREAD_TESSELATOR;
+
+  private static final int MINIMUM_ATLAS_TEXTURE_SIZE;
+
+  private static java.lang.Thread renderThread;
+
+  private static int MAX_SUPPORTED_TEXTURE_SIZE;
+
+  private static boolean isInInit;
+
+  private static double lastDrawTime;
+
+  private static final com.mojang.blaze3d.systems.RenderSystem$a sharedSequential;
+
+  private static final com.mojang.blaze3d.systems.RenderSystem$a sharedSequentialQuad;
+
+  private static final com.mojang.blaze3d.systems.RenderSystem$a sharedSequentialLines;
+
+  private static org.joml.Matrix4f projectionMatrix;
+
+  private static org.joml.Matrix4f savedProjectionMatrix;
+
+  private static fbq vertexSorting;
+
+  private static fbq savedVertexSorting;
+
+  private static final org.joml.Matrix4fStack modelViewStack;
+
+  private static org.joml.Matrix4f modelViewMatrix;
+
+  private static org.joml.Matrix4f textureMatrix;
+
+  private static final int[] shaderTextures;
+
+  private static final float[] shaderColor;
+
+  private static float shaderGlintAlpha;
+
+  private static float shaderFogStart;
+
+  private static float shaderFogEnd;
+
+  private static final float[] shaderFogColor;
+
+  private static fav shaderFogShape;
+
+  private static final org.joml.Vector3f[] shaderLightDirections;
+
+  private static float shaderGameTime;
+
+  private static float shaderLineWidth;
+
+  private static java.lang.String apiDescription;
+
+  private static gfn shader;
+
+  private static final java.util.concurrent.atomic.AtomicLong pollEventsWaitStart;
+
+  private static final java.util.concurrent.atomic.AtomicBoolean pollingEvents;
+
+  public com.mojang.blaze3d.systems.RenderSystem();
+    Code:
+       0: aload_0
+       1: invokespecial #97                 // Method java/lang/Object."<init>":()V
+       4: return
+
+  public static void initRenderThread();
+    Code:
+       0: getstatic     #102                // Field renderThread:Ljava/lang/Thread;
+       3: ifnull        16
+       6: new           #104                // class java/lang/IllegalStateException
+       9: dup
+      10: ldc           #106                // String Could not initialize render thread
+      12: invokespecial #109                // Method java/lang/IllegalStateException."<init>":(Ljava/lang/String;)V
+      15: athrow
+      16: invokestatic  #115                // Method java/lang/Thread.currentThread:()Ljava/lang/Thread;
+      19: putstatic     #102                // Field renderThread:Ljava/lang/Thread;
+      22: return
+
+  public static boolean isOnRenderThread();
+    Code:
+       0: invokestatic  #115                // Method java/lang/Thread.currentThread:()Ljava/lang/Thread;
+       3: getstatic     #102                // Field renderThread:Ljava/lang/Thread;
+       6: if_acmpne     13
+       9: iconst_1
+      10: goto          14
+      13: iconst_0
+      14: ireturn
+
+  public static boolean isOnRenderThreadOrInit();
+    Code:
+       0: getstatic     #120                // Field isInInit:Z
+       3: ifne          12
+       6: invokestatic  #122                // Method isOnRenderThread:()Z
+       9: ifeq          16
+      12: iconst_1
+      13: goto          17
+      16: iconst_0
+      17: ireturn
+
+  public static void assertOnRenderThreadOrInit();
+    Code:
+       0: getstatic     #120                // Field isInInit:Z
+       3: ifne          12
+       6: invokestatic  #122                // Method isOnRenderThread:()Z
+       9: ifeq          13
+      12: return
+      13: invokestatic  #127                // Method constructThreadException:()Ljava/lang/IllegalStateException;
+      16: athrow
+
+  public static void assertOnRenderThread();
+    Code:
+       0: invokestatic  #122                // Method isOnRenderThread:()Z
+       3: ifne          10
+       6: invokestatic  #127                // Method constructThreadException:()Ljava/lang/IllegalStateException;
+       9: athrow
+      10: return
+
+  private static java.lang.IllegalStateException constructThreadException();
+    Code:
+       0: new           #104                // class java/lang/IllegalStateException
+       3: dup
+       4: ldc           #130                // String Rendersystem called from wrong thread
+       6: invokespecial #109                // Method java/lang/IllegalStateException."<init>":(Ljava/lang/String;)V
+       9: areturn
+
+  public static void recordRenderCall(ezt);
+    Code:
+       0: getstatic     #134                // Field recordingQueue:Ljava/util/concurrent/ConcurrentLinkedQueue;
+       3: aload_0
+       4: invokevirtual #140                // Method java/util/concurrent/ConcurrentLinkedQueue.add:(Ljava/lang/Object;)Z
+       7: pop
+       8: return
+
+  private static void pollEvents();
+    Code:
+       0: getstatic     #145                // Field pollEventsWaitStart:Ljava/util/concurrent/atomic/AtomicLong;
+       3: invokestatic  #150                // Method ad.c:()J
+       6: invokevirtual #156                // Method java/util/concurrent/atomic/AtomicLong.set:(J)V
+       9: getstatic     #158                // Field pollingEvents:Ljava/util/concurrent/atomic/AtomicBoolean;
+      12: iconst_1
+      13: invokevirtual #163                // Method java/util/concurrent/atomic/AtomicBoolean.set:(Z)V
+      16: invokestatic  #168                // Method org/lwjgl/glfw/GLFW.glfwPollEvents:()V
+      19: getstatic     #158                // Field pollingEvents:Ljava/util/concurrent/atomic/AtomicBoolean;
+      22: iconst_0
+      23: invokevirtual #163                // Method java/util/concurrent/atomic/AtomicBoolean.set:(Z)V
+      26: return
+
+  public static boolean isFrozenAtPollEvents();
+    Code:
+       0: getstatic     #158                // Field pollingEvents:Ljava/util/concurrent/atomic/AtomicBoolean;
+       3: invokevirtual #172                // Method java/util/concurrent/atomic/AtomicBoolean.get:()Z
+       6: ifeq          30
+       9: invokestatic  #150                // Method ad.c:()J
+      12: getstatic     #145                // Field pollEventsWaitStart:Ljava/util/concurrent/atomic/AtomicLong;
+      15: invokevirtual #174                // Method java/util/concurrent/atomic/AtomicLong.get:()J
+      18: lsub
+      19: ldc2_w        #175                // long 200l
+      22: lcmp
+      23: ifle          30
+      26: iconst_1
+      27: goto          31
+      30: iconst_0
+      31: ireturn
+
+  public static void flipFrame(long);
+    Code:
+       0: invokestatic  #179                // Method pollEvents:()V
+       3: invokestatic  #182                // Method replayQueue:()V
+       6: invokestatic  #188                // Method fbk.b:()Lfbk;
+       9: invokevirtual #190                // Method fbk.c:()V
+      12: lload_0
+      13: invokestatic  #193                // Method org/lwjgl/glfw/GLFW.glfwSwapBuffers:(J)V
+      16: invokestatic  #179                // Method pollEvents:()V
+      19: return
+
+  public static void replayQueue();
+    Code:
+       0: getstatic     #134                // Field recordingQueue:Ljava/util/concurrent/ConcurrentLinkedQueue;
+       3: invokevirtual #197                // Method java/util/concurrent/ConcurrentLinkedQueue.isEmpty:()Z
+       6: ifne          28
+       9: getstatic     #134                // Field recordingQueue:Ljava/util/concurrent/ConcurrentLinkedQueue;
+      12: invokevirtual #201                // Method java/util/concurrent/ConcurrentLinkedQueue.poll:()Ljava/lang/Object;
+      15: checkcast     #203                // class ezt
+      18: astore_0
+      19: aload_0
+      20: invokeinterface #206,  1          // InterfaceMethod ezt.execute:()V
+      25: goto          0
+      28: return
+
+  public static void limitDisplayFPS(int);
+    Code:
+       0: getstatic     #210                // Field lastDrawTime:D
+       3: dconst_1
+       4: iload_0
+       5: i2d
+       6: ddiv
+       7: dadd
+       8: dstore_1
+       9: invokestatic  #214                // Method org/lwjgl/glfw/GLFW.glfwGetTime:()D
+      12: dstore_3
+      13: dload_3
+      14: dload_1
+      15: dcmpg
+      16: ifge          32
+      19: dload_1
+      20: dload_3
+      21: dsub
+      22: invokestatic  #218                // Method org/lwjgl/glfw/GLFW.glfwWaitEventsTimeout:(D)V
+      25: invokestatic  #214                // Method org/lwjgl/glfw/GLFW.glfwGetTime:()D
+      28: dstore_3
+      29: goto          13
+      32: dload_3
+      33: putstatic     #210                // Field lastDrawTime:D
+      36: return
+
+  public static void disableDepthTest();
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: invokestatic  #226                // Method com/mojang/blaze3d/platform/GlStateManager._disableDepthTest:()V
+       6: return
+
+  public static void enableDepthTest();
+    Code:
+       0: invokestatic  #230                // Method com/mojang/blaze3d/platform/GlStateManager._enableDepthTest:()V
+       3: return
+
+  public static void enableScissor(int, int, int, int);
+    Code:
+       0: invokestatic  #235                // Method com/mojang/blaze3d/platform/GlStateManager._enableScissorTest:()V
+       3: iload_0
+       4: iload_1
+       5: iload_2
+       6: iload_3
+       7: invokestatic  #238                // Method com/mojang/blaze3d/platform/GlStateManager._scissorBox:(IIII)V
+      10: return
+
+  public static void disableScissor();
+    Code:
+       0: invokestatic  #243                // Method com/mojang/blaze3d/platform/GlStateManager._disableScissorTest:()V
+       3: return
+
+  public static void depthFunc(int);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: iload_0
+       4: invokestatic  #247                // Method com/mojang/blaze3d/platform/GlStateManager._depthFunc:(I)V
+       7: return
+
+  public static void depthMask(boolean);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: iload_0
+       4: invokestatic  #251                // Method com/mojang/blaze3d/platform/GlStateManager._depthMask:(Z)V
+       7: return
+
+  public static void enableBlend();
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: invokestatic  #255                // Method com/mojang/blaze3d/platform/GlStateManager._enableBlend:()V
+       6: return
+
+  public static void disableBlend();
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: invokestatic  #259                // Method com/mojang/blaze3d/platform/GlStateManager._disableBlend:()V
+       6: return
+
+  public static void blendFunc(com.mojang.blaze3d.platform.GlStateManager$SourceFactor, com.mojang.blaze3d.platform.GlStateManager$DestFactor);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: aload_0
+       4: getfield      #264                // Field com/mojang/blaze3d/platform/GlStateManager$SourceFactor.value:I
+       7: aload_1
+       8: getfield      #265                // Field com/mojang/blaze3d/platform/GlStateManager$DestFactor.value:I
+      11: invokestatic  #269                // Method com/mojang/blaze3d/platform/GlStateManager._blendFunc:(II)V
+      14: return
+
+  public static void blendFunc(int, int);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: iload_0
+       4: iload_1
+       5: invokestatic  #269                // Method com/mojang/blaze3d/platform/GlStateManager._blendFunc:(II)V
+       8: return
+
+  public static void blendFuncSeparate(com.mojang.blaze3d.platform.GlStateManager$SourceFactor, com.mojang.blaze3d.platform.GlStateManager$DestFactor, com.mojang.blaze3d.platform.GlStateManager$SourceFactor, com.mojang.blaze3d.platform.GlStateManager$DestFactor);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: aload_0
+       4: getfield      #264                // Field com/mojang/blaze3d/platform/GlStateManager$SourceFactor.value:I
+       7: aload_1
+       8: getfield      #265                // Field com/mojang/blaze3d/platform/GlStateManager$DestFactor.value:I
+      11: aload_2
+      12: getfield      #264                // Field com/mojang/blaze3d/platform/GlStateManager$SourceFactor.value:I
+      15: aload_3
+      16: getfield      #265                // Field com/mojang/blaze3d/platform/GlStateManager$DestFactor.value:I
+      19: invokestatic  #276                // Method com/mojang/blaze3d/platform/GlStateManager._blendFuncSeparate:(IIII)V
+      22: return
+
+  public static void blendFuncSeparate(int, int, int, int);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: iload_0
+       4: iload_1
+       5: iload_2
+       6: iload_3
+       7: invokestatic  #276                // Method com/mojang/blaze3d/platform/GlStateManager._blendFuncSeparate:(IIII)V
+      10: return
+
+  public static void blendEquation(int);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: iload_0
+       4: invokestatic  #280                // Method com/mojang/blaze3d/platform/GlStateManager._blendEquation:(I)V
+       7: return
+
+  public static void enableCull();
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: invokestatic  #284                // Method com/mojang/blaze3d/platform/GlStateManager._enableCull:()V
+       6: return
+
+  public static void disableCull();
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: invokestatic  #288                // Method com/mojang/blaze3d/platform/GlStateManager._disableCull:()V
+       6: return
+
+  public static void polygonMode(int, int);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: iload_0
+       4: iload_1
+       5: invokestatic  #292                // Method com/mojang/blaze3d/platform/GlStateManager._polygonMode:(II)V
+       8: return
+
+  public static void enablePolygonOffset();
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: invokestatic  #296                // Method com/mojang/blaze3d/platform/GlStateManager._enablePolygonOffset:()V
+       6: return
+
+  public static void disablePolygonOffset();
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: invokestatic  #300                // Method com/mojang/blaze3d/platform/GlStateManager._disablePolygonOffset:()V
+       6: return
+
+  public static void polygonOffset(float, float);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: fload_0
+       4: fload_1
+       5: invokestatic  #305                // Method com/mojang/blaze3d/platform/GlStateManager._polygonOffset:(FF)V
+       8: return
+
+  public static void enableColorLogicOp();
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: invokestatic  #309                // Method com/mojang/blaze3d/platform/GlStateManager._enableColorLogicOp:()V
+       6: return
+
+  public static void disableColorLogicOp();
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: invokestatic  #313                // Method com/mojang/blaze3d/platform/GlStateManager._disableColorLogicOp:()V
+       6: return
+
+  public static void logicOp(com.mojang.blaze3d.platform.GlStateManager$g);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: aload_0
+       4: getfield      #318                // Field com/mojang/blaze3d/platform/GlStateManager$g.q:I
+       7: invokestatic  #321                // Method com/mojang/blaze3d/platform/GlStateManager._logicOp:(I)V
+      10: return
+
+  public static void activeTexture(int);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: iload_0
+       4: invokestatic  #326                // Method com/mojang/blaze3d/platform/GlStateManager._activeTexture:(I)V
+       7: return
+
+  public static void texParameter(int, int, int);
+    Code:
+       0: iload_0
+       1: iload_1
+       2: iload_2
+       3: invokestatic  #331                // Method com/mojang/blaze3d/platform/GlStateManager._texParameter:(III)V
+       6: return
+
+  public static void deleteTexture(int);
+    Code:
+       0: iload_0
+       1: invokestatic  #335                // Method com/mojang/blaze3d/platform/GlStateManager._deleteTexture:(I)V
+       4: return
+
+  public static void bindTextureForSetup(int);
+    Code:
+       0: iload_0
+       1: invokestatic  #339                // Method bindTexture:(I)V
+       4: return
+
+  public static void bindTexture(int);
+    Code:
+       0: iload_0
+       1: invokestatic  #342                // Method com/mojang/blaze3d/platform/GlStateManager._bindTexture:(I)V
+       4: return
+
+  public static void viewport(int, int, int, int);
+    Code:
+       0: iload_0
+       1: iload_1
+       2: iload_2
+       3: iload_3
+       4: invokestatic  #346                // Method com/mojang/blaze3d/platform/GlStateManager._viewport:(IIII)V
+       7: return
+
+  public static void colorMask(boolean, boolean, boolean, boolean);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: iload_0
+       4: iload_1
+       5: iload_2
+       6: iload_3
+       7: invokestatic  #351                // Method com/mojang/blaze3d/platform/GlStateManager._colorMask:(ZZZZ)V
+      10: return
+
+  public static void stencilFunc(int, int, int);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: iload_0
+       4: iload_1
+       5: iload_2
+       6: invokestatic  #355                // Method com/mojang/blaze3d/platform/GlStateManager._stencilFunc:(III)V
+       9: return
+
+  public static void stencilMask(int);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: iload_0
+       4: invokestatic  #359                // Method com/mojang/blaze3d/platform/GlStateManager._stencilMask:(I)V
+       7: return
+
+  public static void stencilOp(int, int, int);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: iload_0
+       4: iload_1
+       5: iload_2
+       6: invokestatic  #363                // Method com/mojang/blaze3d/platform/GlStateManager._stencilOp:(III)V
+       9: return
+
+  public static void clearDepth(double);
+    Code:
+       0: dload_0
+       1: invokestatic  #367                // Method com/mojang/blaze3d/platform/GlStateManager._clearDepth:(D)V
+       4: return
+
+  public static void clearColor(float, float, float, float);
+    Code:
+       0: fload_0
+       1: fload_1
+       2: fload_2
+       3: fload_3
+       4: invokestatic  #372                // Method com/mojang/blaze3d/platform/GlStateManager._clearColor:(FFFF)V
+       7: return
+
+  public static void clearStencil(int);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: iload_0
+       4: invokestatic  #376                // Method com/mojang/blaze3d/platform/GlStateManager._clearStencil:(I)V
+       7: return
+
+  public static void clear(int, boolean);
+    Code:
+       0: iload_0
+       1: iload_1
+       2: invokestatic  #381                // Method com/mojang/blaze3d/platform/GlStateManager._clear:(IZ)V
+       5: return
+
+  public static void setShaderFogStart(float);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: fload_0
+       4: putstatic     #385                // Field shaderFogStart:F
+       7: return
+
+  public static float getShaderFogStart();
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: getstatic     #385                // Field shaderFogStart:F
+       6: freturn
+
+  public static void setShaderGlintAlpha(double);
+    Code:
+       0: dload_0
+       1: d2f
+       2: invokestatic  #390                // Method setShaderGlintAlpha:(F)V
+       5: return
+
+  public static void setShaderGlintAlpha(float);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: fload_0
+       4: putstatic     #392                // Field shaderGlintAlpha:F
+       7: return
+
+  public static float getShaderGlintAlpha();
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: getstatic     #392                // Field shaderGlintAlpha:F
+       6: freturn
+
+  public static void setShaderFogEnd(float);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: fload_0
+       4: putstatic     #396                // Field shaderFogEnd:F
+       7: return
+
+  public static float getShaderFogEnd();
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: getstatic     #396                // Field shaderFogEnd:F
+       6: freturn
+
+  public static void setShaderFogColor(float, float, float, float);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: getstatic     #400                // Field shaderFogColor:[F
+       6: iconst_0
+       7: fload_0
+       8: fastore
+       9: getstatic     #400                // Field shaderFogColor:[F
+      12: iconst_1
+      13: fload_1
+      14: fastore
+      15: getstatic     #400                // Field shaderFogColor:[F
+      18: iconst_2
+      19: fload_2
+      20: fastore
+      21: getstatic     #400                // Field shaderFogColor:[F
+      24: iconst_3
+      25: fload_3
+      26: fastore
+      27: return
+
+  public static void setShaderFogColor(float, float, float);
+    Code:
+       0: fload_0
+       1: fload_1
+       2: fload_2
+       3: fconst_1
+       4: invokestatic  #403                // Method setShaderFogColor:(FFFF)V
+       7: return
+
+  public static float[] getShaderFogColor();
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: getstatic     #400                // Field shaderFogColor:[F
+       6: areturn
+
+  public static void setShaderFogShape(fav);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: aload_0
+       4: putstatic     #409                // Field shaderFogShape:Lfav;
+       7: return
+
+  public static fav getShaderFogShape();
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: getstatic     #409                // Field shaderFogShape:Lfav;
+       6: areturn
+
+  public static void setShaderLights(org.joml.Vector3f, org.joml.Vector3f);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: getstatic     #415                // Field shaderLightDirections:[Lorg/joml/Vector3f;
+       6: iconst_0
+       7: aload_0
+       8: aastore
+       9: getstatic     #415                // Field shaderLightDirections:[Lorg/joml/Vector3f;
+      12: iconst_1
+      13: aload_1
+      14: aastore
+      15: return
+
+  public static void setupShaderLights(gfn);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: aload_0
+       4: getfield      #423                // Field gfn.g:Lfaz;
+       7: ifnull        22
+      10: aload_0
+      11: getfield      #423                // Field gfn.g:Lfaz;
+      14: getstatic     #415                // Field shaderLightDirections:[Lorg/joml/Vector3f;
+      17: iconst_0
+      18: aaload
+      19: invokevirtual #428                // Method faz.a:(Lorg/joml/Vector3f;)V
+      22: aload_0
+      23: getfield      #431                // Field gfn.h:Lfaz;
+      26: ifnull        41
+      29: aload_0
+      30: getfield      #431                // Field gfn.h:Lfaz;
+      33: getstatic     #415                // Field shaderLightDirections:[Lorg/joml/Vector3f;
+      36: iconst_1
+      37: aaload
+      38: invokevirtual #428                // Method faz.a:(Lorg/joml/Vector3f;)V
+      41: return
+
+  public static void setShaderColor(float, float, float, float);
+    Code:
+       0: invokestatic  #122                // Method isOnRenderThread:()Z
+       3: ifne          21
+       6: fload_0
+       7: fload_1
+       8: fload_2
+       9: fload_3
+      10: invokedynamic #447,  0            // InvokeDynamic #0:execute:(FFFF)Lezt;
+      15: invokestatic  #449                // Method recordRenderCall:(Lezt;)V
+      18: goto          28
+      21: fload_0
+      22: fload_1
+      23: fload_2
+      24: fload_3
+      25: invokestatic  #452                // Method _setShaderColor:(FFFF)V
+      28: return
+
+  private static void _setShaderColor(float, float, float, float);
+    Code:
+       0: getstatic     #454                // Field shaderColor:[F
+       3: iconst_0
+       4: fload_0
+       5: fastore
+       6: getstatic     #454                // Field shaderColor:[F
+       9: iconst_1
+      10: fload_1
+      11: fastore
+      12: getstatic     #454                // Field shaderColor:[F
+      15: iconst_2
+      16: fload_2
+      17: fastore
+      18: getstatic     #454                // Field shaderColor:[F
+      21: iconst_3
+      22: fload_3
+      23: fastore
+      24: return
+
+  public static float[] getShaderColor();
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: getstatic     #454                // Field shaderColor:[F
+       6: areturn
+
+  public static void drawElements(int, int, int);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: iload_0
+       4: iload_1
+       5: iload_2
+       6: lconst_0
+       7: invokestatic  #460                // Method com/mojang/blaze3d/platform/GlStateManager._drawElements:(IIIJ)V
+      10: return
+
+  public static void lineWidth(float);
+    Code:
+       0: invokestatic  #122                // Method isOnRenderThread:()Z
+       3: ifne          18
+       6: fload_0
+       7: invokedynamic #468,  0            // InvokeDynamic #1:execute:(F)Lezt;
+      12: invokestatic  #449                // Method recordRenderCall:(Lezt;)V
+      15: goto          22
+      18: fload_0
+      19: putstatic     #470                // Field shaderLineWidth:F
+      22: return
+
+  public static float getShaderLineWidth();
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: getstatic     #470                // Field shaderLineWidth:F
+       6: freturn
+
+  public static void pixelStore(int, int);
+    Code:
+       0: iload_0
+       1: iload_1
+       2: invokestatic  #475                // Method com/mojang/blaze3d/platform/GlStateManager._pixelStore:(II)V
+       5: return
+
+  public static void readPixels(int, int, int, int, int, int, java.nio.ByteBuffer);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: iload_0
+       4: iload_1
+       5: iload_2
+       6: iload_3
+       7: iload         4
+       9: iload         5
+      11: aload         6
+      13: invokestatic  #480                // Method com/mojang/blaze3d/platform/GlStateManager._readPixels:(IIIIIILjava/nio/ByteBuffer;)V
+      16: return
+
+  public static void getString(int, java.util.function.Consumer<java.lang.String>);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: aload_1
+       4: iload_0
+       5: invokestatic  #491                // Method com/mojang/blaze3d/platform/GlStateManager._getString:(I)Ljava/lang/String;
+       8: invokeinterface #497,  2          // InterfaceMethod java/util/function/Consumer.accept:(Ljava/lang/Object;)V
+      13: return
+
+  public static java.lang.String getBackendDescription();
+    Code:
+       0: getstatic     #507                // Field java/util/Locale.ROOT:Ljava/util/Locale;
+       3: ldc_w         #509                // String LWJGL version %s
+       6: iconst_1
+       7: anewarray     #4                  // class java/lang/Object
+      10: dup
+      11: iconst_0
+      12: invokestatic  #514                // Method com/mojang/blaze3d/platform/GLX._getLWJGLVersion:()Ljava/lang/String;
+      15: aastore
+      16: invokestatic  #520                // Method java/lang/String.format:(Ljava/util/Locale;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+      19: areturn
+
+  public static java.lang.String getApiDescription();
+    Code:
+       0: getstatic     #523                // Field apiDescription:Ljava/lang/String;
+       3: areturn
+
+  public static azo$a initBackendSystem();
+    Code:
+       0: invokestatic  #529                // Method com/mojang/blaze3d/platform/GLX._initGlfw:()Ljava/util/function/LongSupplier;
+       3: dup
+       4: invokestatic  #535                // Method java/util/Objects.requireNonNull:(Ljava/lang/Object;)Ljava/lang/Object;
+       7: pop
+       8: invokedynamic #545,  0            // InvokeDynamic #2:getAsLong:(Ljava/util/function/LongSupplier;)Lazo$a;
+      13: areturn
+
+  public static void initRenderer(int, boolean);
+    Code:
+       0: iload_0
+       1: iload_1
+       2: invokestatic  #549                // Method com/mojang/blaze3d/platform/GLX._init:(IZ)V
+       5: invokestatic  #552                // Method com/mojang/blaze3d/platform/GLX.getOpenGLVersionString:()Ljava/lang/String;
+       8: putstatic     #523                // Field apiDescription:Ljava/lang/String;
+      11: return
+
+  public static void setErrorCallback(org.lwjgl.glfw.GLFWErrorCallbackI);
+    Code:
+       0: aload_0
+       1: invokestatic  #557                // Method com/mojang/blaze3d/platform/GLX._setGlfwErrorCallback:(Lorg/lwjgl/glfw/GLFWErrorCallbackI;)V
+       4: return
+
+  public static void renderCrosshair(int);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: iload_0
+       4: iconst_1
+       5: iconst_1
+       6: iconst_1
+       7: invokestatic  #563                // Method com/mojang/blaze3d/platform/GLX._renderCrosshair:(IZZZ)V
+      10: return
+
+  public static java.lang.String getCapsString();
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: ldc_w         #566                // String Using framebuffer using OpenGL 3.2
+       6: areturn
+
+  public static void setupDefaultState(int, int, int, int);
+    Code:
+       0: dconst_1
+       1: invokestatic  #367                // Method com/mojang/blaze3d/platform/GlStateManager._clearDepth:(D)V
+       4: invokestatic  #230                // Method com/mojang/blaze3d/platform/GlStateManager._enableDepthTest:()V
+       7: sipush        515
+      10: invokestatic  #247                // Method com/mojang/blaze3d/platform/GlStateManager._depthFunc:(I)V
+      13: getstatic     #569                // Field projectionMatrix:Lorg/joml/Matrix4f;
+      16: invokevirtual #575                // Method org/joml/Matrix4f.identity:()Lorg/joml/Matrix4f;
+      19: pop
+      20: getstatic     #577                // Field savedProjectionMatrix:Lorg/joml/Matrix4f;
+      23: invokevirtual #575                // Method org/joml/Matrix4f.identity:()Lorg/joml/Matrix4f;
+      26: pop
+      27: getstatic     #579                // Field modelViewMatrix:Lorg/joml/Matrix4f;
+      30: invokevirtual #575                // Method org/joml/Matrix4f.identity:()Lorg/joml/Matrix4f;
+      33: pop
+      34: getstatic     #581                // Field textureMatrix:Lorg/joml/Matrix4f;
+      37: invokevirtual #575                // Method org/joml/Matrix4f.identity:()Lorg/joml/Matrix4f;
+      40: pop
+      41: iload_0
+      42: iload_1
+      43: iload_2
+      44: iload_3
+      45: invokestatic  #346                // Method com/mojang/blaze3d/platform/GlStateManager._viewport:(IIII)V
+      48: return
+
+  public static int maxSupportedTextureSize();
+    Code:
+       0: getstatic     #585                // Field MAX_SUPPORTED_TEXTURE_SIZE:I
+       3: iconst_m1
+       4: if_icmpne     107
+       7: invokestatic  #587                // Method assertOnRenderThreadOrInit:()V
+      10: sipush        3379
+      13: invokestatic  #591                // Method com/mojang/blaze3d/platform/GlStateManager._getInteger:(I)I
+      16: istore_0
+      17: ldc_w         #592                // int 32768
+      20: iload_0
+      21: invokestatic  #598                // Method java/lang/Math.max:(II)I
+      24: istore_1
+      25: iload_1
+      26: sipush        1024
+      29: if_icmplt     80
+      32: ldc_w         #599                // int 32868
+      35: iconst_0
+      36: sipush        6408
+      39: iload_1
+      40: iload_1
+      41: iconst_0
+      42: sipush        6408
+      45: sipush        5121
+      48: aconst_null
+      49: invokestatic  #603                // Method com/mojang/blaze3d/platform/GlStateManager._texImage2D:(IIIIIIIILjava/nio/IntBuffer;)V
+      52: ldc_w         #599                // int 32868
+      55: iconst_0
+      56: sipush        4096
+      59: invokestatic  #607                // Method com/mojang/blaze3d/platform/GlStateManager._getTexLevelParameter:(III)I
+      62: istore_2
+      63: iload_2
+      64: ifeq          73
+      67: iload_1
+      68: putstatic     #585                // Field MAX_SUPPORTED_TEXTURE_SIZE:I
+      71: iload_1
+      72: ireturn
+      73: iload_1
+      74: iconst_1
+      75: ishr
+      76: istore_1
+      77: goto          25
+      80: iload_0
+      81: sipush        1024
+      84: invokestatic  #598                // Method java/lang/Math.max:(II)I
+      87: putstatic     #585                // Field MAX_SUPPORTED_TEXTURE_SIZE:I
+      90: getstatic     #609                // Field LOGGER:Lorg/slf4j/Logger;
+      93: ldc_w         #611                // String Failed to determine maximum texture size by probing, trying GL_MAX_TEXTURE_SIZE = {}
+      96: getstatic     #585                // Field MAX_SUPPORTED_TEXTURE_SIZE:I
+      99: invokestatic  #617                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+     102: invokeinterface #623,  3          // InterfaceMethod org/slf4j/Logger.info:(Ljava/lang/String;Ljava/lang/Object;)V
+     107: getstatic     #585                // Field MAX_SUPPORTED_TEXTURE_SIZE:I
+     110: ireturn
+
+  public static void glBindBuffer(int, int);
+    Code:
+       0: iload_0
+       1: iload_1
+       2: invokestatic  #627                // Method com/mojang/blaze3d/platform/GlStateManager._glBindBuffer:(II)V
+       5: return
+
+  public static void glBindVertexArray(int);
+    Code:
+       0: iload_0
+       1: invokestatic  #631                // Method com/mojang/blaze3d/platform/GlStateManager._glBindVertexArray:(I)V
+       4: return
+
+  public static void glBufferData(int, java.nio.ByteBuffer, int);
+    Code:
+       0: invokestatic  #587                // Method assertOnRenderThreadOrInit:()V
+       3: iload_0
+       4: aload_1
+       5: iload_2
+       6: invokestatic  #636                // Method com/mojang/blaze3d/platform/GlStateManager._glBufferData:(ILjava/nio/ByteBuffer;I)V
+       9: return
+
+  public static void glDeleteBuffers(int);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: iload_0
+       4: invokestatic  #640                // Method com/mojang/blaze3d/platform/GlStateManager._glDeleteBuffers:(I)V
+       7: return
+
+  public static void glDeleteVertexArrays(int);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: iload_0
+       4: invokestatic  #644                // Method com/mojang/blaze3d/platform/GlStateManager._glDeleteVertexArrays:(I)V
+       7: return
+
+  public static void glUniform1i(int, int);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: iload_0
+       4: iload_1
+       5: invokestatic  #648                // Method com/mojang/blaze3d/platform/GlStateManager._glUniform1i:(II)V
+       8: return
+
+  public static void glUniform1(int, java.nio.IntBuffer);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: iload_0
+       4: aload_1
+       5: invokestatic  #653                // Method com/mojang/blaze3d/platform/GlStateManager._glUniform1:(ILjava/nio/IntBuffer;)V
+       8: return
+
+  public static void glUniform2(int, java.nio.IntBuffer);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: iload_0
+       4: aload_1
+       5: invokestatic  #658                // Method com/mojang/blaze3d/platform/GlStateManager._glUniform2:(ILjava/nio/IntBuffer;)V
+       8: return
+
+  public static void glUniform3(int, java.nio.IntBuffer);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: iload_0
+       4: aload_1
+       5: invokestatic  #662                // Method com/mojang/blaze3d/platform/GlStateManager._glUniform3:(ILjava/nio/IntBuffer;)V
+       8: return
+
+  public static void glUniform4(int, java.nio.IntBuffer);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: iload_0
+       4: aload_1
+       5: invokestatic  #666                // Method com/mojang/blaze3d/platform/GlStateManager._glUniform4:(ILjava/nio/IntBuffer;)V
+       8: return
+
+  public static void glUniform1(int, java.nio.FloatBuffer);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: iload_0
+       4: aload_1
+       5: invokestatic  #669                // Method com/mojang/blaze3d/platform/GlStateManager._glUniform1:(ILjava/nio/FloatBuffer;)V
+       8: return
+
+  public static void glUniform2(int, java.nio.FloatBuffer);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: iload_0
+       4: aload_1
+       5: invokestatic  #672                // Method com/mojang/blaze3d/platform/GlStateManager._glUniform2:(ILjava/nio/FloatBuffer;)V
+       8: return
+
+  public static void glUniform3(int, java.nio.FloatBuffer);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: iload_0
+       4: aload_1
+       5: invokestatic  #674                // Method com/mojang/blaze3d/platform/GlStateManager._glUniform3:(ILjava/nio/FloatBuffer;)V
+       8: return
+
+  public static void glUniform4(int, java.nio.FloatBuffer);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: iload_0
+       4: aload_1
+       5: invokestatic  #676                // Method com/mojang/blaze3d/platform/GlStateManager._glUniform4:(ILjava/nio/FloatBuffer;)V
+       8: return
+
+  public static void glUniformMatrix2(int, boolean, java.nio.FloatBuffer);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: iload_0
+       4: iload_1
+       5: aload_2
+       6: invokestatic  #681                // Method com/mojang/blaze3d/platform/GlStateManager._glUniformMatrix2:(IZLjava/nio/FloatBuffer;)V
+       9: return
+
+  public static void glUniformMatrix3(int, boolean, java.nio.FloatBuffer);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: iload_0
+       4: iload_1
+       5: aload_2
+       6: invokestatic  #685                // Method com/mojang/blaze3d/platform/GlStateManager._glUniformMatrix3:(IZLjava/nio/FloatBuffer;)V
+       9: return
+
+  public static void glUniformMatrix4(int, boolean, java.nio.FloatBuffer);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: iload_0
+       4: iload_1
+       5: aload_2
+       6: invokestatic  #689                // Method com/mojang/blaze3d/platform/GlStateManager._glUniformMatrix4:(IZLjava/nio/FloatBuffer;)V
+       9: return
+
+  public static void setupOverlayColor(int, int);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: iconst_1
+       4: iload_0
+       5: invokestatic  #693                // Method setShaderTexture:(II)V
+       8: return
+
+  public static void teardownOverlayColor();
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: iconst_1
+       4: iconst_0
+       5: invokestatic  #693                // Method setShaderTexture:(II)V
+       8: return
+
+  public static void setupLevelDiffuseLighting(org.joml.Vector3f, org.joml.Vector3f);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: aload_0
+       4: aload_1
+       5: invokestatic  #697                // Method setShaderLights:(Lorg/joml/Vector3f;Lorg/joml/Vector3f;)V
+       8: return
+
+  public static void setupGuiFlatDiffuseLighting(org.joml.Vector3f, org.joml.Vector3f);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: aload_0
+       4: aload_1
+       5: invokestatic  #700                // Method com/mojang/blaze3d/platform/GlStateManager.setupGuiFlatDiffuseLighting:(Lorg/joml/Vector3f;Lorg/joml/Vector3f;)V
+       8: return
+
+  public static void setupGui3DDiffuseLighting(org.joml.Vector3f, org.joml.Vector3f);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: aload_0
+       4: aload_1
+       5: invokestatic  #703                // Method com/mojang/blaze3d/platform/GlStateManager.setupGui3DDiffuseLighting:(Lorg/joml/Vector3f;Lorg/joml/Vector3f;)V
+       8: return
+
+  public static void beginInitialization();
+    Code:
+       0: iconst_1
+       1: putstatic     #120                // Field isInInit:Z
+       4: return
+
+  public static void finishInitialization();
+    Code:
+       0: iconst_0
+       1: putstatic     #120                // Field isInInit:Z
+       4: getstatic     #134                // Field recordingQueue:Ljava/util/concurrent/ConcurrentLinkedQueue;
+       7: invokevirtual #197                // Method java/util/concurrent/ConcurrentLinkedQueue.isEmpty:()Z
+      10: ifne          16
+      13: invokestatic  #182                // Method replayQueue:()V
+      16: getstatic     #134                // Field recordingQueue:Ljava/util/concurrent/ConcurrentLinkedQueue;
+      19: invokevirtual #197                // Method java/util/concurrent/ConcurrentLinkedQueue.isEmpty:()Z
+      22: ifne          36
+      25: new           #104                // class java/lang/IllegalStateException
+      28: dup
+      29: ldc_w         #707                // String Recorded to render queue during initialization
+      32: invokespecial #109                // Method java/lang/IllegalStateException."<init>":(Ljava/lang/String;)V
+      35: athrow
+      36: return
+
+  public static void glGenBuffers(java.util.function.Consumer<java.lang.Integer>);
+    Code:
+       0: invokestatic  #122                // Method isOnRenderThread:()Z
+       3: ifne          18
+       6: aload_0
+       7: invokedynamic #717,  0            // InvokeDynamic #3:execute:(Ljava/util/function/Consumer;)Lezt;
+      12: invokestatic  #449                // Method recordRenderCall:(Lezt;)V
+      15: goto          30
+      18: aload_0
+      19: invokestatic  #720                // Method com/mojang/blaze3d/platform/GlStateManager._glGenBuffers:()I
+      22: invokestatic  #617                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+      25: invokeinterface #497,  2          // InterfaceMethod java/util/function/Consumer.accept:(Ljava/lang/Object;)V
+      30: return
+
+  public static void glGenVertexArrays(java.util.function.Consumer<java.lang.Integer>);
+    Code:
+       0: invokestatic  #122                // Method isOnRenderThread:()Z
+       3: ifne          18
+       6: aload_0
+       7: invokedynamic #727,  0            // InvokeDynamic #4:execute:(Ljava/util/function/Consumer;)Lezt;
+      12: invokestatic  #449                // Method recordRenderCall:(Lezt;)V
+      15: goto          30
+      18: aload_0
+      19: invokestatic  #730                // Method com/mojang/blaze3d/platform/GlStateManager._glGenVertexArrays:()I
+      22: invokestatic  #617                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+      25: invokeinterface #497,  2          // InterfaceMethod java/util/function/Consumer.accept:(Ljava/lang/Object;)V
+      30: return
+
+  public static fbk renderThreadTesselator();
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: getstatic     #733                // Field RENDER_THREAD_TESSELATOR:Lfbk;
+       6: areturn
+
+  public static void defaultBlendFunc();
+    Code:
+       0: getstatic     #737                // Field com/mojang/blaze3d/platform/GlStateManager$SourceFactor.SRC_ALPHA:Lcom/mojang/blaze3d/platform/GlStateManager$SourceFactor;
+       3: getstatic     #740                // Field com/mojang/blaze3d/platform/GlStateManager$DestFactor.ONE_MINUS_SRC_ALPHA:Lcom/mojang/blaze3d/platform/GlStateManager$DestFactor;
+       6: getstatic     #743                // Field com/mojang/blaze3d/platform/GlStateManager$SourceFactor.ONE:Lcom/mojang/blaze3d/platform/GlStateManager$SourceFactor;
+       9: getstatic     #746                // Field com/mojang/blaze3d/platform/GlStateManager$DestFactor.ZERO:Lcom/mojang/blaze3d/platform/GlStateManager$DestFactor;
+      12: invokestatic  #748                // Method blendFuncSeparate:(Lcom/mojang/blaze3d/platform/GlStateManager$SourceFactor;Lcom/mojang/blaze3d/platform/GlStateManager$DestFactor;Lcom/mojang/blaze3d/platform/GlStateManager$SourceFactor;Lcom/mojang/blaze3d/platform/GlStateManager$DestFactor;)V
+      15: return
+
+  public static void runAsFancy(java.lang.Runnable);
+    Code:
+       0: invokestatic  #756                // Method fgo.O:()Z
+       3: istore_1
+       4: iload_1
+       5: ifne          15
+       8: aload_0
+       9: invokeinterface #761,  1          // InterfaceMethod java/lang/Runnable.run:()V
+      14: return
+      15: invokestatic  #765                // Method fgo.Q:()Lfgo;
+      18: getfield      #769                // Field fgo.m:Lfgs;
+      21: invokevirtual #775                // Method fgs.j:()Lfgr;
+      24: astore_2
+      25: aload_2
+      26: invokevirtual #779                // Method fgr.c:()Ljava/lang/Object;
+      29: checkcast     #781                // class fgh
+      32: astore_3
+      33: aload_2
+      34: getstatic     #784                // Field fgh.b:Lfgh;
+      37: invokevirtual #786                // Method fgr.a:(Ljava/lang/Object;)V
+      40: aload_0
+      41: invokeinterface #761,  1          // InterfaceMethod java/lang/Runnable.run:()V
+      46: aload_2
+      47: aload_3
+      48: invokevirtual #786                // Method fgr.a:(Ljava/lang/Object;)V
+      51: return
+
+  public static void setShader(java.util.function.Supplier<gfn>);
+    Code:
+       0: invokestatic  #122                // Method isOnRenderThread:()Z
+       3: ifne          18
+       6: aload_0
+       7: invokedynamic #799,  0            // InvokeDynamic #5:execute:(Ljava/util/function/Supplier;)Lezt;
+      12: invokestatic  #449                // Method recordRenderCall:(Lezt;)V
+      15: goto          30
+      18: aload_0
+      19: invokeinterface #803,  1          // InterfaceMethod java/util/function/Supplier.get:()Ljava/lang/Object;
+      24: checkcast     #420                // class gfn
+      27: putstatic     #805                // Field shader:Lgfn;
+      30: return
+
+  public static gfn getShader();
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: getstatic     #805                // Field shader:Lgfn;
+       6: areturn
+
+  public static void setShaderTexture(int, akr);
+    Code:
+       0: invokestatic  #122                // Method isOnRenderThread:()Z
+       3: ifne          19
+       6: iload_0
+       7: aload_1
+       8: invokedynamic #817,  0            // InvokeDynamic #6:execute:(ILakr;)Lezt;
+      13: invokestatic  #449                // Method recordRenderCall:(Lezt;)V
+      16: goto          24
+      19: iload_0
+      20: aload_1
+      21: invokestatic  #820                // Method _setShaderTexture:(ILakr;)V
+      24: return
+
+  public static void _setShaderTexture(int, akr);
+    Code:
+       0: iload_0
+       1: iflt          34
+       4: iload_0
+       5: getstatic     #823                // Field shaderTextures:[I
+       8: arraylength
+       9: if_icmpge     34
+      12: invokestatic  #765                // Method fgo.Q:()Lfgo;
+      15: invokevirtual #827                // Method fgo.aa:()Lgqm;
+      18: astore_2
+      19: aload_2
+      20: aload_1
+      21: invokevirtual #832                // Method gqm.b:(Lakr;)Lgpw;
+      24: astore_3
+      25: getstatic     #823                // Field shaderTextures:[I
+      28: iload_0
+      29: aload_3
+      30: invokevirtual #836                // Method gpw.a:()I
+      33: iastore
+      34: return
+
+  public static void setShaderTexture(int, int);
+    Code:
+       0: invokestatic  #122                // Method isOnRenderThread:()Z
+       3: ifne          19
+       6: iload_0
+       7: iload_1
+       8: invokedynamic #845,  0            // InvokeDynamic #7:execute:(II)Lezt;
+      13: invokestatic  #449                // Method recordRenderCall:(Lezt;)V
+      16: goto          24
+      19: iload_0
+      20: iload_1
+      21: invokestatic  #847                // Method _setShaderTexture:(II)V
+      24: return
+
+  public static void _setShaderTexture(int, int);
+    Code:
+       0: iload_0
+       1: iflt          18
+       4: iload_0
+       5: getstatic     #823                // Field shaderTextures:[I
+       8: arraylength
+       9: if_icmpge     18
+      12: getstatic     #823                // Field shaderTextures:[I
+      15: iload_0
+      16: iload_1
+      17: iastore
+      18: return
+
+  public static int getShaderTexture(int);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: iload_0
+       4: iflt          21
+       7: iload_0
+       8: getstatic     #823                // Field shaderTextures:[I
+      11: arraylength
+      12: if_icmpge     21
+      15: getstatic     #823                // Field shaderTextures:[I
+      18: iload_0
+      19: iaload
+      20: ireturn
+      21: iconst_0
+      22: ireturn
+
+  public static void setProjectionMatrix(org.joml.Matrix4f, fbq);
+    Code:
+       0: new           #571                // class org/joml/Matrix4f
+       3: dup
+       4: aload_0
+       5: invokespecial #853                // Method org/joml/Matrix4f."<init>":(Lorg/joml/Matrix4fc;)V
+       8: astore_2
+       9: invokestatic  #122                // Method isOnRenderThread:()Z
+      12: ifne          28
+      15: aload_2
+      16: aload_1
+      17: invokedynamic #860,  0            // InvokeDynamic #8:execute:(Lorg/joml/Matrix4f;Lfbq;)Lezt;
+      22: invokestatic  #449                // Method recordRenderCall:(Lezt;)V
+      25: goto          36
+      28: aload_2
+      29: putstatic     #569                // Field projectionMatrix:Lorg/joml/Matrix4f;
+      32: aload_1
+      33: putstatic     #864                // Field vertexSorting:Lfbq;
+      36: return
+
+  public static void setTextureMatrix(org.joml.Matrix4f);
+    Code:
+       0: new           #571                // class org/joml/Matrix4f
+       3: dup
+       4: aload_0
+       5: invokespecial #853                // Method org/joml/Matrix4f."<init>":(Lorg/joml/Matrix4fc;)V
+       8: astore_1
+       9: invokestatic  #122                // Method isOnRenderThread:()Z
+      12: ifne          27
+      15: aload_1
+      16: invokedynamic #873,  0            // InvokeDynamic #9:execute:(Lorg/joml/Matrix4f;)Lezt;
+      21: invokestatic  #449                // Method recordRenderCall:(Lezt;)V
+      24: goto          31
+      27: aload_1
+      28: putstatic     #581                // Field textureMatrix:Lorg/joml/Matrix4f;
+      31: return
+
+  public static void resetTextureMatrix();
+    Code:
+       0: invokestatic  #122                // Method isOnRenderThread:()Z
+       3: ifne          17
+       6: invokedynamic #881,  0            // InvokeDynamic #10:execute:()Lezt;
+      11: invokestatic  #449                // Method recordRenderCall:(Lezt;)V
+      14: goto          24
+      17: getstatic     #581                // Field textureMatrix:Lorg/joml/Matrix4f;
+      20: invokevirtual #575                // Method org/joml/Matrix4f.identity:()Lorg/joml/Matrix4f;
+      23: pop
+      24: return
+
+  public static void applyModelViewMatrix();
+    Code:
+       0: new           #571                // class org/joml/Matrix4f
+       3: dup
+       4: getstatic     #884                // Field modelViewStack:Lorg/joml/Matrix4fStack;
+       7: invokespecial #853                // Method org/joml/Matrix4f."<init>":(Lorg/joml/Matrix4fc;)V
+      10: astore_0
+      11: invokestatic  #122                // Method isOnRenderThread:()Z
+      14: ifne          29
+      17: aload_0
+      18: invokedynamic #889,  0            // InvokeDynamic #11:execute:(Lorg/joml/Matrix4f;)Lezt;
+      23: invokestatic  #449                // Method recordRenderCall:(Lezt;)V
+      26: goto          33
+      29: aload_0
+      30: putstatic     #579                // Field modelViewMatrix:Lorg/joml/Matrix4f;
+      33: return
+
+  public static void backupProjectionMatrix();
+    Code:
+       0: invokestatic  #122                // Method isOnRenderThread:()Z
+       3: ifne          17
+       6: invokedynamic #895,  0            // InvokeDynamic #12:execute:()Lezt;
+      11: invokestatic  #449                // Method recordRenderCall:(Lezt;)V
+      14: goto          20
+      17: invokestatic  #898                // Method _backupProjectionMatrix:()V
+      20: return
+
+  private static void _backupProjectionMatrix();
+    Code:
+       0: getstatic     #569                // Field projectionMatrix:Lorg/joml/Matrix4f;
+       3: putstatic     #577                // Field savedProjectionMatrix:Lorg/joml/Matrix4f;
+       6: getstatic     #864                // Field vertexSorting:Lfbq;
+       9: putstatic     #900                // Field savedVertexSorting:Lfbq;
+      12: return
+
+  public static void restoreProjectionMatrix();
+    Code:
+       0: invokestatic  #122                // Method isOnRenderThread:()Z
+       3: ifne          17
+       6: invokedynamic #906,  0            // InvokeDynamic #13:execute:()Lezt;
+      11: invokestatic  #449                // Method recordRenderCall:(Lezt;)V
+      14: goto          20
+      17: invokestatic  #909                // Method _restoreProjectionMatrix:()V
+      20: return
+
+  private static void _restoreProjectionMatrix();
+    Code:
+       0: getstatic     #577                // Field savedProjectionMatrix:Lorg/joml/Matrix4f;
+       3: putstatic     #569                // Field projectionMatrix:Lorg/joml/Matrix4f;
+       6: getstatic     #900                // Field savedVertexSorting:Lfbq;
+       9: putstatic     #864                // Field vertexSorting:Lfbq;
+      12: return
+
+  public static org.joml.Matrix4f getProjectionMatrix();
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: getstatic     #569                // Field projectionMatrix:Lorg/joml/Matrix4f;
+       6: areturn
+
+  public static org.joml.Matrix4f getModelViewMatrix();
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: getstatic     #579                // Field modelViewMatrix:Lorg/joml/Matrix4f;
+       6: areturn
+
+  public static org.joml.Matrix4fStack getModelViewStack();
+    Code:
+       0: getstatic     #884                // Field modelViewStack:Lorg/joml/Matrix4fStack;
+       3: areturn
+
+  public static org.joml.Matrix4f getTextureMatrix();
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: getstatic     #581                // Field textureMatrix:Lorg/joml/Matrix4f;
+       6: areturn
+
+  public static com.mojang.blaze3d.systems.RenderSystem$a getSequentialBuffer(fbn$c);
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: getstatic     #918                // Field com/mojang/blaze3d/systems/RenderSystem$1.a:[I
+       6: aload_0
+       7: invokevirtual #921                // Method fbn$c.ordinal:()I
+      10: iaload
+      11: lookupswitch  { // 2
+                     1: 36
+                     2: 42
+               default: 48
+          }
+      36: getstatic     #923                // Field sharedSequentialQuad:Lcom/mojang/blaze3d/systems/RenderSystem$a;
+      39: goto          51
+      42: getstatic     #925                // Field sharedSequentialLines:Lcom/mojang/blaze3d/systems/RenderSystem$a;
+      45: goto          51
+      48: getstatic     #927                // Field sharedSequential:Lcom/mojang/blaze3d/systems/RenderSystem$a;
+      51: areturn
+
+  public static void setShaderGameTime(long, float);
+    Code:
+       0: lload_0
+       1: ldc2_w        #931                // long 24000l
+       4: lrem
+       5: l2f
+       6: fload_2
+       7: fadd
+       8: ldc_w         #933                // float 24000.0f
+      11: fdiv
+      12: fstore_3
+      13: invokestatic  #122                // Method isOnRenderThread:()Z
+      16: ifne          31
+      19: fload_3
+      20: invokedynamic #938,  0            // InvokeDynamic #14:execute:(F)Lezt;
+      25: invokestatic  #449                // Method recordRenderCall:(Lezt;)V
+      28: goto          35
+      31: fload_3
+      32: putstatic     #940                // Field shaderGameTime:F
+      35: return
+
+  public static float getShaderGameTime();
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: getstatic     #940                // Field shaderGameTime:F
+       6: freturn
+
+  public static fbq getVertexSorting();
+    Code:
+       0: invokestatic  #223                // Method assertOnRenderThread:()V
+       3: getstatic     #864                // Field vertexSorting:Lfbq;
+       6: areturn
+
+  private static void lambda$setShaderGameTime$15(float);
+    Code:
+       0: fload_0
+       1: putstatic     #940                // Field shaderGameTime:F
+       4: return
+
+  private static void lambda$restoreProjectionMatrix$14();
+    Code:
+       0: invokestatic  #909                // Method _restoreProjectionMatrix:()V
+       3: return
+
+  private static void lambda$backupProjectionMatrix$13();
+    Code:
+       0: invokestatic  #898                // Method _backupProjectionMatrix:()V
+       3: return
+
+  private static void lambda$applyModelViewMatrix$12(org.joml.Matrix4f);
+    Code:
+       0: aload_0
+       1: putstatic     #579                // Field modelViewMatrix:Lorg/joml/Matrix4f;
+       4: return
+
+  private static void lambda$resetTextureMatrix$11();
+    Code:
+       0: getstatic     #581                // Field textureMatrix:Lorg/joml/Matrix4f;
+       3: invokevirtual #575                // Method org/joml/Matrix4f.identity:()Lorg/joml/Matrix4f;
+       6: pop
+       7: return
+
+  private static void lambda$setTextureMatrix$10(org.joml.Matrix4f);
+    Code:
+       0: aload_0
+       1: putstatic     #581                // Field textureMatrix:Lorg/joml/Matrix4f;
+       4: return
+
+  private static void lambda$setProjectionMatrix$9(org.joml.Matrix4f, fbq);
+    Code:
+       0: aload_0
+       1: putstatic     #569                // Field projectionMatrix:Lorg/joml/Matrix4f;
+       4: aload_1
+       5: putstatic     #864                // Field vertexSorting:Lfbq;
+       8: return
+
+  private static void lambda$setShaderTexture$8(int, int);
+    Code:
+       0: iload_0
+       1: iload_1
+       2: invokestatic  #847                // Method _setShaderTexture:(II)V
+       5: return
+
+  private static void lambda$setShaderTexture$7(int, akr);
+    Code:
+       0: iload_0
+       1: aload_1
+       2: invokestatic  #820                // Method _setShaderTexture:(ILakr;)V
+       5: return
+
+  private static void lambda$setShader$6(java.util.function.Supplier);
+    Code:
+       0: aload_0
+       1: invokeinterface #803,  1          // InterfaceMethod java/util/function/Supplier.get:()Ljava/lang/Object;
+       6: checkcast     #420                // class gfn
+       9: putstatic     #805                // Field shader:Lgfn;
+      12: return
+
+  private static void lambda$glGenVertexArrays$5(java.util.function.Consumer);
+    Code:
+       0: aload_0
+       1: invokestatic  #730                // Method com/mojang/blaze3d/platform/GlStateManager._glGenVertexArrays:()I
+       4: invokestatic  #617                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+       7: invokeinterface #497,  2          // InterfaceMethod java/util/function/Consumer.accept:(Ljava/lang/Object;)V
+      12: return
+
+  private static void lambda$glGenBuffers$4(java.util.function.Consumer);
+    Code:
+       0: aload_0
+       1: invokestatic  #720                // Method com/mojang/blaze3d/platform/GlStateManager._glGenBuffers:()I
+       4: invokestatic  #617                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+       7: invokeinterface #497,  2          // InterfaceMethod java/util/function/Consumer.accept:(Ljava/lang/Object;)V
+      12: return
+
+  private static void lambda$lineWidth$3(float);
+    Code:
+       0: fload_0
+       1: putstatic     #470                // Field shaderLineWidth:F
+       4: return
+
+  private static void lambda$setShaderColor$2(float, float, float, float);
+    Code:
+       0: fload_0
+       1: fload_1
+       2: fload_2
+       3: fload_3
+       4: invokestatic  #452                // Method _setShaderColor:(FFFF)V
+       7: return
+
+  private static void lambda$static$1(it.unimi.dsi.fastutil.ints.IntConsumer, int);
+    Code:
+       0: aload_0
+       1: iload_1
+       2: iconst_0
+       3: iadd
+       4: invokeinterface #949,  2          // InterfaceMethod it/unimi/dsi/fastutil/ints/IntConsumer.accept:(I)V
+       9: aload_0
+      10: iload_1
+      11: iconst_1
+      12: iadd
+      13: invokeinterface #949,  2          // InterfaceMethod it/unimi/dsi/fastutil/ints/IntConsumer.accept:(I)V
+      18: aload_0
+      19: iload_1
+      20: iconst_2
+      21: iadd
+      22: invokeinterface #949,  2          // InterfaceMethod it/unimi/dsi/fastutil/ints/IntConsumer.accept:(I)V
+      27: aload_0
+      28: iload_1
+      29: iconst_3
+      30: iadd
+      31: invokeinterface #949,  2          // InterfaceMethod it/unimi/dsi/fastutil/ints/IntConsumer.accept:(I)V
+      36: aload_0
+      37: iload_1
+      38: iconst_2
+      39: iadd
+      40: invokeinterface #949,  2          // InterfaceMethod it/unimi/dsi/fastutil/ints/IntConsumer.accept:(I)V
+      45: aload_0
+      46: iload_1
+      47: iconst_1
+      48: iadd
+      49: invokeinterface #949,  2          // InterfaceMethod it/unimi/dsi/fastutil/ints/IntConsumer.accept:(I)V
+      54: return
+
+  private static void lambda$static$0(it.unimi.dsi.fastutil.ints.IntConsumer, int);
+    Code:
+       0: aload_0
+       1: iload_1
+       2: iconst_0
+       3: iadd
+       4: invokeinterface #949,  2          // InterfaceMethod it/unimi/dsi/fastutil/ints/IntConsumer.accept:(I)V
+       9: aload_0
+      10: iload_1
+      11: iconst_1
+      12: iadd
+      13: invokeinterface #949,  2          // InterfaceMethod it/unimi/dsi/fastutil/ints/IntConsumer.accept:(I)V
+      18: aload_0
+      19: iload_1
+      20: iconst_2
+      21: iadd
+      22: invokeinterface #949,  2          // InterfaceMethod it/unimi/dsi/fastutil/ints/IntConsumer.accept:(I)V
+      27: aload_0
+      28: iload_1
+      29: iconst_2
+      30: iadd
+      31: invokeinterface #949,  2          // InterfaceMethod it/unimi/dsi/fastutil/ints/IntConsumer.accept:(I)V
+      36: aload_0
+      37: iload_1
+      38: iconst_3
+      39: iadd
+      40: invokeinterface #949,  2          // InterfaceMethod it/unimi/dsi/fastutil/ints/IntConsumer.accept:(I)V
+      45: aload_0
+      46: iload_1
+      47: iconst_0
+      48: iadd
+      49: invokeinterface #949,  2          // InterfaceMethod it/unimi/dsi/fastutil/ints/IntConsumer.accept:(I)V
+      54: return
+
+  static {};
+    Code:
+       0: invokestatic  #958                // Method com/mojang/logging/LogUtils.getLogger:()Lorg/slf4j/Logger;
+       3: putstatic     #609                // Field LOGGER:Lorg/slf4j/Logger;
+       6: invokestatic  #964                // Method com/google/common/collect/Queues.newConcurrentLinkedQueue:()Ljava/util/concurrent/ConcurrentLinkedQueue;
+       9: putstatic     #134                // Field recordingQueue:Ljava/util/concurrent/ConcurrentLinkedQueue;
+      12: new           #184                // class fbk
+      15: dup
+      16: sipush        1536
+      19: invokespecial #966                // Method fbk."<init>":(I)V
+      22: putstatic     #733                // Field RENDER_THREAD_TESSELATOR:Lfbk;
+      25: iconst_m1
+      26: putstatic     #585                // Field MAX_SUPPORTED_TEXTURE_SIZE:I
+      29: ldc2_w        #967                // double 4.9E-324d
+      32: putstatic     #210                // Field lastDrawTime:D
+      35: new           #10                 // class com/mojang/blaze3d/systems/RenderSystem$a
+      38: dup
+      39: iconst_1
+      40: iconst_1
+      41: invokedynamic #976,  0            // InvokeDynamic #15:accept:()Lcom/mojang/blaze3d/systems/RenderSystem$a$a;
+      46: invokespecial #979                // Method com/mojang/blaze3d/systems/RenderSystem$a."<init>":(IILcom/mojang/blaze3d/systems/RenderSystem$a$a;)V
+      49: putstatic     #927                // Field sharedSequential:Lcom/mojang/blaze3d/systems/RenderSystem$a;
+      52: new           #10                 // class com/mojang/blaze3d/systems/RenderSystem$a
+      55: dup
+      56: iconst_4
+      57: bipush        6
+      59: invokedynamic #983,  0            // InvokeDynamic #16:accept:()Lcom/mojang/blaze3d/systems/RenderSystem$a$a;
+      64: invokespecial #979                // Method com/mojang/blaze3d/systems/RenderSystem$a."<init>":(IILcom/mojang/blaze3d/systems/RenderSystem$a$a;)V
+      67: putstatic     #923                // Field sharedSequentialQuad:Lcom/mojang/blaze3d/systems/RenderSystem$a;
+      70: new           #10                 // class com/mojang/blaze3d/systems/RenderSystem$a
+      73: dup
+      74: iconst_4
+      75: bipush        6
+      77: invokedynamic #987,  0            // InvokeDynamic #17:accept:()Lcom/mojang/blaze3d/systems/RenderSystem$a$a;
+      82: invokespecial #979                // Method com/mojang/blaze3d/systems/RenderSystem$a."<init>":(IILcom/mojang/blaze3d/systems/RenderSystem$a$a;)V
+      85: putstatic     #925                // Field sharedSequentialLines:Lcom/mojang/blaze3d/systems/RenderSystem$a;
+      88: new           #571                // class org/joml/Matrix4f
+      91: dup
+      92: invokespecial #988                // Method org/joml/Matrix4f."<init>":()V
+      95: putstatic     #569                // Field projectionMatrix:Lorg/joml/Matrix4f;
+      98: new           #571                // class org/joml/Matrix4f
+     101: dup
+     102: invokespecial #988                // Method org/joml/Matrix4f."<init>":()V
+     105: putstatic     #577                // Field savedProjectionMatrix:Lorg/joml/Matrix4f;
+     108: getstatic     #990                // Field fbq.a:Lfbq;
+     111: putstatic     #864                // Field vertexSorting:Lfbq;
+     114: getstatic     #990                // Field fbq.a:Lfbq;
+     117: putstatic     #900                // Field savedVertexSorting:Lfbq;
+     120: new           #992                // class org/joml/Matrix4fStack
+     123: dup
+     124: bipush        16
+     126: invokespecial #993                // Method org/joml/Matrix4fStack."<init>":(I)V
+     129: putstatic     #884                // Field modelViewStack:Lorg/joml/Matrix4fStack;
+     132: new           #571                // class org/joml/Matrix4f
+     135: dup
+     136: invokespecial #988                // Method org/joml/Matrix4f."<init>":()V
+     139: putstatic     #579                // Field modelViewMatrix:Lorg/joml/Matrix4f;
+     142: new           #571                // class org/joml/Matrix4f
+     145: dup
+     146: invokespecial #988                // Method org/joml/Matrix4f."<init>":()V
+     149: putstatic     #581                // Field textureMatrix:Lorg/joml/Matrix4f;
+     152: bipush        12
+     154: newarray       int
+     156: putstatic     #823                // Field shaderTextures:[I
+     159: iconst_4
+     160: newarray       float
+     162: dup
+     163: iconst_0
+     164: fconst_1
+     165: fastore
+     166: dup
+     167: iconst_1
+     168: fconst_1
+     169: fastore
+     170: dup
+     171: iconst_2
+     172: fconst_1
+     173: fastore
+     174: dup
+     175: iconst_3
+     176: fconst_1
+     177: fastore
+     178: putstatic     #454                // Field shaderColor:[F
+     181: fconst_1
+     182: putstatic     #392                // Field shaderGlintAlpha:F
+     185: fconst_1
+     186: putstatic     #396                // Field shaderFogEnd:F
+     189: iconst_4
+     190: newarray       float
+     192: dup
+     193: iconst_0
+     194: fconst_0
+     195: fastore
+     196: dup
+     197: iconst_1
+     198: fconst_0
+     199: fastore
+     200: dup
+     201: iconst_2
+     202: fconst_0
+     203: fastore
+     204: dup
+     205: iconst_3
+     206: fconst_0
+     207: fastore
+     208: putstatic     #400                // Field shaderFogColor:[F
+     211: getstatic     #997                // Field fav.a:Lfav;
+     214: putstatic     #409                // Field shaderFogShape:Lfav;
+     217: iconst_2
+     218: anewarray     #999                // class org/joml/Vector3f
+     221: putstatic     #415                // Field shaderLightDirections:[Lorg/joml/Vector3f;
+     224: fconst_1
+     225: putstatic     #470                // Field shaderLineWidth:F
+     228: ldc_w         #1001               // String Unknown
+     231: putstatic     #523                // Field apiDescription:Ljava/lang/String;
+     234: new           #152                // class java/util/concurrent/atomic/AtomicLong
+     237: dup
+     238: invokespecial #1002               // Method java/util/concurrent/atomic/AtomicLong."<init>":()V
+     241: putstatic     #145                // Field pollEventsWaitStart:Ljava/util/concurrent/atomic/AtomicLong;
+     244: new           #160                // class java/util/concurrent/atomic/AtomicBoolean
+     247: dup
+     248: iconst_0
+     249: invokespecial #1004               // Method java/util/concurrent/atomic/AtomicBoolean."<init>":(Z)V
+     252: putstatic     #158                // Field pollingEvents:Ljava/util/concurrent/atomic/AtomicBoolean;
+     255: return
+}

@@ -1,0 +1,7 @@
+1.21.1.jar -> java.base
+1.21.1.jar -> java.desktop
+1.21.1.jar -> java.management
+1.21.1.jar -> java.naming
+1.21.1.jar -> java.xml
+1.21.1.jar -> jdk.jfr
+1.21.1.jar -> not found

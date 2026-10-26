@@ -1,0 +1,884 @@
+=== Official class mappings ===
+com.mojang.blaze3d.platform.Monitor -> fah:
+com.mojang.blaze3d.platform.VideoMode -> fal:
+com.mojang.blaze3d.platform.Window -> fam:
+com.mojang.blaze3d.systems.RenderSystem -> com.mojang.blaze3d.systems.RenderSystem:
+net.minecraft.client.Minecraft -> fgo:
+
+=== Minecraft constructor: initialization ===
+
+  private final ews bu;
+
+  private boolean bv;
+
+  private final long bw;
+
+  private long bx;
+
+  private java.lang.String by;
+
+  public fgo(fua);
+    Code:
+       0: aload_0
+       1: ldc_w         #360                // String Client
+       4: invokespecial #363                // Method bpl."<init>":(Ljava/lang/String;)V
+       7: aload_0
+       8: ldc2_w        #364                // double 3.141592653589793d
+      11: invokestatic  #371                // Method java/lang/Double.doubleToLongBits:(D)J
+      14: putfield      #373                // Field K:J
+      17: aload_0
+      18: new           #24                 // class fgf$b
+      21: dup
+      22: ldc_w         #374                // float 20.0f
+      25: lconst_0
+      26: aload_0
+      27: invokedynamic #390,  0            // InvokeDynamic #0:apply:(Lfgo;)Lit/unimi/dsi/fastutil/floats/FloatUnaryOperator;
+      32: invokespecial #393                // Method fgf$b."<init>":(FJLit/unimi/dsi/fastutil/floats/FloatUnaryOperator;)V
+      35: putfield      #395                // Field R:Lfgf$b;
+      38: aload_0
+      39: new           #397                // class java/util/concurrent/atomic/AtomicReference
+      42: dup
+      43: invokespecial #400                // Method java/util/concurrent/atomic/AtomicReference."<init>":()V
+      46: putfield      #402                // Field W:Ljava/util/concurrent/atomic/AtomicReference;
+      49: aload_0
+      50: getstatic     #406                // Field fgl.a:Lfgl;
+      53: putfield      #408                // Field Y:Lfgl;
+      56: aload_0
+      57: new           #410                // class fgu
+      60: dup
+      61: getstatic     #412                // Field H:Lakr;
+      64: invokedynamic #421,  0            // InvokeDynamic #1:getBoolean:()Lit/unimi/dsi/fastutil/objects/Object2BooleanFunction;
+      69: invokespecial #424                // Method fgu."<init>":(Lakr;Lit/unimi/dsi/fastutil/objects/Object2BooleanFunction;)V
+      72: putfield      #426                // Field at:Lfgu;
+      75: aload_0
+      76: invokestatic  #429                // Method ad.d:()J
+      79: putfield      #431                // Field aT:J
+      82: aload_0
+      83: ldc_w         #433                // String
+      86: putfield      #435                // Field z:Ljava/lang/String;
+      89: aload_0
+      90: iconst_1
+      91: putfield      #437                // Field D:Z
+      94: aload_0
+      95: invokestatic  #443                // Method com/google/common/collect/Queues.newConcurrentLinkedQueue:()Ljava/util/concurrent/ConcurrentLinkedQueue;
+      98: putfield      #445                // Field be:Ljava/util/Queue;
+     101: aload_0
+     102: getstatic     #450                // Field bnc.a:Lbnc;
+     105: putfield      #452                // Field bh:Lbnf;
+     108: aload_0
+     109: new           #454                // class bmz
+     112: dup
+     113: getstatic     #457                // Field ad.c:Lazo$a;
+     116: aload_0
+     117: invokedynamic #467,  0            // InvokeDynamic #2:getAsInt:(Lfgo;)Ljava/util/function/IntSupplier;
+     122: invokespecial #470                // Method bmz."<init>":(Ljava/util/function/LongSupplier;Ljava/util/function/IntSupplier;)V
+     125: putfield      #472                // Field bj:Lbmz;
+     128: aload_0
+     129: getstatic     #476                // Field bos.a:Lbot;
+     132: putfield      #478                // Field bl:Lbot;
+     135: aload_0
+     136: new           #45                 // class fgx
+     139: dup
+     140: invokespecial #479                // Method fgx."<init>":()V
+     143: putfield      #481                // Field bm:Lfgx;
+     146: aload_0
+     147: ldc_w         #483                // String root
+     150: putfield      #485                // Field by:Ljava/lang/String;
+     153: aload_0
+     154: putstatic     #487                // Field E:Lfgo;
+     157: aload_0
+     158: invokestatic  #492                // Method java/lang/System.currentTimeMillis:()J
+     161: putfield      #494                // Field bw:J
+     164: aload_0
+     165: aload_1
+     166: getfield      #497                // Field fua.c:Lfua$a;
+     169: getfield      #499                // Field fua$a.a:Ljava/io/File;
+     172: putfield      #501                // Field p:Ljava/io/File;
+     175: aload_1
+     176: getfield      #497                // Field fua.c:Lfua$a;
+     179: getfield      #503                // Field fua$a.c:Ljava/io/File;
+     182: astore_2
+     183: aload_0
+     184: aload_1
+     185: getfield      #497                // Field fua.c:Lfua$a;
+     188: getfield      #505                // Field fua$a.b:Ljava/io/File;
+     191: invokevirtual #511                // Method java/io/File.toPath:()Ljava/nio/file/Path;
+     194: putfield      #513                // Field L:Ljava/nio/file/Path;
+     197: aload_0
+     198: aload_1
+     199: getfield      #516                // Field fua.d:Lfua$b;
+     202: getfield      #518                // Field fua$b.b:Ljava/lang/String;
+     205: putfield      #520                // Field Z:Ljava/lang/String;
+     208: aload_0
+     209: aload_1
+     210: getfield      #516                // Field fua.d:Lfua$b;
+     213: getfield      #522                // Field fua$b.c:Ljava/lang/String;
+     216: putfield      #524                // Field aa:Ljava/lang/String;
+     219: aload_0
+     220: getfield      #501                // Field p:Ljava/io/File;
+     223: invokevirtual #511                // Method java/io/File.toPath:()Ljava/nio/file/Path;
+     226: astore_3
+     227: aload_0
+     228: aload_3
+     229: ldc_w         #526                // String allowed_symlinks.txt
+     232: invokeinterface #532,  2          // InterfaceMethod java/nio/file/Path.resolve:(Ljava/lang/String;)Ljava/nio/file/Path;
+     237: invokestatic  #535                // Method erf.a:(Ljava/nio/file/Path;)Lews;
+     240: putfield      #537                // Field bu:Lews;
+     243: new           #539                // class grc
+     246: dup
+     247: aload_1
+     248: getfield      #497                // Field fua.c:Lfua$a;
+     251: invokevirtual #541                // Method fua$a.a:()Ljava/nio/file/Path;
+     254: aload_0
+     255: getfield      #537                // Field bu:Lews;
+     258: invokespecial #544                // Method grc."<init>":(Ljava/nio/file/Path;Lews;)V
+     261: astore        4
+     263: aload_0
+     264: new           #546                // class gtc
+     267: dup
+     268: aload_0
+     269: aload_3
+     270: ldc_w         #548                // String downloads
+     273: invokeinterface #532,  2          // InterfaceMethod java/nio/file/Path.resolve:(Ljava/lang/String;)Ljava/nio/file/Path;
+     278: aload_1
+     279: getfield      #551                // Field fua.a:Lfua$d;
+     282: invokespecial #554                // Method gtc."<init>":(Lfgo;Ljava/nio/file/Path;Lfua$d;)V
+     285: putfield      #556                // Field ai:Lgtc;
+     288: new           #558                // class atk
+     291: dup
+     292: aload_0
+     293: getfield      #513                // Field L:Ljava/nio/file/Path;
+     296: getstatic     #563                // Field ass.a:Lass;
+     299: getstatic     #568                // Field atq.b:Latq;
+     302: aload_0
+     303: getfield      #537                // Field bu:Lews;
+     306: invokespecial #571                // Method atk."<init>":(Ljava/nio/file/Path;Lass;Latq;Lews;)V
+     309: astore        5
+     311: aload_0
+     312: new           #573                // class atp
+     315: dup
+     316: iconst_3
+     317: anewarray     #575                // class atr
+     320: dup
+     321: iconst_0
+     322: aload         4
+     324: aastore
+     325: dup
+     326: iconst_1
+     327: aload_0
+     328: getfield      #556                // Field ai:Lgtc;
+     331: invokevirtual #578                // Method gtc.a:()Latr;
+     334: aastore
+     335: dup
+     336: iconst_2
+     337: aload         5
+     339: aastore
+     340: invokespecial #581                // Method atp."<init>":([Latr;)V
+     343: putfield      #583                // Field aj:Latp;
+     346: aload_0
+     347: aload         4
+     349: invokevirtual #586                // Method grc.a:()Lasu;
+     352: putfield      #588                // Field ah:Lasu;
+     355: aload_0
+     356: aload_1
+     357: getfield      #551                // Field fua.a:Lfua$d;
+     360: getfield      #590                // Field fua$d.d:Ljava/net/Proxy;
+     363: putfield      #592                // Field ab:Ljava/net/Proxy;
+     366: aload_0
+     367: new           #594                // class com/mojang/authlib/yggdrasil/YggdrasilAuthenticationService
+     370: dup
+     371: aload_0
+     372: getfield      #592                // Field ab:Ljava/net/Proxy;
+     375: invokespecial #597                // Method com/mojang/authlib/yggdrasil/YggdrasilAuthenticationService."<init>":(Ljava/net/Proxy;)V
+     378: putfield      #599                // Field au:Lcom/mojang/authlib/yggdrasil/YggdrasilAuthenticationService;
+     381: aload_0
+     382: aload_0
+     383: getfield      #599                // Field au:Lcom/mojang/authlib/yggdrasil/YggdrasilAuthenticationService;
+     386: invokevirtual #603                // Method com/mojang/authlib/yggdrasil/YggdrasilAuthenticationService.createMinecraftSessionService:()Lcom/mojang/authlib/minecraft/MinecraftSessionService;
+     389: putfield      #605                // Field av:Lcom/mojang/authlib/minecraft/MinecraftSessionService;
+     392: aload_0
+     393: aload_1
+     394: getfield      #551                // Field fua.a:Lfua$d;
+     397: getfield      #607                // Field fua$d.a:Lfhb;
+     400: putfield      #609                // Field V:Lfhb;
+     403: aload_0
+     404: aload_0
+     405: invokedynamic #621,  0            // InvokeDynamic #3:get:(Lfgo;)Ljava/util/function/Supplier;
+     410: invokestatic  #624                // Method ad.i:()Ljava/util/concurrent/ExecutorService;
+     413: invokestatic  #630                // Method java/util/concurrent/CompletableFuture.supplyAsync:(Ljava/util/function/Supplier;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;
+     416: putfield      #632                // Field M:Ljava/util/concurrent/CompletableFuture;
+     419: aload_0
+     420: aload_0
+     421: aload_0
+     422: getfield      #599                // Field au:Lcom/mojang/authlib/yggdrasil/YggdrasilAuthenticationService;
+     425: aload_1
+     426: invokevirtual #635                // Method a:(Lcom/mojang/authlib/yggdrasil/YggdrasilAuthenticationService;Lfua;)Lcom/mojang/authlib/minecraft/UserApiService;
+     429: putfield      #637                // Field aw:Lcom/mojang/authlib/minecraft/UserApiService;
+     432: aload_0
+     433: aload_0
+     434: invokedynamic #644,  0            // InvokeDynamic #4:get:(Lfgo;)Ljava/util/function/Supplier;
+     439: invokestatic  #624                // Method ad.i:()Ljava/util/concurrent/ExecutorService;
+     442: invokestatic  #630                // Method java/util/concurrent/CompletableFuture.supplyAsync:(Ljava/util/function/Supplier;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;
+     445: putfield      #646                // Field ax:Ljava/util/concurrent/CompletableFuture;
+     448: getstatic     #648                // Field F:Lorg/slf4j/Logger;
+     451: ldc_w         #650                // String Setting user: {}
+     454: aload_0
+     455: getfield      #609                // Field V:Lfhb;
+     458: invokevirtual #653                // Method fhb.c:()Ljava/lang/String;
+     461: invokeinterface #659,  3          // InterfaceMethod org/slf4j/Logger.info:(Ljava/lang/String;Ljava/lang/Object;)V
+     466: getstatic     #648                // Field F:Lorg/slf4j/Logger;
+     469: ldc_w         #661                // String (Session ID is {})
+     472: aload_0
+     473: getfield      #609                // Field V:Lfhb;
+     476: invokevirtual #663                // Method fhb.a:()Ljava/lang/String;
+     479: invokeinterface #666,  3          // InterfaceMethod org/slf4j/Logger.debug:(Ljava/lang/String;Ljava/lang/Object;)V
+     484: aload_0
+     485: aload_1
+     486: getfield      #516                // Field fua.d:Lfua$b;
+     489: getfield      #668                // Field fua$b.a:Z
+     492: putfield      #670                // Field ad:Z
+     495: aload_0
+     496: aload_1
+     497: getfield      #516                // Field fua.d:Lfua$b;
+     500: getfield      #672                // Field fua$b.d:Z
+     503: ifne          510
+     506: iconst_1
+     507: goto          511
+     510: iconst_0
+     511: putfield      #674                // Field ae:Z
+     514: aload_0
+     515: aload_1
+     516: getfield      #516                // Field fua.d:Lfua$b;
+     519: getfield      #676                // Field fua$b.e:Z
+     522: ifne          529
+     525: iconst_1
+     526: goto          530
+     529: iconst_0
+     530: putfield      #678                // Field af:Z
+     533: aload_0
+     534: aconst_null
+     535: putfield      #680                // Field aO:Lguo;
+     538: invokedynamic #692,  0            // InvokeDynamic #5:apply:()Ljava/util/function/Function;
+     543: invokestatic  #697                // Method ye.a:(Ljava/util/function/Function;)V
+     546: aload_0
+     547: invokestatic  #702                // Method azx.a:()Lcom/mojang/datafixers/DataFixer;
+     550: putfield      #704                // Field O:Lcom/mojang/datafixers/DataFixer;
+     553: aload_0
+     554: new           #706                // class fkw
+     557: dup
+     558: aload_0
+     559: invokespecial #709                // Method fkw."<init>":(Lfgo;)V
+     562: putfield      #711                // Field aF:Lfkw;
+     565: aload_0
+     566: invokestatic  #717                // Method java/lang/Thread.currentThread:()Ljava/lang/Thread;
+     569: putfield      #719                // Field aY:Ljava/lang/Thread;
+     572: aload_0
+     573: new           #721                // class fgs
+     576: dup
+     577: aload_0
+     578: aload_0
+     579: getfield      #501                // Field p:Ljava/io/File;
+     582: invokespecial #724                // Method fgs."<init>":(Lfgo;Ljava/io/File;)V
+     585: putfield      #726                // Field m:Lfgs;
+     588: aload_0
+     589: getfield      #726                // Field m:Lfgs;
+     592: invokevirtual #729                // Method fgs.an:()Lfgr;
+     595: invokevirtual #733                // Method fgr.c:()Ljava/lang/Object;
+     598: checkcast     #367                // class java/lang/Double
+     601: invokevirtual #737                // Method java/lang/Double.doubleValue:()D
+     604: invokestatic  #743                // Method com/mojang/blaze3d/systems/RenderSystem.setShaderGlintAlpha:(D)V
+     607: aload_0
+     608: iconst_1
+     609: putfield      #745                // Field aZ:Z
+     612: aload_0
+     613: new           #747                // class gwi
+     616: dup
+     617: aload_0
+     618: aload_0
+     619: getfield      #726                // Field m:Lfgs;
+     622: invokespecial #750                // Method gwi."<init>":(Lfgo;Lfgs;)V
+     625: putfield      #752                // Field aG:Lgwi;
+     628: aload_0
+     629: new           #754                // class fgk
+     632: dup
+     633: aload_3
+     634: aload_0
+     635: getfield      #704                // Field O:Lcom/mojang/datafixers/DataFixer;
+     638: invokespecial #757                // Method fgk."<init>":(Ljava/nio/file/Path;Lcom/mojang/datafixers/DataFixer;)V
+     641: putfield      #759                // Field X:Lfgk;
+     644: getstatic     #648                // Field F:Lorg/slf4j/Logger;
+     647: ldc_w         #761                // String Backend library: {}
+     650: invokestatic  #764                // Method com/mojang/blaze3d/systems/RenderSystem.getBackendDescription:()Ljava/lang/String;
+     653: invokeinterface #659,  3          // InterfaceMethod org/slf4j/Logger.info:(Ljava/lang/String;Ljava/lang/Object;)V
+     658: aload_0
+     659: getfield      #726                // Field m:Lfgs;
+     662: getfield      #766                // Field fgs.p:I
+     665: ifle          725
+     668: aload_0
+     669: getfield      #726                // Field m:Lfgs;
+     672: getfield      #768                // Field fgs.o:I
+     675: ifle          725
+     678: new           #770                // class faa
+     681: dup
+     682: aload_0
+     683: getfield      #726                // Field m:Lfgs;
+     686: getfield      #768                // Field fgs.o:I
+     689: aload_0
+     690: getfield      #726                // Field m:Lfgs;
+     693: getfield      #766                // Field fgs.p:I
+     696: aload_1
+     697: getfield      #773                // Field fua.b:Lfaa;
+     700: getfield      #776                // Field faa.c:Ljava/util/OptionalInt;
+     703: aload_1
+     704: getfield      #773                // Field fua.b:Lfaa;
+     707: getfield      #778                // Field faa.d:Ljava/util/OptionalInt;
+     710: aload_1
+     711: getfield      #773                // Field fua.b:Lfaa;
+     714: getfield      #779                // Field faa.e:Z
+     717: invokespecial #782                // Method faa."<init>":(IILjava/util/OptionalInt;Ljava/util/OptionalInt;Z)V
+     720: astore        6
+     722: goto          731
+     725: aload_1
+     726: getfield      #773                // Field fua.b:Lfaa;
+     729: astore        6
+     731: invokestatic  #786                // Method com/mojang/blaze3d/systems/RenderSystem.initBackendSystem:()Lazo$a;
+     734: putstatic     #457                // Field ad.c:Lazo$a;
+     737: aload_0
+     738: new           #788                // class gfr
+     741: dup
+     742: aload_0
+     743: invokespecial #789                // Method gfr."<init>":(Lfgo;)V
+     746: putfield      #791                // Field P:Lgfr;
+     749: aload_0
+     750: aload_0
+     751: getfield      #791                // Field P:Lgfr;
+     754: aload         6
+     756: aload_0
+     757: getfield      #726                // Field m:Lfgs;
+     760: getfield      #793                // Field fgs.k:Ljava/lang/String;
+     763: aload_0
+     764: invokevirtual #795                // Method bd:()Ljava/lang/String;
+     767: invokevirtual #798                // Method gfr.a:(Lfaa;Ljava/lang/String;Ljava/lang/String;)Lfam;
+     770: putfield      #800                // Field Q:Lfam;
+     773: aload_0
+     774: iconst_1
+     775: invokevirtual #803                // Method a:(Z)V
+     778: getstatic     #808                // Field gvu.a:Lgvu;
+     781: getstatic     #813                // Field gvq.A:Lgvq;
+     784: invokevirtual #816                // Method gvu.b:(Lgvq;)V
+     787: aload_0
+     788: getfield      #800                // Field Q:Lfam;
+     791: aload_0
+     792: getfield      #588                // Field ah:Lasu;
+     795: invokestatic  #820                // Method ab.b:()Lae;
+     798: invokeinterface #824,  1          // InterfaceMethod ae.g:()Z
+     803: ifeq          812
+     806: getstatic     #829                // Field fad.a:Lfad;
+     809: goto          815
+     812: getstatic     #835                // Field fad.b:Lfad;
+     815: invokevirtual #838                // Method fam.a:(Lasq;Lfad;)V
+     818: goto          836
+     821: astore        7
+     823: getstatic     #648                // Field F:Lorg/slf4j/Logger;
+     826: ldc_w         #840                // String Couldn\'t set icon
+     829: aload         7
+     831: invokeinterface #844,  3          // InterfaceMethod org/slf4j/Logger.error:(Ljava/lang/String;Ljava/lang/Throwable;)V
+     836: aload_0
+     837: getfield      #800                // Field Q:Lfam;
+     840: aload_0
+     841: getfield      #726                // Field m:Lfgs;
+     844: invokevirtual #846                // Method fgs.h:()Lfgr;
+     847: invokevirtual #733                // Method fgr.c:()Ljava/lang/Object;
+     850: checkcast     #848                // class java/lang/Integer
+     853: invokevirtual #851                // Method java/lang/Integer.intValue:()I
+     856: invokevirtual #854                // Method fam.a:(I)V
+     859: aload_0
+     860: new           #856                // class fgp
+     863: dup
+     864: aload_0
+     865: invokespecial #857                // Method fgp."<init>":(Lfgo;)V
+     868: putfield      #859                // Field n:Lfgp;
+     871: aload_0
+     872: getfield      #859                // Field n:Lfgp;
+     875: aload_0
+     876: getfield      #800                // Field Q:Lfam;
+     879: invokevirtual #861                // Method fam.j:()J
+     882: invokevirtual #864                // Method fgp.a:(J)V
+     885: aload_0
+     886: new           #866                // class fgn
+     889: dup
+     890: aload_0
+     891: invokespecial #867                // Method fgn."<init>":(Lfgo;)V
+     894: putfield      #869                // Field o:Lfgn;
+     897: aload_0
+     898: getfield      #869                // Field o:Lfgn;
+     901: aload_0
+     902: getfield      #800                // Field Q:Lfam;
+     905: invokevirtual #861                // Method fam.j:()J
+     908: invokevirtual #870                // Method fgn.a:(J)V
+     911: aload_0
+     912: getfield      #726                // Field m:Lfgs;
+     915: getfield      #872                // Field fgs.u:I
+     918: iconst_0
+     919: invokestatic  #876                // Method com/mojang/blaze3d/systems/RenderSystem.initRenderer:(IZ)V
+     922: aload_0
+     923: new           #878                // class ezs
+     926: dup
+     927: aload_0
+     928: getfield      #800                // Field Q:Lfam;
+     931: invokevirtual #880                // Method fam.l:()I
+     934: aload_0
+     935: getfield      #800                // Field Q:Lfam;
+     938: invokevirtual #882                // Method fam.m:()I
+     941: invokespecial #885                // Method ezs."<init>":(II)V
+     944: putfield      #887                // Field an:Lezv;
+     947: aload_0
+     948: getfield      #887                // Field an:Lezv;
+     951: fconst_0
+     952: fconst_0
+     953: fconst_0
+     954: fconst_0
+     955: invokevirtual #892                // Method ezv.a:(FFFF)V
+     958: aload_0
+     959: getfield      #887                // Field an:Lezv;
+     962: getstatic     #893                // Field a:Z
+     965: invokevirtual #895                // Method ezv.b:(Z)V
+     968: aload_0
+     969: new           #897                // class aub
+     972: dup
+     973: getstatic     #563                // Field ass.a:Lass;
+     976: invokespecial #900                // Method aub."<init>":(Lass;)V
+     979: putfield      #902                // Field ag:Laub;
+     982: aload_0
+     983: getfield      #583                // Field aj:Latp;
+     986: invokevirtual #904                // Method atp.a:()V
+     989: aload_0
+     990: getfield      #726                // Field m:Lfgs;
+     993: aload_0
+     994: getfield      #583                // Field aj:Latp;
+     997: invokevirtual #907                // Method fgs.b:(Latp;)V
+
+=== Window constructor: GLFW calls ===
+6-
+7-  public static final int b;
+8-
+9:  private final org.lwjgl.glfw.GLFWErrorCallback d;
+10-
+11-  private final fan e;
+12-
+13-  private final fak f;
+14-
+--
+60-       1: invokespecial #65                 // Method java/lang/Object."<init>":()V
+61-       4: aload_0
+62-       5: aload_0
+63:       6: invokedynamic #81,  0             // InvokeDynamic #0:invoke:(Lfam;)Lorg/lwjgl/glfw/GLFWErrorCallbackI;
+64:      11: invokestatic  #87                 // Method org/lwjgl/glfw/GLFWErrorCallback.create:(Lorg/lwjgl/glfw/GLFWErrorCallbackI;)Lorg/lwjgl/glfw/GLFWErrorCallback;
+65:      14: putfield      #89                 // Field d:Lorg/lwjgl/glfw/GLFWErrorCallback;
+66-      17: aload_0
+67-      18: ldc           #91                 // String
+68-      20: putfield      #93                 // Field x:Ljava/lang/String;
+69-      23: aload_0
+70-      24: aload_2
+--
+123-     140: putfield      #150                // Field m:Z
+124-     143: putfield      #152                // Field n:Z
+125-     146: aload_2
+126:     147: invokestatic  #158                // Method org/lwjgl/glfw/GLFW.glfwGetPrimaryMonitor:()J
+127-     150: invokevirtual #161                // Method fak.a:(J)Lfah;
+128-     153: astore        7
+129-     155: aload_0
+130-     156: aload_0
+131-     157: aload_3
+--
+150-     196: dup_x1
+151-     197: putfield      #173                // Field r:I
+152-     200: putfield      #175                // Field k:I
+153:     203: invokestatic  #178                // Method org/lwjgl/glfw/GLFW.glfwDefaultWindowHints:()V
+154-     206: ldc           #179                // int 139265
+155-     208: ldc           #180                // int 196609
+156:     210: invokestatic  #184                // Method org/lwjgl/glfw/GLFW.glfwWindowHint:(II)V
+157-     213: ldc           #185                // int 139275
+158-     215: ldc           #186                // int 221185
+159:     217: invokestatic  #184                // Method org/lwjgl/glfw/GLFW.glfwWindowHint:(II)V
+160-     220: ldc           #187                // int 139266
+161-     222: iconst_3
+162:     223: invokestatic  #184                // Method org/lwjgl/glfw/GLFW.glfwWindowHint:(II)V
+163-     226: ldc           #188                // int 139267
+164-     228: iconst_2
+165:     229: invokestatic  #184                // Method org/lwjgl/glfw/GLFW.glfwWindowHint:(II)V
+166-     232: ldc           #189                // int 139272
+167-     234: ldc           #190                // int 204801
+168:     236: invokestatic  #184                // Method org/lwjgl/glfw/GLFW.glfwWindowHint:(II)V
+169-     239: ldc           #191                // int 139270
+170-     241: iconst_1
+171:     242: invokestatic  #184                // Method org/lwjgl/glfw/GLFW.glfwWindowHint:(II)V
+172-     245: aload_0
+173-     246: aload_0
+174-     247: getfield      #167                // Field q:I
+175-     250: aload_0
+176-     251: getfield      #173                // Field r:I
+--
+185-     273: goto          277
+186-     276: lconst_0
+187-     277: lconst_0
+188:     278: invokestatic  #197                // Method org/lwjgl/glfw/GLFW.glfwCreateWindow:(IILjava/lang/CharSequence;JJ)J
+189-     281: putfield      #199                // Field g:J
+190-     284: aload         7
+191-     286: ifnull        374
+192-     289: aload         7
+193-     291: aload_0
+--
+244-     385: getfield      #199                // Field g:J
+245-     388: aload         8
+246-     390: aload         9
+247:     392: invokestatic  #222                // Method org/lwjgl/glfw/GLFW.glfwGetWindowPos:(J[I[I)V
+248-     395: aload_0
+249-     396: aload_0
+250-     397: aload         8
+251-     399: iconst_0
+252-     400: iaload
+--
+263-     418: putfield      #218                // Field i:I
+264-     421: aload_0
+265-     422: getfield      #199                // Field g:J
+266:     425: invokestatic  #226                // Method org/lwjgl/glfw/GLFW.glfwMakeContextCurrent:(J)V
+267:     428: invokestatic  #232                // Method org/lwjgl/opengl/GL.createCapabilities:()Lorg/lwjgl/opengl/GLCapabilities;
+268-     431: pop
+269-     432: invokestatic  #237                // Method com/mojang/blaze3d/systems/RenderSystem.maxSupportedTextureSize:()I
+270-     435: istore        8
+271-     437: aload_0
+272-     438: getfield      #199                // Field g:J
+--
+274-     442: iconst_m1
+275-     443: iload         8
+276-     445: iload         8
+277:     447: invokestatic  #241                // Method org/lwjgl/glfw/GLFW.glfwSetWindowSizeLimits:(JIIII)V
+278-     450: aload_0
+279-     451: invokevirtual #243                // Method x:()V
+280-     454: aload_0
+281-     455: invokevirtual #245                // Method w:()V
+282-     458: aload_0
+283-     459: getfield      #199                // Field g:J
+284-     462: aload_0
+285:     463: invokedynamic #253,  0            // InvokeDynamic #1:invoke:(Lfam;)Lorg/lwjgl/glfw/GLFWFramebufferSizeCallbackI;
+286:     468: invokestatic  #257                // Method org/lwjgl/glfw/GLFW.glfwSetFramebufferSizeCallback:(JLorg/lwjgl/glfw/GLFWFramebufferSizeCallbackI;)Lorg/lwjgl/glfw/GLFWFramebufferSizeCallback;
+287-     471: pop
+288-     472: aload_0
+289-     473: getfield      #199                // Field g:J
+290-     476: aload_0
+291:     477: invokedynamic #263,  0            // InvokeDynamic #2:invoke:(Lfam;)Lorg/lwjgl/glfw/GLFWWindowPosCallbackI;
+292:     482: invokestatic  #267                // Method org/lwjgl/glfw/GLFW.glfwSetWindowPosCallback:(JLorg/lwjgl/glfw/GLFWWindowPosCallbackI;)Lorg/lwjgl/glfw/GLFWWindowPosCallback;
+293-     485: pop
+294-     486: aload_0
+295-     487: getfield      #199                // Field g:J
+296-     490: aload_0
+297:     491: invokedynamic #273,  0            // InvokeDynamic #3:invoke:(Lfam;)Lorg/lwjgl/glfw/GLFWWindowSizeCallbackI;
+298:     496: invokestatic  #277                // Method org/lwjgl/glfw/GLFW.glfwSetWindowSizeCallback:(JLorg/lwjgl/glfw/GLFWWindowSizeCallbackI;)Lorg/lwjgl/glfw/GLFWWindowSizeCallback;
+299-     499: pop
+300-     500: aload_0
+301-     501: getfield      #199                // Field g:J
+302-     504: aload_0
+303:     505: invokedynamic #285,  0            // InvokeDynamic #4:invoke:(Lfam;)Lorg/lwjgl/glfw/GLFWWindowFocusCallbackI;
+304:     510: invokestatic  #289                // Method org/lwjgl/glfw/GLFW.glfwSetWindowFocusCallback:(JLorg/lwjgl/glfw/GLFWWindowFocusCallbackI;)Lorg/lwjgl/glfw/GLFWWindowFocusCallback;
+305-     513: pop
+306-     514: aload_0
+307-     515: getfield      #199                // Field g:J
+308-     518: aload_0
+309:     519: invokedynamic #295,  0            // InvokeDynamic #5:invoke:(Lfam;)Lorg/lwjgl/glfw/GLFWCursorEnterCallbackI;
+310:     524: invokestatic  #299                // Method org/lwjgl/glfw/GLFW.glfwSetCursorEnterCallback:(JLorg/lwjgl/glfw/GLFWCursorEnterCallbackI;)Lorg/lwjgl/glfw/GLFWCursorEnterCallback;
+311-     527: pop
+312-     528: return
+313-
+314-  public static java.lang.String a();
+315-    Code:
+316:       0: invokestatic  #320                // Method org/lwjgl/glfw/GLFW.glfwGetPlatform:()I
+317-       3: istore_0
+318-       4: iload_0
+319-       5: lookupswitch  { // 6
+320-                     0: 64
+321-                393217: 70
+--
+364-
+365-  public static void a(java.util.function.BiConsumer<java.lang.Integer, java.lang.String>);
+366-    Code:
+367:       0: invokestatic  #373                // Method org/lwjgl/system/MemoryStack.stackPush:()Lorg/lwjgl/system/MemoryStack;
+368-       3: astore_1
+369-       4: aload_1
+370-       5: iconst_1
+371:       6: invokevirtual #377                // Method org/lwjgl/system/MemoryStack.mallocPointer:(I)Lorg/lwjgl/PointerBuffer;
+372-       9: astore_2
+373-      10: aload_2
+374:      11: invokestatic  #381                // Method org/lwjgl/glfw/GLFW.glfwGetError:(Lorg/lwjgl/PointerBuffer;)I
+375-      14: istore_3
+376-      15: iload_3
+377-      16: ifeq          56
+378-      19: aload_2
+379-      20: invokevirtual #386                // Method org/lwjgl/PointerBuffer.get:()J
+--
+385-      32: ldc           #91                 // String
+386-      34: goto          42
+387-      37: lload         4
+388:      39: invokestatic  #394                // Method org/lwjgl/system/MemoryUtil.memUTF8:(J)Ljava/lang/String;
+389-      42: astore        6
+390-      44: aload_0
+391-      45: iload_3
+392-      46: invokestatic  #346                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+393-      49: aload         6
+--
+395-      56: aload_1
+396-      57: ifnull        87
+397-      60: aload_1
+398:      61: invokevirtual #401                // Method org/lwjgl/system/MemoryStack.close:()V
+399-      64: goto          87
+400-      67: astore_2
+401-      68: aload_1
+402-      69: ifnull        85
+403-      72: aload_1
+404:      73: invokevirtual #401                // Method org/lwjgl/system/MemoryStack.close:()V
+405-      76: goto          85
+406-      79: astore_3
+407-      80: aload_2
+408-      81: aload_3
+409-      82: invokevirtual #405                // Method java/lang/Throwable.addSuppressed:(Ljava/lang/Throwable;)V
+--
+417-
+418-  public void a(asq, fad) throws java.io.IOException;
+419-    Code:
+420:       0: invokestatic  #320                // Method org/lwjgl/glfw/GLFW.glfwGetPlatform:()I
+421-       3: istore_3
+422-       4: iload_3
+423-       5: tableswitch   { // 393217 to 393221
+424-                393217: 40
+425-                393218: 339
+--
+438-      53: invokeinterface #424,  1          // InterfaceMethod java/util/List.size:()I
+439-      58: invokespecial #427                // Method java/util/ArrayList."<init>":(I)V
+440-      61: astore        5
+441:      63: invokestatic  #373                // Method org/lwjgl/system/MemoryStack.stackPush:()Lorg/lwjgl/system/MemoryStack;
+442-      66: astore        6
+443-      68: aload         4
+444-      70: invokeinterface #424,  1          // InterfaceMethod java/util/List.size:()I
+445-      75: aload         6
+446:      77: invokestatic  #431                // Method org/lwjgl/glfw/GLFWImage.malloc:(ILorg/lwjgl/system/MemoryStack;)Lorg/lwjgl/glfw/GLFWImage$Buffer;
+447-      80: astore        7
+448-      82: iconst_0
+449-      83: istore        8
+450-      85: iload         8
+451-      87: aload         4
+--
+466-     132: imul
+467-     133: iconst_4
+468-     134: imul
+469:     135: invokestatic  #452                // Method org/lwjgl/system/MemoryUtil.memAlloc:(I)Ljava/nio/ByteBuffer;
+470-     138: astore        10
+471-     140: aload         5
+472-     142: aload         10
+473-     144: invokeinterface #456,  2          // InterfaceMethod java/util/List.add:(Ljava/lang/Object;)Z
+474-     149: pop
+--
+480-     163: pop
+481-     164: aload         7
+482-     166: iload         8
+483:     168: invokevirtual #475                // Method org/lwjgl/glfw/GLFWImage$Buffer.position:(I)Lorg/lwjgl/system/CustomBuffer;
+484-     171: pop
+485-     172: aload         7
+486-     174: aload         9
+487-     176: invokevirtual #447                // Method faj.a:()I
+488:     179: invokevirtual #479                // Method org/lwjgl/glfw/GLFWImage$Buffer.width:(I)Lorg/lwjgl/glfw/GLFWImage$Buffer;
+489-     182: pop
+490-     183: aload         7
+491-     185: aload         9
+492-     187: invokevirtual #448                // Method faj.b:()I
+493:     190: invokevirtual #482                // Method org/lwjgl/glfw/GLFWImage$Buffer.height:(I)Lorg/lwjgl/glfw/GLFWImage$Buffer;
+494-     193: pop
+495-     194: aload         7
+496-     196: aload         10
+497:     198: invokevirtual #486                // Method org/lwjgl/glfw/GLFWImage$Buffer.pixels:(Ljava/nio/ByteBuffer;)Lorg/lwjgl/glfw/GLFWImage$Buffer;
+498-     201: pop
+499-     202: aload         9
+500-     204: ifnull        242
+501-     207: aload         9
+502-     209: invokevirtual #487                // Method faj.close:()V
+--
+519-     249: getfield      #199                // Field g:J
+520-     252: aload         7
+521-     254: iconst_0
+522:     255: invokevirtual #475                // Method org/lwjgl/glfw/GLFWImage$Buffer.position:(I)Lorg/lwjgl/system/CustomBuffer;
+523:     258: checkcast     #11                 // class org/lwjgl/glfw/GLFWImage$Buffer
+524:     261: invokestatic  #491                // Method org/lwjgl/glfw/GLFW.glfwSetWindowIcon:(JLorg/lwjgl/glfw/GLFWImage$Buffer;)V
+525-     264: aload         6
+526-     266: ifnull        304
+527-     269: aload         6
+528:     271: invokevirtual #401                // Method org/lwjgl/system/MemoryStack.close:()V
+529-     274: goto          304
+530-     277: astore        7
+531-     279: aload         6
+532-     281: ifnull        301
+533-     284: aload         6
+534:     286: invokevirtual #401                // Method org/lwjgl/system/MemoryStack.close:()V
+535-     289: goto          301
+536-     292: astore        8
+537-     294: aload         7
+538-     296: aload         8
+539-     298: invokevirtual #405                // Method java/lang/Throwable.addSuppressed:(Ljava/lang/Throwable;)V
+--
+580-
+581-  private void v();
+582-    Code:
+583:       0: invokedynamic #541,  0            // InvokeDynamic #7:invoke:()Lorg/lwjgl/glfw/GLFWErrorCallbackI;
+584:       5: invokestatic  #544                // Method org/lwjgl/glfw/GLFW.glfwSetErrorCallback:(Lorg/lwjgl/glfw/GLFWErrorCallbackI;)Lorg/lwjgl/glfw/GLFWErrorCallback;
+585-       8: pop
+586-       9: return
+587-
+588-  private static void b(int, long);
+589-    Code:
+590-       0: iload_0
+591-       1: lload_1
+592:       2: invokestatic  #394                // Method org/lwjgl/system/MemoryUtil.memUTF8:(J)Ljava/lang/String;
+593-       5: invokedynamic #556,  0            // InvokeDynamic #8:makeConcatWithConstants:(ILjava/lang/String;)Ljava/lang/String;
+594-      10: astore_3
+595-      11: ldc_w         #558                // String Minecraft
+596-      14: aload_3
+597-      15: invokedynamic #563,  0            // InvokeDynamic #9:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;
+--
+610-    Code:
+611-       0: invokestatic  #353                // Method com/mojang/blaze3d/systems/RenderSystem.assertOnRenderThread:()V
+612-       3: lload_2
+613:       4: invokestatic  #394                // Method org/lwjgl/system/MemoryUtil.memUTF8:(J)Ljava/lang/String;
+614-       7: astore        4
+615-       9: getstatic     #519                // Field c:Lorg/slf4j/Logger;
+616-      12: ldc_w         #577                // String ########## GL ERROR ##########
+617-      15: invokeinterface #579,  2          // InterfaceMethod org/slf4j/Logger.error:(Ljava/lang/String;)V
+618-      20: getstatic     #519                // Field c:Lorg/slf4j/Logger;
+--
+631-  public void d();
+632-    Code:
+633-       0: aload_0
+634:       1: getfield      #89                 // Field d:Lorg/lwjgl/glfw/GLFWErrorCallback;
+635:       4: invokestatic  #544                // Method org/lwjgl/glfw/GLFW.glfwSetErrorCallback:(Lorg/lwjgl/glfw/GLFWErrorCallbackI;)Lorg/lwjgl/glfw/GLFWErrorCallback;
+636-       7: astore_1
+637-       8: aload_1
+638-       9: ifnull        16
+639-      12: aload_1
+640:      13: invokevirtual #591                // Method org/lwjgl/glfw/GLFWErrorCallback.free:()V
+641-      16: return
+642-
+643-  public void a(boolean);
+644-    Code:
+645-       0: invokestatic  #595                // Method com/mojang/blaze3d/systems/RenderSystem.assertOnRenderThreadOrInit:()V
+--
+651-      12: iconst_1
+652-      13: goto          17
+653-      16: iconst_0
+654:      17: invokestatic  #600                // Method org/lwjgl/glfw/GLFW.glfwSwapInterval:(I)V
+655-      20: return
+656-
+657-  public void close();
+658-    Code:
+659-       0: invokestatic  #353                // Method com/mojang/blaze3d/systems/RenderSystem.assertOnRenderThread:()V
+660-       3: aload_0
+661-       4: getfield      #199                // Field g:J
+662:       7: invokestatic  #605                // Method org/lwjgl/glfw/Callbacks.glfwFreeCallbacks:(J)V
+663-      10: aload_0
+664:      11: getfield      #89                 // Field d:Lorg/lwjgl/glfw/GLFWErrorCallback;
+665:      14: invokevirtual #606                // Method org/lwjgl/glfw/GLFWErrorCallback.close:()V
+666-      17: aload_0
+667-      18: getfield      #199                // Field g:J
+668:      21: invokestatic  #609                // Method org/lwjgl/glfw/GLFW.glfwDestroyWindow:(J)V
+669:      24: invokestatic  #612                // Method org/lwjgl/glfw/GLFW.glfwTerminate:()V
+670-      27: return
+671-
+672-  private void a(long, int, int);
+673-    Code:
+674-       0: aload_0
+--
+729-       9: getfield      #199                // Field g:J
+730-      12: aload_1
+731-      13: aload_2
+732:      14: invokestatic  #627                // Method org/lwjgl/glfw/GLFW.glfwGetFramebufferSize:(J[I[I)V
+733-      17: aload_0
+734-      18: aload_1
+735-      19: iconst_0
+736-      20: iaload
+737-      21: ifle          30
+--
+868-    Code:
+869-       0: aload_0
+870-       1: getfield      #199                // Field g:J
+871:       4: invokestatic  #651                // Method org/lwjgl/glfw/GLFW.glfwGetWindowMonitor:(J)J
+872-       7: lconst_0
+873-       8: lcmp
+874-       9: ifeq          16
+875-      12: iconst_1
+876-      13: goto          17
+--
+949-     162: getfield      #173                // Field r:I
+950-     165: aload_3
+951-     166: invokevirtual #666                // Method fal.f:()I
+952:     169: invokestatic  #670                // Method org/lwjgl/glfw/GLFW.glfwSetWindowMonitor:(JJIIIII)V
+953-     172: getstatic     #662                // Field fgo.a:Z
+954-     175: ifeq          185
+955-     178: aload_0
+956-     179: getfield      #199                // Field g:J
+957-     182: invokestatic  #672                // Method fag.b:(J)V
+--
+984-     237: aload_0
+985-     238: getfield      #173                // Field r:I
+986-     241: iconst_m1
+987:     242: invokestatic  #670                // Method org/lwjgl/glfw/GLFW.glfwSetWindowMonitor:(JJIIIII)V
+988-     245: return
+989-
+990-  public void i();
+991-    Code:
+992-       0: aload_0
+--
+1139-       0: aload_0
+1140-       1: getfield      #199                // Field g:J
+1141-       4: aload_1
+1142:       5: invokestatic  #695                // Method org/lwjgl/glfw/GLFW.glfwSetWindowTitle:(JLjava/lang/CharSequence;)V
+1143-       8: return
+1144-
+1145-  public long j();
+1146-    Code:
+1147-       0: aload_0
+
+=== RenderSystem browser compatibility clues ===
+147-      12: iconst_1
+148-      13: invokevirtual #163                // Method java/util/concurrent/atomic/AtomicBoolean.set:(Z)V
+149:      16: invokestatic  #168                // Method org/lwjgl/glfw/GLFW.glfwPollEvents:()V
+150-      19: getstatic     #158                // Field pollingEvents:Ljava/util/concurrent/atomic/AtomicBoolean;
+151-      22: iconst_0
+152-      23: invokevirtual #163                // Method java/util/concurrent/atomic/AtomicBoolean.set:(Z)V
+--
+177-       9: invokevirtual #190                // Method fbk.c:()V
+178-      12: lload_0
+179:      13: invokestatic  #193                // Method org/lwjgl/glfw/GLFW.glfwSwapBuffers:(J)V
+180-      16: invokestatic  #179                // Method pollEvents:()V
+181-      19: return
+182-
+--
+204-       7: dadd
+205-       8: dstore_1
+206:       9: invokestatic  #214                // Method org/lwjgl/glfw/GLFW.glfwGetTime:()D
+207-      12: dstore_3
+208-      13: dload_3
+209-      14: dload_1
+--
+213-      20: dload_3
+214-      21: dsub
+215:      22: invokestatic  #218                // Method org/lwjgl/glfw/GLFW.glfwWaitEventsTimeout:(D)V
+216:      25: invokestatic  #214                // Method org/lwjgl/glfw/GLFW.glfwGetTime:()D
+217-      28: dstore_3
+218-      29: goto          13
+219-      32: dload_3
+--
+756-      11: return
+757-
+758:  public static void setErrorCallback(org.lwjgl.glfw.GLFWErrorCallbackI);
+759-    Code:
+760-       0: aload_0
+761:       1: invokestatic  #557                // Method com/mojang/blaze3d/platform/GLX._setGlfwErrorCallback:(Lorg/lwjgl/glfw/GLFWErrorCallbackI;)V
+762-       4: return
+763-
+764-  public static void renderCrosshair(int);

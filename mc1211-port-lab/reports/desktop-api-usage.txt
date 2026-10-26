@@ -1,0 +1,224 @@
+   akr$a                                              -> java.lang.reflect.Type                             java.base
+   apt                                                -> java.awt.BorderLayout                              java.desktop
+   apt                                                -> java.awt.Component                                 java.desktop
+   apt                                                -> java.awt.Dimension                                 java.desktop
+   apt                                                -> java.awt.Font                                      java.desktop
+   apt                                                -> java.awt.LayoutManager                             java.desktop
+   apt                                                -> java.awt.Window                                    java.desktop
+   apt                                                -> java.awt.event.ActionEvent                         java.desktop
+   apt                                                -> java.awt.event.ActionListener                      java.desktop
+   apt                                                -> java.awt.event.FocusListener                       java.desktop
+   apt                                                -> java.awt.event.WindowListener                      java.desktop
+   apt$1                                              -> java.awt.event.WindowAdapter                       java.desktop
+   apt$1                                              -> java.awt.event.WindowEvent                         java.desktop
+   apt$2                                              -> java.awt.event.FocusAdapter                        java.desktop
+   apt$2                                              -> java.awt.event.FocusEvent                          java.desktop
+   apv                                                -> java.awt.Color                                     java.desktop
+   apv                                                -> java.awt.Dimension                                 java.desktop
+   apv                                                -> java.awt.Graphics                                  java.desktop
+   apv                                                -> java.awt.event.ActionEvent                         java.desktop
+   apv                                                -> java.awt.event.ActionListener                      java.desktop
+   asv                                                -> java.lang.ClassLoader                              java.base
+   aye                                                -> java.lang.reflect.Type                             java.base
+   ciq                                                -> java.lang.reflect.Constructor                      java.base
+   com.mojang.blaze3d.platform.GLX                    -> org.lwjgl.Version                                  not found
+   com.mojang.blaze3d.platform.GLX                    -> org.lwjgl.glfw.GLFW                                not found
+   com.mojang.blaze3d.platform.GLX                    -> org.lwjgl.glfw.GLFWErrorCallback                   not found
+   com.mojang.blaze3d.platform.GLX                    -> org.lwjgl.glfw.GLFWErrorCallbackI                  not found
+   com.mojang.blaze3d.platform.GLX                    -> org.lwjgl.glfw.GLFWVidMode                         not found
+   com.mojang.blaze3d.platform.GLX                    -> org.lwjgl.system.MemoryUtil                        not found
+   com.mojang.blaze3d.platform.GlStateManager         -> org.lwjgl.PointerBuffer                            not found
+   com.mojang.blaze3d.platform.GlStateManager         -> org.lwjgl.opengl.GL11                              not found
+   com.mojang.blaze3d.platform.GlStateManager         -> org.lwjgl.opengl.GL13                              not found
+   com.mojang.blaze3d.platform.GlStateManager         -> org.lwjgl.opengl.GL14                              not found
+   com.mojang.blaze3d.platform.GlStateManager         -> org.lwjgl.opengl.GL15                              not found
+   com.mojang.blaze3d.platform.GlStateManager         -> org.lwjgl.opengl.GL20                              not found
+   com.mojang.blaze3d.platform.GlStateManager         -> org.lwjgl.opengl.GL20C                             not found
+   com.mojang.blaze3d.platform.GlStateManager         -> org.lwjgl.opengl.GL30                              not found
+   com.mojang.blaze3d.platform.GlStateManager         -> org.lwjgl.opengl.GL32C                             not found
+   com.mojang.blaze3d.platform.GlStateManager         -> org.lwjgl.system.MemoryStack                       not found
+   com.mojang.blaze3d.platform.GlStateManager         -> org.lwjgl.system.MemoryUtil                        not found
+   com.mojang.blaze3d.platform.GlStateManager$b       -> org.lwjgl.opengl.GL11                              not found
+   com.mojang.blaze3d.platform.TextureUtil            -> org.lwjgl.system.MemoryUtil                        not found
+   com.mojang.blaze3d.systems.RenderSystem            -> org.lwjgl.glfw.GLFW                                not found
+   com.mojang.blaze3d.systems.RenderSystem            -> org.lwjgl.glfw.GLFWErrorCallbackI                  not found
+   dti                                                -> java.lang.reflect.Array                            java.base
+   ex                                                 -> java.lang.reflect.Field                            java.base
+   eza                                                -> org.lwjgl.glfw.GLFW                                not found
+   eza                                                -> org.lwjgl.system.MemoryUtil                        not found
+   eze                                                -> javax.sound.sampled.AudioFormat                    java.desktop
+   eze                                                -> org.lwjgl.openal.AL10                              not found
+   ezf                                                -> org.lwjgl.openal.AL                                not found
+   ezf                                                -> org.lwjgl.openal.AL10                              not found
+   ezf                                                -> org.lwjgl.openal.ALC                               not found
+   ezf                                                -> org.lwjgl.openal.ALC10                             not found
+   ezf                                                -> org.lwjgl.openal.ALC11                             not found
+   ezf                                                -> org.lwjgl.openal.ALCCapabilities                   not found
+   ezf                                                -> org.lwjgl.openal.ALCapabilities                    not found
+   ezf                                                -> org.lwjgl.openal.ALUtil                            not found
+   ezf                                                -> org.lwjgl.openal.SOFTHRTF                          not found
+   ezf                                                -> org.lwjgl.system.MemoryStack                       not found
+   ezg                                                -> org.lwjgl.openal.AL10                              not found
+   ezi                                                -> javax.sound.sampled.AudioFormat                    java.desktop
+   ezi                                                -> javax.sound.sampled.AudioFormat$Encoding           java.desktop
+   ezi                                                -> org.lwjgl.openal.AL10                              not found
+   ezi                                                -> org.lwjgl.openal.ALC10                             not found
+   ezj                                                -> javax.sound.sampled.AudioFormat                    java.desktop
+   ezj                                                -> org.lwjgl.openal.AL10                              not found
+   ezp                                                -> org.lwjgl.system.MemoryStack                       not found
+   ezp                                                -> org.lwjgl.system.MemoryUtil                        not found
+   ezp                                                -> org.lwjgl.util.freetype.FT_Bitmap                  not found
+   ezp                                                -> org.lwjgl.util.freetype.FT_Face                    not found
+   ezp                                                -> org.lwjgl.util.freetype.FT_GlyphSlot               not found
+   ezp                                                -> org.lwjgl.util.freetype.FT_Matrix                  not found
+   ezp                                                -> org.lwjgl.util.freetype.FT_Vector                  not found
+   ezp                                                -> org.lwjgl.util.freetype.FreeType                   not found
+   ezp$a$1                                            -> org.lwjgl.util.freetype.FT_Face                    not found
+   ezy                                                -> org.lwjgl.BufferUtils                              not found
+   ezy                                                -> org.lwjgl.glfw.GLFW                                not found
+   ezy                                                -> org.lwjgl.glfw.GLFWErrorCallback                   not found
+   ezy                                                -> org.lwjgl.glfw.GLFWErrorCallbackI                  not found
+   ezy                                                -> org.lwjgl.system.MemoryUtil                        not found
+   ezz                                                -> java.lang.reflect.Field                            java.base
+   ezz                                                -> java.lang.reflect.Method                           java.base
+   ezz                                                -> org.lwjgl.system.Pointer                           not found
+   fab                                                -> org.lwjgl.opengl.ARBDebugOutput                    not found
+   fab                                                -> org.lwjgl.opengl.GL                                not found
+   fab                                                -> org.lwjgl.opengl.GL11                              not found
+   fab                                                -> org.lwjgl.opengl.GLCapabilities                    not found
+   fab                                                -> org.lwjgl.opengl.GLDebugMessageARBCallback         not found
+   fab                                                -> org.lwjgl.opengl.GLDebugMessageARBCallbackI        not found
+   fab                                                -> org.lwjgl.opengl.GLDebugMessageCallback            not found
+   fab                                                -> org.lwjgl.opengl.GLDebugMessageCallbackI           not found
+   fab                                                -> org.lwjgl.opengl.KHRDebug                          not found
+   fab                                                -> org.lwjgl.system.Pointer                           not found
+   fac                                                -> org.lwjgl.system.MemoryUtil                        not found
+   fae                                                -> org.lwjgl.glfw.GLFW                                not found
+   fae                                                -> org.lwjgl.glfw.GLFWCharModsCallback                not found
+   fae                                                -> org.lwjgl.glfw.GLFWCharModsCallbackI               not found
+   fae                                                -> org.lwjgl.glfw.GLFWCursorPosCallback               not found
+   fae                                                -> org.lwjgl.glfw.GLFWCursorPosCallbackI              not found
+   fae                                                -> org.lwjgl.glfw.GLFWDropCallback                    not found
+   fae                                                -> org.lwjgl.glfw.GLFWDropCallbackI                   not found
+   fae                                                -> org.lwjgl.glfw.GLFWKeyCallback                     not found
+   fae                                                -> org.lwjgl.glfw.GLFWKeyCallbackI                    not found
+   fae                                                -> org.lwjgl.glfw.GLFWMouseButtonCallback             not found
+   fae                                                -> org.lwjgl.glfw.GLFWMouseButtonCallbackI            not found
+   fae                                                -> org.lwjgl.glfw.GLFWScrollCallback                  not found
+   fae                                                -> org.lwjgl.glfw.GLFWScrollCallbackI                 not found
+   fae$b                                              -> org.lwjgl.glfw.GLFW                                not found
+   fag                                                -> org.lwjgl.glfw.GLFWNativeCocoa                     not found
+   fah                                                -> org.lwjgl.glfw.GLFW                                not found
+   fah                                                -> org.lwjgl.glfw.GLFWVidMode                         not found
+   fah                                                -> org.lwjgl.glfw.GLFWVidMode$Buffer                  not found
+   fah                                                -> org.lwjgl.system.CustomBuffer                      not found
+   faj                                                -> org.lwjgl.stb.STBImage                             not found
+   faj                                                -> org.lwjgl.stb.STBImageResize                       not found
+   faj                                                -> org.lwjgl.stb.STBImageWrite                        not found
+   faj                                                -> org.lwjgl.system.MemoryStack                       not found
+   faj                                                -> org.lwjgl.system.MemoryUtil                        not found
+   faj                                                -> org.lwjgl.util.freetype.FT_Bitmap                  not found
+   faj                                                -> org.lwjgl.util.freetype.FT_Face                    not found
+   faj                                                -> org.lwjgl.util.freetype.FT_GlyphSlot               not found
+   faj                                                -> org.lwjgl.util.freetype.FreeType                   not found
+   faj$c                                              -> org.lwjgl.stb.STBIWriteCallback                    not found
+   fak                                                -> org.lwjgl.PointerBuffer                            not found
+   fak                                                -> org.lwjgl.glfw.GLFW                                not found
+   fak                                                -> org.lwjgl.glfw.GLFWMonitorCallback                 not found
+   fak                                                -> org.lwjgl.glfw.GLFWMonitorCallbackI                not found
+   fal                                                -> org.lwjgl.glfw.GLFWVidMode                         not found
+   fal                                                -> org.lwjgl.glfw.GLFWVidMode$Buffer                  not found
+   fam                                                -> org.lwjgl.PointerBuffer                            not found
+   fam                                                -> org.lwjgl.glfw.Callbacks                           not found
+   fam                                                -> org.lwjgl.glfw.GLFW                                not found
+   fam                                                -> org.lwjgl.glfw.GLFWCursorEnterCallback             not found
+   fam                                                -> org.lwjgl.glfw.GLFWCursorEnterCallbackI            not found
+   fam                                                -> org.lwjgl.glfw.GLFWErrorCallback                   not found
+   fam                                                -> org.lwjgl.glfw.GLFWErrorCallbackI                  not found
+   fam                                                -> org.lwjgl.glfw.GLFWFramebufferSizeCallback         not found
+   fam                                                -> org.lwjgl.glfw.GLFWFramebufferSizeCallbackI        not found
+   fam                                                -> org.lwjgl.glfw.GLFWImage                           not found
+   fam                                                -> org.lwjgl.glfw.GLFWImage$Buffer                    not found
+   fam                                                -> org.lwjgl.glfw.GLFWWindowFocusCallback             not found
+   fam                                                -> org.lwjgl.glfw.GLFWWindowFocusCallbackI            not found
+   fam                                                -> org.lwjgl.glfw.GLFWWindowPosCallback               not found
+   fam                                                -> org.lwjgl.glfw.GLFWWindowPosCallbackI              not found
+   fam                                                -> org.lwjgl.glfw.GLFWWindowSizeCallback              not found
+   fam                                                -> org.lwjgl.glfw.GLFWWindowSizeCallbackI             not found
+   fam                                                -> org.lwjgl.opengl.GL                                not found
+   fam                                                -> org.lwjgl.opengl.GLCapabilities                    not found
+   fam                                                -> org.lwjgl.system.CustomBuffer                      not found
+   fam                                                -> org.lwjgl.system.MemoryStack                       not found
+   fam                                                -> org.lwjgl.system.MemoryUtil                        not found
+   fam                                                -> org.lwjgl.util.tinyfd.TinyFileDialogs              not found
+   faz                                                -> org.lwjgl.system.MemoryUtil                        not found
+   fbb                                                -> org.lwjgl.opengl.GL32C                             not found
+   fbb$a                                              -> org.lwjgl.opengl.ARBTimerQuery                     not found
+   fbb$a                                              -> org.lwjgl.opengl.GL32C                             not found
+   fbb$b                                              -> org.lwjgl.opengl.GL                                not found
+   fbb$b                                              -> org.lwjgl.opengl.GLCapabilities                    not found
+   fbd                                                -> org.lwjgl.system.MemoryUtil                        not found
+   fbf                                                -> org.lwjgl.system.MemoryUtil                        not found
+   fbf                                                -> org.lwjgl.system.MemoryUtil$MemoryAllocator        not found
+   fbf$a                                              -> org.lwjgl.system.MemoryUtil                        not found
+   fbh$b                                              -> org.lwjgl.system.MemoryUtil                        not found
+   fbm                                                -> org.lwjgl.system.MemoryStack                       not found
+   fbv                                                -> java.awt.event.ActionListener                      java.desktop
+   fbv$a                                              -> java.awt.event.ActionEvent                         java.desktop
+   fbv$a                                              -> java.awt.event.ActionListener                      java.desktop
+   fbv$b                                              -> java.awt.event.ActionEvent                         java.desktop
+   fbv$b                                              -> java.awt.event.ActionListener                      java.desktop
+   fbv$c                                              -> java.awt.event.ActionEvent                         java.desktop
+   fbv$c                                              -> java.awt.event.ActionListener                      java.desktop
+   fdc                                                -> java.lang.reflect.Field                            java.base
+   fdc                                                -> java.lang.reflect.Modifier                         java.base
+   ffc                                                -> org.lwjgl.system.MemoryUtil                        not found
+   fgg                                                -> org.lwjgl.util.tinyfd.TinyFileDialogs              not found
+   fgn                                                -> org.lwjgl.glfw.GLFWCharModsCallbackI               not found
+   fgn                                                -> org.lwjgl.glfw.GLFWErrorCallbackI                  not found
+   fgn                                                -> org.lwjgl.glfw.GLFWKeyCallbackI                    not found
+   fgo                                                -> org.lwjgl.glfw.GLFWErrorCallbackI                  not found
+   fgo                                                -> org.lwjgl.util.tinyfd.TinyFileDialogs              not found
+   fgp                                                -> org.lwjgl.glfw.GLFWCursorPosCallbackI              not found
+   fgp                                                -> org.lwjgl.glfw.GLFWDropCallback                    not found
+   fgp                                                -> org.lwjgl.glfw.GLFWDropCallbackI                   not found
+   fgp                                                -> org.lwjgl.glfw.GLFWMouseButtonCallbackI            not found
+   fgp                                                -> org.lwjgl.glfw.GLFWScrollCallbackI                 not found
+   fln                                                -> org.lwjgl.PointerBuffer                            not found
+   fln                                                -> org.lwjgl.system.MemoryStack                       not found
+   fln                                                -> org.lwjgl.util.freetype.FT_Vector                  not found
+   fln                                                -> org.lwjgl.util.freetype.FreeType                   not found
+   flr                                                -> org.lwjgl.PointerBuffer                            not found
+   flr                                                -> org.lwjgl.system.MemoryStack                       not found
+   flr                                                -> org.lwjgl.system.MemoryUtil                        not found
+   flr                                                -> org.lwjgl.util.freetype.FT_Face                    not found
+   flr                                                -> org.lwjgl.util.freetype.FreeType                   not found
+   fls$d$1                                            -> org.lwjgl.system.MemoryUtil                        not found
+   gfx$a                                              -> java.lang.reflect.Type                             java.base
+   gfy$a                                              -> java.lang.reflect.Type                             java.base
+   gga$a                                              -> java.lang.reflect.Type                             java.base
+   ggb                                                -> java.lang.reflect.Type                             java.base
+   ggb$a                                              -> java.lang.reflect.Type                             java.base
+   ggc$a                                              -> java.lang.reflect.Type                             java.base
+   ggc$b                                              -> java.lang.reflect.Type                             java.base
+   ggf$a                                              -> java.lang.reflect.Type                             java.base
+   ggh$a                                              -> java.lang.reflect.Type                             java.base
+   ggi$a                                              -> java.lang.reflect.Type                             java.base
+   ggj$a                                              -> java.lang.reflect.Type                             java.base
+   ggk$a                                              -> java.lang.reflect.Type                             java.base
+   ggo$a                                              -> java.lang.reflect.Type                             java.base
+   ggq$a                                              -> java.lang.reflect.Type                             java.base
+   gtz                                                -> java.lang.reflect.Type                             java.base
+   gut                                                -> javax.sound.sampled.AudioFormat                    java.desktop
+   guv                                                -> org.lwjgl.BufferUtils                              not found
+   guy                                                -> javax.sound.sampled.AudioFormat                    java.desktop
+   guz                                                -> javax.sound.sampled.AudioFormat                    java.desktop
+   gvb                                                -> javax.sound.sampled.AudioFormat                    java.desktop
+   gvf                                                -> java.lang.reflect.Type                             java.base
+   net.minecraft.client.main.Main                     -> java.lang.reflect.Type                             java.base
+   net.minecraft.server.Main                          -> java.awt.GraphicsEnvironment                       java.desktop
+   net.minecraft.server.MinecraftServer               -> java.awt.image.BufferedImage                       java.desktop
+   net.minecraft.server.MinecraftServer               -> java.awt.image.RenderedImage                       java.desktop
+   sz                                                 -> java.lang.reflect.InvocationTargetException        java.base
+   sz                                                 -> java.lang.reflect.Method                           java.base
+   wz$b                                               -> java.lang.reflect.Type                             java.base
