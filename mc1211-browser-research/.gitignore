@@ -1,6 +1,9 @@
 .gradle/
 build/
-dist/
-*.jar
-*.war
 *.class
+
+# Keep the Gradle wrapper JAR tracked.
+# Do not ignore all *.jar files.
+
+# Private Minecraft client files and assets
+private-minecraft/
