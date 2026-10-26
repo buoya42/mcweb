@@ -1,14 +1,62 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Browser Port Feasibility Lab</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Minecraft Browser Port Lab</title>
+<style>
+:root {
+  color-scheme: dark;
+  font-family: system-ui, sans-serif;
+  background: #10151d;
+  color: #eff8ff;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; }
+canvas { display: block; width: 100%; height: 100%; }
+#hud {
+  position: fixed; inset: 16px auto auto 16px;
+  padding: 14px 17px; max-width: min(440px, calc(100vw - 32px));
+  border: 1px solid #ffffff30; border-radius: 16px;
+  background: #111b2bc9; backdrop-filter: blur(18px);
+  box-shadow: 0 12px 40px #0005; pointer-events: none;
+}
+h1 { font-size: 17px; margin: 0 0 5px; }
+p { font-size: 12px; line-height: 1.6; margin: 4px 0; color: #c5d6e8; }
+#status { color: #a5f3cf; }
+#crosshair {
+  position: fixed; left: 50%; top: 50%; width: 14px; height: 14px;
+  transform: translate(-50%, -50%); pointer-events: none;
+}
+#crosshair::before, #crosshair::after {
+  content: ""; position: absolute; background: #fff;
+  box-shadow: 0 0 3px #000;
+}
+#crosshair::before { left: 6px; top: 1px; width: 2px; height: 12px; }
+#crosshair::after { top: 6px; left: 1px; height: 2px; width: 12px; }
+#help {
+  position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
+  max-width: calc(100vw - 24px); text-align: center;
+  padding: 10px 14px; border-radius: 12px;
+  background: #111b2bd9; border: 1px solid #ffffff26;
+  font-size: 12px; color: #e4edf7;
+}
+kbd { background: #ffffff1b; border-radius: 4px; padding: 2px 5px; }
+</style>
 </head>
 <body>
-  <h1>Browser Port Feasibility Lab</h1>
-  <p>This is a compiler test, not Minecraft.</p>
-  <script src="js/feasibility.js"></script>
-  <script>main();</script>
+<canvas id="game" aria-label="Interactive block world"></canvas>
+<section id="hud">
+  <h1>Minecraft 1.21.1 — Browser Port Lab</h1>
+  <p>WebGL 2 renderer prototype · procedural block terrain</p>
+  <p id="status">Starting renderer…</p>
+  <p>Position: <span id="position">0, 0, 0</span></p>
+</section>
+<div id="crosshair"></div>
+<div id="help">
+  Click the world to capture mouse · <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> move ·
+  Mouse look · <kbd>Space</kbd> up · <kbd>Shift</kbd> down · <kbd>Esc</kbd> release
+</div>
+<script src="game.js"></script>
 </body>
 </html>
