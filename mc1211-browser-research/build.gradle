@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+    id 'war'
+    id 'org.teavm' version '0.16.0'
+}
+
+group = 'research'
+version = '0.1.0'
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+dependencies {
+    implementation teavm.libs.jsoApis
+}
+
+teavm {
+    all {
+        mainClass = 'research.BrowserProbe'
+    }
+    js {
+        addedToWebApp = true
+        targetFileName = 'feasibility.js'
+    }
+}

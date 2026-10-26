@@ -1,21 +1,17 @@
-modules = ["nodejs-20", "web", "postgresql-16"]
-run = "npm run dev"
-hidden = [".config", ".git", "generated-icon.png", "node_modules", "dist"]
+run = "bash ./run.sh"
+hidden = [".git", ".gradle", "build", "dist"]
 
 [nix]
 channel = "stable-24_05"
+packages = ["zulu", "gradle", "iproute2"]
 
 [[ports]]
 localPort = 5000
 externalPort = 80
 
-[env]
-PORT = "5000"
-
-[deployment]
-deploymentTarget = "autoscale"
-run = ["node", "./dist/index.cjs"]
-build = ["npm", "run", "build"]
+[[ports]]
+localPort = 8080
+externalPort = 8080
 
 [workflows]
 runButton = "Project"
@@ -35,5 +31,8 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "npm run dev"
+args = "bash ./run.sh"
 waitForPort = 5000
+
+[workflows.workflow.metadata]
+outputType = "webview"
