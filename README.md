@@ -1,33 +1,34 @@
 # MC Browser
 
-MC Browser is a small launcher for community-maintained Minecraft browser clients. It does not bundle or redistribute a compiled Minecraft game client.
+MC Browser is a Minecraft-style launcher for community-maintained browser clients. It does not bundle a compiled game client or Mojang game assets.
 
-## Play inside MC Browser
+## Play in the launcher
 
-The title screen has two Eaglercraft launch options:
+- **Eaglercraft 26.3** — the current recent-version browser option listed by Eaglercraft.
+- **Eaglercraft 26.2** — previous recent-version build.
+- **EaglercraftX 1.8.8 (Shaders)** — older browser build with an explicitly documented built-in PBR shader option.
+- **Prismarine (experimental)** — a Mineflayer/prismarine-viewer client that needs a compatible, reachable WebSocket-to-TCP bridge and Minecraft server.
 
-- **Eaglercraft 26.2** — loads the upstream browser client inside the MC Browser page where the upstream site's framing policy allows it.
-- **EaglercraftX 1.8.8 (WASM-GC)** — opens the older browser client in the same embedded game view.
+The Eaglercraft versions open in a full-window embedded game view with a pixel-style toolbar. **Open separately** is always available if the upstream site refuses to embed, the game stays blank, or embedded storage behaves differently. The iframe is kept mounted when you press Back so reopening the same version does not force a new page load.
 
-The game view includes **Open separately**, **Fullscreen**, and **Back** controls. If the upstream site blocks iframe embedding or browser storage is restricted, use **Open separately**. That opens the client directly at its own site origin, which is also the more reliable option for browser-local world saves.
-
-Upstream pages:
+Upstream game links:
+- Eaglercraft 26.3: https://dev.eaglercraft.com/play?version=26.3
 - Eaglercraft 26.2: https://dev.eaglercraft.com/play?version=26.2
-- EaglercraftX 1.8.8: https://dev.eaglercraft.com/play?version=1.8.8-wasm
+- EaglercraftX 1.8.8 WASM-GC: https://dev.eaglercraft.com/play?version=1.8.8-wasm
 - Offline downloads: https://dev.eaglercraft.com/downloads
 
-## Experimental Prismarine client
+## Shaders and resource packs
 
-**Prismarine (experimental)** opens the legacy Mineflayer/prismarine-viewer client. It connects to compatible Minecraft servers through a separately hosted WebSocket-to-TCP bridge; it is not the complete Java client.
+The Eaglercraft page documents resource packs and describes built-in **PBR shaders for EaglercraftX 1.8** under **Options → Shaders**. That renderer requires WebGL 2 and floating-point render targets. This is not a guarantee that arbitrary OptiFine/Iris Java shader packs work in Eaglercraft 26.2 or 26.3. Use a recent browser and GPU drivers; if shader options are missing or disabled, use the standard renderer or try the upstream client's standalone page.
 
-## Why the actual game is loaded upstream
+## Loading, storage and browser limits
 
-The repository contains the launcher/integration code, not a compiled copy of Minecraft. Educational intent does not itself grant permission to redistribute proprietary game files. Mojang's [Usage Guidelines](https://www.minecraft.net/en-us/usage-guidelines) say not to redistribute Minecraft games or altered game files without permission. The iframe keeps the client served from its upstream site instead of republishing the compiled game in this repository.
+The launcher shows loading feedback and keeps a persistent Open separately fallback. The browser may still block third-party iframe embedding or partition storage. Worlds and settings belong to the upstream Eaglercraft page's origin; they are not stored under MC Browser's origin. Use **Open separately** for the most reliable game loading and storage behavior if the embedded view acts oddly.
 
-The game is a community port, not an official Mojang/Microsoft release. Feature parity, browser storage, online services, and embedding are controlled by the upstream client and browser.
+The online client is a community port, not an official Mojang/Microsoft release. This project only links to the upstream game page instead of republishing a compiled game client. See Mojang's [Usage Guidelines](https://www.minecraft.net/en-us/usage-guidelines).
 
 ## Deploy
 
-Configure **Settings → Pages → Build and deployment → GitHub Actions**. The existing workflow builds and publishes this launcher. See [DEPLOYMENT-GITHUB-PAGES.md](DEPLOYMENT-GITHUB-PAGES.md).
+Configure **Settings → Pages → Build and deployment → GitHub Actions**. The workflow builds and publishes the MC Browser launcher. See [DEPLOYMENT-GITHUB-PAGES.md](DEPLOYMENT-GITHUB-PAGES.md).
 
 MC Browser is unofficial and is not affiliated with or endorsed by Mojang Studios or Microsoft.
