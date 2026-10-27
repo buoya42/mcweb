@@ -1,105 +1,31 @@
-# prismarine-web-client
-[![NPM version](https://img.shields.io/npm/v/prismarine-web-client.svg)](http://npmjs.com/package/prismarine-web-client)
-[![Build Status](https://github.com/PrismarineJS/prismarine-web-client/workflows/CI/badge.svg)](https://github.com/PrismarineJS/prismarine-web-client/actions?query=workflow%3A%22CI%22)
-[![Discord](https://img.shields.io/badge/chat-on%20discord-brightgreen.svg)](https://discord.gg/GsEFRM8)
-[![Try it on gitpod](https://img.shields.io/badge/try-on%20gitpod-brightgreen.svg)](https://gitpod.io/#https://github.com/PrismarineJS/prismarine-web-client)
+# MC Browser
 
-| 🇺🇸 [English](README.md) | 🇷🇺 [Russian](README_RU.md)  | 🇵🇹 [Portuguese](README_PT.md) |
-| ----------------------- | -------------------------- | ---------------------------- |
+MC Browser is a small launcher/portal for a real Minecraft Java Edition browser port, with the older Prismarine-based browser client retained as an experimental option.
 
-A Minecraft client running in a web page. **Live demo at https://prismarinejs.github.io/prismarine-web-client/**
+## Play real Minecraft Java in your browser
 
+**Choose “Minecraft Java 26.3” on the title screen**, or open the upstream browser client directly:
 
-## How it Works
-prismarine-web-client runs mineflayer and prismarine-viewer in the browser, which connects over WebSocket to a proxy 
-which translates the WebSocket connection into TCP to connect to normal Minecraft servers. Prismarine-web-client is based on:
-* [prismarine-viewer](https://github.com/PrismarineJS/prismarine-viewer) for the world rendering
-* [mineflayer](https://github.com/PrismarineJS/mineflayer) for the high-level Minecraft client API
+https://typethe0ry.github.io/Gaius/Gaius-26.3.html
 
-Check these modules if you want to understand more how it works and contribute!
+The linked [Gaius project](https://github.com/TypeThe0ry/Gaius) runs the Minecraft Java client bytecode in the browser and runs its integrated singleplayer server in a browser Worker. Its singleplayer world storage stays in that browser profile. The game is hosted by Gaius, not packaged in this repository; this project does not copy or redistribute its compiled game client or assets.
 
-## Screenshot
-![Screenshot of prismarine-web-client in action](screenshot.png)
+Gaius is an unofficial community project, not an official Mojang or Microsoft product. Its current release notes identify Minecraft 26.2 and 26.3 browser clients. Review its notes and limitations before relying on it.
 
-## Live Demo
-Click on this link to open it in your browser, no installation necessary: https://prismarinejs.github.io/prismarine-web-client/
+## Multiplayer
 
-*Tested on Chrome & Firefox for desktop platforms.*
+For authentic Java client multiplayer, use the multiplayer screen in Gaius. The server must be reachable through a compatible RelayNode or the Gaius Paper plugin because browsers cannot open raw Minecraft TCP connections directly. See the [Gaius project documentation](https://github.com/TypeThe0ry/Gaius) for setup and compatibility details.
 
-## Usage
-To host it yourself, run these commands in bash: 
-```bash
-$ npm install -g prismarine-web-client
-$ prismarine-web-client
-``` 
-Finally, open `http://localhost:8080` in your browser.
+The separate **Prismarine (experimental)** option in MC Browser is the legacy Mineflayer/prismarine-viewer client. It is not the complete official Java client and still needs a compatible WebSocket-to-TCP bridge and Minecraft server.
 
-## Features
+## Hosting this portal
 
-* Display mobs and players
-* Display blocks 
-* Movement (you can move, and you see entities moving live)
-* Place and break blocks
+This repository can be hosted on GitHub Pages. The portal itself does not need Replit, and it does not run a Minecraft server. The real Java browser port is opened from Gaius's hosted page so that this repository does not redistribute Mojang game code or assets.
 
-## Roadmap
-* Containers (inventory, chests, etc.)
-* Sounds
-* More world interactions (attacking entities, etc.)
-* Cosmetic rendering features (day night cycle, fog, etc.)
+See [GitHub Pages deployment](DEPLOYMENT-GITHUB-PAGES.md).
 
-## Development
+## Important notes
 
-If you're contributing/making changes, you need to install it differently.
-
-First, clone the repo.
-
-Then, set your working directory to that of the repo. For example:
-```bash
-$ cd ~/prismarine-web-client/
-```
-
-Finally, run
-
-```bash
-$ npm install
-$ npm start
-```
-
-This will start express and webpack in development mode; whenever you save a file, the build will be redone (it takes 5s), 
-and you can refresh the page to get the new result.
-
-Connect to http://localhost:8080 in your browser.
-
-You may want to disable auto saving in your IDE to avoid constant rebuilding; see https://webpack.js.org/guides/development/#adjusting-your-text-editor.
-
-To check the production build (will take a minute to build), you can run `npm run build-start`.
-
-If you're interested in contributing, you can check projects at https://github.com/PrismarineJS/prismarine-web-client/projects.
-
-Some variables are exposed in the global ``window`` object for debugging:
-* ``bot``
-* ``viewer``
-* ``mcData``
-* ``worldView``
-* ``Vec3``
-* ``pathfinder``
-* ``debugMenu``
-
-### Adding stuff to the debugMenu
-
-debugMenu.customEntries['myKey'] = 'myValue'
-delete debugMenu.customEntries['myKey']
-
-### Some debugging examples
-
-In Chrome DevTools:
-
-* `bot.chat('test')` allows you to use the chat
-* `bot.chat(JSON.stringify(Object.values(bot.players).map(({username, ping}) => ({username, ping}))))` display the ping of everyone
-* `window.bot.entity.position.y += 5` jumps
-* `bot.chat(JSON.stringify(bot.findBlock({matching:(block) => block.name==='diamond_ore', maxDistance:256}).position))` finds the position of a diamond block
-* `bot.physics.stepHeight = 2` allows you to walk about blocks
-* `bot.physics.sprintSpeed = 5` walks faster
-* `bot.loadPlugin(pathfinder.pathfinder)` then `bot.pathfinder.goto(new pathfinder.goals.GoalXZ(100, 100))` goes to position 100, 100
-
-For more debugging ideas, read the [mineflayer](https://github.com/PrismarineJS/mineflayer) doc.
+- Worlds created in Gaius are saved by that site/browser origin. They are not shared with this portal's origin or with the Prismarine client.
+- Clear browser data only after exporting/backing up worlds if the client supports a suitable export path.
+- Minecraft is owned by Mojang Studios/Microsoft. MC Browser and Gaius are unofficial and are not affiliated with or endorsed by them.
