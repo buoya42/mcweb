@@ -1,23 +1,26 @@
 # MC Browser — GitHub Pages deployment
 
-This repository hosts a launcher page. It does not distribute Minecraft's compiled client code or game assets and does not run a game server.
+MC Browser is a static launcher for upstream browser Minecraft clients. It does not contain or serve a compiled Minecraft game client, Mojang assets, a Java server, or a TCP/WebSocket bridge.
 
 ## Deploy
 
-1. In GitHub, open **Settings → Pages** and select **GitHub Actions** as the source.
-2. Push to `main`; the Pages workflow builds the legacy Prismarine assets and publishes the site.
-3. On the title screen, **Minecraft Java 26.3** opens the community-maintained Gaius browser port at:
-   https://typethe0ry.github.io/Gaius/Gaius-26.3.html
+1. Open the repository's **Settings → Pages**.
+2. Select **GitHub Actions** as the Pages source.
+3. Push to `main`; the deployment workflow builds and publishes the launcher.
+4. Open the site. **Eaglercraft 26.2** and **EaglercraftX 1.8.8** launch on the upstream Eaglercraft site; **Prismarine (experimental)** opens the legacy connection UI.
 
-The real Java client runs on the Gaius page, not in this repository's bundle. Browser worlds are stored under the Gaius page's browser origin.
+## Why the game is upstream
 
-## Multiplayer
+Minecraft's published [Usage Guidelines](https://www.minecraft.net/en-us/usage-guidelines) state that Minecraft games and altered game files should not be redistributed without permission. This repository therefore links to the community-maintained Eaglercraft browser client rather than mirroring its compiled build or bundling Mojang game files. If upstream removes or changes a build, the linked version may change too.
 
-For Minecraft Java multiplayer in Gaius, use a compatible RelayNode or install the Gaius Paper plugin on a server you control, as documented upstream:
-https://github.com/TypeThe0ry/Gaius
+- Eaglercraft 26.2: https://dev.eaglercraft.com/play?version=26.2
+- EaglercraftX 1.8.8 (WASM-GC): https://dev.eaglercraft.com/play?version=1.8.8-wasm
+- Eaglercraft offline downloads: https://dev.eaglercraft.com/downloads
 
-The legacy **Prismarine (experimental)** screen remains separate and requires its own reachable WebSocket-to-TCP bridge and Minecraft server. GitHub Pages cannot host a TCP/WebSocket relay or Minecraft server itself.
+## Data and multiplayer
 
-## Licensing and security
+Worlds created on Eaglercraft are stored under the Eaglercraft site's browser origin, not under this launcher's origin. Its Shared Worlds flow uses relays; browsers cannot expose a conventional Minecraft TCP server directly.
 
-Gaius is unofficial and is not endorsed by Mojang or Microsoft. Do not copy its compiled HTML client into this repository: its own documentation notes that compiled Minecraft code and assets remain Mojang/Microsoft property. Never publish bridge secrets, account tokens, or world files.
+The legacy Prismarine option still needs a reachable WebSocket-to-TCP bridge and a compatible Minecraft server. GitHub Pages cannot run either service.
+
+MC Browser is unofficial and is not affiliated with Mojang Studios or Microsoft.
