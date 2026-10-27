@@ -110,12 +110,32 @@ function removePanorama () {
   viewer.scene.remove(panoramaCubeMap)
 }
 
+let animationFrame = null
+let rendererPaused = false
+
 let animate = () => {
-  window.requestAnimationFrame(animate)
+  animationFrame = null
+  if (rendererPaused) return
   viewer.update()
   renderer.render(viewer.scene, viewer.camera)
+  animationFrame = window.requestAnimationFrame(animate)
 }
-animate()
+
+function pauseMainRenderer () {
+  rendererPaused = true
+  if (animationFrame !== null) window.cancelAnimationFrame(animationFrame)
+  animationFrame = null
+}
+
+function resumeMainRenderer () {
+  if (!rendererPaused) return
+  rendererPaused = false
+  if (animationFrame === null) animationFrame = window.requestAnimationFrame(animate)
+}
+
+window.addEventListener('mcweb-eagler-start', pauseMainRenderer)
+window.addEventListener('mcweb-eagler-stop', resumeMainRenderer)
+animationFrame = window.requestAnimationFrame(animate)
 
 window.addEventListener('resize', () => {
   viewer.camera.aspect = window.innerWidth / window.innerHeight
@@ -266,11 +286,16 @@ async function connect (options) {
 
     const cursor = new Cursor(viewer, renderer, bot)
     animate = () => {
-      window.requestAnimationFrame(animate)
+      animationFrame = null
+      if (rendererPaused) return
       viewer.update()
       cursor.update(bot)
       debugMenu.cursorBlock = cursor.cursorBlock
       renderer.render(viewer.scene, viewer.camera)
+      animationFrame = window.requestAnimationFrame(animate)
+    }
+    if (!rendererPaused && animationFrame === null) {
+      animationFrame = window.requestAnimationFrame(animate)
     }
 
     // Link WorldView and Viewer
