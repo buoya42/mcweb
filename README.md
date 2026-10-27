@@ -6,7 +6,7 @@ MC Browser is a Minecraft-style launcher for community-maintained browser client
 
 - **Eaglercraft 26.3** — the current recent-version browser option listed by Eaglercraft.
 - **Eaglercraft 26.2** — previous recent-version build.
-- **EaglercraftX 1.8.8 (Shaders)** — older browser build with an explicitly documented built-in PBR shader option.
+- **EaglercraftX 1.8.8 (PBR shaders)** — older browser build with an explicitly documented built-in PBR shader option.
 - **Prismarine (experimental)** — a Mineflayer/prismarine-viewer client that needs a compatible, reachable WebSocket-to-TCP bridge and Minecraft server.
 
 The Eaglercraft versions open in a full-window embedded game view with a pixel-style toolbar. **Open separately** is always available if the upstream site refuses to embed, the game stays blank, or embedded storage behaves differently. The iframe is kept mounted when you press Back so reopening the same version does not force a new page load.
