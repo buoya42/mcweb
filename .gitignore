@@ -1,0 +1,10 @@
+node_modules/
+package-lock.json
+.vscode
+public
+.DS_Store
+.idea/
+*.iml.mc-bridge-token
+.mc-allowed-targets
+runtime/
+.mc-bridge-token
