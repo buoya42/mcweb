@@ -13,7 +13,6 @@ require('./lib/menus/components/playerlist_overlay')
 require('./lib/menus/components/bossbars_overlay')
 require('./lib/menus/hud')
 require('./lib/menus/play_screen')
-require('./lib/menus/offline_screen')
 require('./lib/menus/pause_screen')
 require('./lib/menus/loading_screen')
 require('./lib/menus/keybinds_screen')
@@ -48,7 +47,6 @@ const minPitch = -0.5 * Math.PI
 
 // Create three.js context, add to page
 const renderer = new THREE.WebGLRenderer()
-window.mcBrowserRenderer = renderer
 renderer.setPixelRatio(window.devicePixelRatio || 1)
 renderer.setSize(window.innerWidth, window.innerHeight)
 document.body.appendChild(renderer.domElement)
@@ -111,19 +109,11 @@ function removePanorama () {
   viewer.scene.remove(panoramaCubeMap)
 }
 
-let animationFrame = null
 let animate = () => {
-  animationFrame = window.requestAnimationFrame(animate)
+  window.requestAnimationFrame(animate)
   viewer.update()
   renderer.render(viewer.scene, viewer.camera)
 }
-window.addEventListener('mcweb-offline-start', () => {
-  if (animationFrame !== null) window.cancelAnimationFrame(animationFrame)
-  animationFrame = null
-})
-window.addEventListener('mcweb-offline-stop', () => {
-  if (animationFrame === null) animate()
-})
 animate()
 
 window.addEventListener('resize', () => {
