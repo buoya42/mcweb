@@ -7,7 +7,7 @@ MC Browser hosts a static launcher. The Eaglercraft game view loads the upstream
 1. Open **Settings → Pages** in this repository.
 2. Select **GitHub Actions** as the Pages source.
 3. Push to `main`; the deployment workflow builds and publishes the launcher.
-4. Choose **Eaglercraft 26.3**, **Eaglercraft 26.2**, or **EaglercraftX 1.8.8 (Shaders)** from the Minecraft-style title screen.
+4. Choose **Eaglercraft 26.3**, **Eaglercraft 26.2**, or **EaglercraftX 1.8.8 (PBR shaders)** from the Minecraft-style title screen.
 
 ## In-page game view
 
