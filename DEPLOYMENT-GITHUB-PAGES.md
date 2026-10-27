@@ -1,29 +1,33 @@
 # MC Browser — GitHub Pages deployment
 
-MC Browser is a static launcher. The page includes a full-window game view that embeds the Eaglercraft browser page from its upstream origin when allowed; this repository does not copy or serve its compiled game client.
+MC Browser hosts a static launcher. The Eaglercraft game view loads the upstream browser client inside an iframe; this repository does not copy or serve compiled Minecraft game files.
 
 ## Deploy
 
-1. Open the repository's **Settings → Pages**.
+1. Open **Settings → Pages** in this repository.
 2. Select **GitHub Actions** as the Pages source.
-3. Push to `main`; the Pages workflow builds and publishes the launcher.
-4. Open MC Browser and click **Eaglercraft 26.2**.
+3. Push to `main`; the deployment workflow builds and publishes the launcher.
+4. Choose **Eaglercraft 26.3**, **Eaglercraft 26.2**, or **EaglercraftX 1.8.8 (Shaders)** from the Minecraft-style title screen.
 
-## Embedded game behavior
+## In-page game view
 
-- The iframe loads `https://dev.eaglercraft.com/play?version=26.2`.
-- **Open separately** launches the same game at its own site origin. Use it if embedding is blocked, or if you want the most predictable local-world storage behavior.
-- **Fullscreen** asks the browser to fullscreen the embedded game; if that fails, the control opens the upstream page in a separate tab.
-- The **Back** control closes the embedded view.
+- The game iframe fills the viewport; the pixel-style toolbar floats at the top-left and does not reserve a permanent strip of game height.
+- **Open separately** is the fallback if the iframe is blocked or remains blank.
+- **Fullscreen** requests fullscreen on the game frame.
+- **Back** hides the embedded screen without removing/recreating its iframe, so reopening the same version should not need a full reload.
 
-The upstream site controls whether its page may be embedded and how its client stores data. Third-party browser storage can be partitioned or restricted depending on browser settings.
+An iframe cannot reliably report every cross-origin loading error. The presence of the toolbar does not prove the Minecraft runtime finished booting. If the game remains blank, use **Open separately**. Browser privacy settings may partition third-party storage; open the upstream game directly for the most reliable saves.
+
+## Shader compatibility
+
+Eaglercraft's current page documents built-in PBR shader support for EaglercraftX 1.8 under **Options → Shaders**. This requires WebGL 2 and floating-point render targets. Generic Minecraft Java shader packs are not automatically compatible with Eaglercraft, and the upstream documentation does not establish that arbitrary shader packs work on 26.2/26.3.
 
 ## Why game files are not bundled here
 
-This repository contains the launcher and integration code, not a redistributed compiled Minecraft client or game assets. Educational use alone does not grant permission to republish proprietary game files. Mojang's [Usage Guidelines](https://www.minecraft.net/en-us/usage-guidelines) state not to redistribute Minecraft games or altered game files without permission.
+This repository contains launcher/integration code, not a redistributed compiled Minecraft client or game assets. Educational intent alone does not grant permission to republish proprietary game files. See Mojang's [Usage Guidelines](https://www.minecraft.net/en-us/usage-guidelines).
 
 ## Multiplayer
 
-Eaglercraft's Shared Worlds / relay features are controlled by Eaglercraft itself. The legacy **Prismarine (experimental)** screen still requires a reachable WebSocket-to-TCP bridge and compatible Minecraft server. GitHub Pages cannot run either service.
+Eaglercraft's own shared-world and relay flows are managed by the upstream client. The legacy **Prismarine (experimental)** screen still needs its own reachable WebSocket-to-TCP bridge and compatible Minecraft server. GitHub Pages cannot run a Minecraft server or relay.
 
 MC Browser is unofficial and is not affiliated with Mojang Studios or Microsoft.
