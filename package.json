@@ -36,7 +36,7 @@
   "homepage": "https://github.com/PrismarineJS/prismarine-web-client#readme",
   "dependencies": {
     "compression": "^1.7.4",
-    "express": "^4.17.1",
+    "express": "^5.3.0",
     "ismobilejs": "^1.1.1",
     "lit": "^2.0.2",
     "net-browserify": "PrismarineJS/net-browserify",
